@@ -12,14 +12,11 @@ import { EditIcon, TrashIcon } from "lucide-react";
 import PageTitle from "../_components/page-title";
 
 export default async function Accounts() {
-  // await fetch()
-
   return (
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
       <PageTitle>Accounts</PageTitle>
 
       <Table>
-        <TableCaption>A list of your categories.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Title</TableHead>

@@ -43,7 +43,7 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey={Settings.THEME}
         >
-          <main className="flex flex-grow">{children}</main>
+          <div className="flex flex-grow">{children}</div>
           <Toaster />
         </ThemeProvider>
       </body>

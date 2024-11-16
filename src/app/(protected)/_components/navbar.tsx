@@ -20,12 +20,7 @@ export default function NavBar({
   }, [menu]);
 
   return (
-    <nav className="flex flex-col w-60 bg-navbar">
-      <div className="flex flex-col h-14 justify-center items-center bg-black bg-opacity-5 dark:bg-white dark:bg-opacity-10 py-2">
-        <a href="/">
-          <Logo size={"default"} />
-        </a>
-      </div>
+    <aside className="flex flex-col w-60 bg-navbar">
       <div className="flex flex-col px-3 py-2">
         <ul>
           {internalMenu.map((item) => (
@@ -45,8 +40,8 @@ export default function NavBar({
         </ul>
       </div>
       <div className="mt-auto text-center text-sm py-2 text-foreground-muted">
-        Version 1.0.0
+        Version {process.env.NEXT_PUBLIC_APP_VERSION}
       </div>
-    </nav>
+    </aside>
   );
 }

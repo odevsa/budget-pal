@@ -36,14 +36,14 @@ export default async function PanelLayout({
   ];
 
   return (
-    <div className="flex flex-row flex-grow">
-      <NavBar menu={menu} />
-      <section className="flex flex-col flex-grow">
-        <Header />
-        <main className="flex flex-grow flex-col gap-8 items-center">
+    <div className="flex flex-col flex-grow">
+      <Header />
+      <section className="flex flex-row flex-grow">
+        <NavBar menu={menu} />
+        <main className="flex flex-1 flex-col gap-8 items-center">
           {children}
+          <Footer />
         </main>
-        <Footer />
       </section>
     </div>
   );

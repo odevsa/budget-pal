@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { ToggleTheme } from "./_components/toggle-theme";
-import Logo from "@/components/logo";
+import Logo from "@/components/Logo";
 
 export default async function PublicLayout({
   children,

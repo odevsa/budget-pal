@@ -1,4 +1,4 @@
-import { User } from "@/core/model/User";
+import { User } from "@/core/models/User";
 import NextAuth from "next-auth";
 
 declare module "next-auth" {
