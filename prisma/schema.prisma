@@ -18,5 +18,19 @@ model Users {
   image     String?
   createdAt DateTime @default(now()) @map("created_at")
 
+  accounts Accounts[]
+
   @@map("users")
+}
+
+model Accounts {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  title     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  user Users @relation(fields: [userId], references: [id])
+
+  @@map("accounts")
+
 }
