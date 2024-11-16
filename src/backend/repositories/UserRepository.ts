@@ -6,7 +6,7 @@ export default class UserRepository {
 
   public static async save(data: User): Promise<User> {
     const response = await this.db.users.upsert({
-      where: { id: data.id },
+      where: { email: data.email },
       update: data,
       create: data,
     });
@@ -14,15 +14,7 @@ export default class UserRepository {
     return response as User;
   }
 
-  public static async list(): Promise<any> {
-    return await this.db.users.findMany();
-  }
-
-  public static async byId(id: number): Promise<User> {
-    return (await this.db.users.findUnique({ where: { id } })) as User;
-  }
-
-  public static async delete(id: number): Promise<any> {
-    return await this.db.users.delete({ where: { id } });
+  public static async byEmail(email: string): Promise<User> {
+    return (await this.db.users.findUnique({ where: { email } })) as User;
   }
 }

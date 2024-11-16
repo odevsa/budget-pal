@@ -1,22 +1,21 @@
-// import UserByIdUseCase from "./usecases/users/UserByIdUseCase";
-// import UserDeleteUseCase from "./usecases/users/UserDeleteUseCase";
-// import UserListUseCase from "./usecases/users/UserListUseCase";
-// import UserSaveUseCase from "./usecases/users/UserSaveUseCase";
-
-import { accountListUseCase } from "./usecases/account";
+import {
+  accountByIdUseCase,
+  accountDeleteUseCase,
+  accountListUseCase,
+  accountSaveUseCase,
+} from "./usecases/account";
+import { userByEmailUseCase, userSaveUseCase } from "./usecases/users";
 
 export default class BackendFacade {
   static readonly users = {
-    // save: UserSaveUseCase.execute,
-    // list: UserListUseCase.execute,
-    // byId: UserByIdUseCase.execute,
-    // delete: UserDeleteUseCase.execute,
+    save: userSaveUseCase,
+    byEmail: userByEmailUseCase,
   };
 
   static readonly accounts = {
-    // save: AccountSaveUseCase.execute,
+    save: accountSaveUseCase,
     list: accountListUseCase,
-    // byId: AccountByIdUseCase.execute,
-    // delete: AccountDeleteUseCase.execute,
+    byId: accountByIdUseCase,
+    delete: accountDeleteUseCase,
   };
 }
