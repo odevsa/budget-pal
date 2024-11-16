@@ -1,4 +1,7 @@
+import { Toaster } from "@/components/ui/toaster";
+import { Settings } from "@/core/constants/Settings";
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 
@@ -30,8 +33,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${font.className} antialiased`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={`flex ${font.className} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          storageKey={Settings.THEME}
+        >
+          <main className="flex flex-grow">{children}</main>
+          <Toaster />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
