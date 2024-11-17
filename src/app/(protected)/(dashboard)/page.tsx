@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import {
   EditIcon,
   InfoIcon,
+  LayoutDashboardIcon,
   MessageSquareIcon,
   SaveIcon,
   TrashIcon,
@@ -24,7 +25,7 @@ export default function Panel() {
 
   return (
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
-      <PageTitle>Dashboard</PageTitle>
+      <PageTitle title="Dashboard" icon={<LayoutDashboardIcon />} />
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         <Card>
