@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { db } from "./lib/db";
 import BackendFacade from "./backend";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -26,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       if (token && token.userId) {
-        session.user.id = token.userId;
+        (session.user as { id: number }).id = token.userId as number;
       }
       return session;
     },
