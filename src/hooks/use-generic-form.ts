@@ -5,13 +5,16 @@ import { useEffect, useState } from "react";
 import { useToast } from "./use-toast";
 import BackendFacade from "@/backend";
 
-const INITIAL_STATE: Partial<Account> = {
-  title: "",
-};
-
-function useAccountForm() {
-  const [list, setList] = useState<Account[]>([]);
-  const [form, setForm] = useState<Account>();
+function useGenericForm<T>(
+  initialStateForm: Partial<Account>,
+  methods: {
+    list(): Promise<T[]>;
+    save(item: T): Promise<T | undefined>;
+    delete(id: number): Promise<boolean>;
+  }
+) {
+  const [list, setList] = useState<T[]>([]);
+  const [form, setForm] = useState<T>();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -19,21 +22,21 @@ function useAccountForm() {
   }, []);
 
   async function loadList() {
-    const list: Account[] = await BackendFacade.accounts.list();
+    const list: T[] = (await methods.list()) as T[];
     setList(list);
   }
 
   async function handleSave() {
     if (!form) return;
 
-    const saved = await BackendFacade.accounts.save(form);
-    const title = "Save Account";
+    const saved = await methods.save(form);
+    const title = "Save action";
 
     if (!saved) {
       toast({
         variant: "destructive",
         title,
-        description: `Wasn't possible to save account "${form.title}"!`,
+        description: `Wasn't possible to save!`,
       });
 
       return;
@@ -42,7 +45,7 @@ function useAccountForm() {
     toast({
       variant: "success",
       title,
-      description: `Acount ${saved.title!} successfully saved!`,
+      description: `Successfully saved!`,
     });
     setForm(undefined);
     loadList();
@@ -51,14 +54,14 @@ function useAccountForm() {
   async function handleDelete(item: Account) {
     if (!item.id) return;
 
-    const deleted = await BackendFacade.accounts.delete(item.id);
-    const title = "Delete Account";
+    const deleted = await methods.delete(item.id);
+    const title = "Delete action";
 
     if (!deleted) {
       toast({
         variant: "destructive",
         title,
-        description: `Wasn't possible to delete account "${item.title}"!`,
+        description: `Wasn't possible to delete!`,
       });
 
       return;
@@ -67,7 +70,7 @@ function useAccountForm() {
     toast({
       variant: "success",
       title,
-      description: `Acount ${item.title} successfully deleted!`,
+      description: `Successfully deleted!`,
     });
     loadList();
   }
@@ -78,10 +81,10 @@ function useAccountForm() {
     setForm,
     handleSave,
     handleDelete,
-    handleNew: () => setForm(INITIAL_STATE as Account),
-    handleEdit: (item: Account) => setForm(item),
+    handleNew: () => setForm(initialStateForm as T),
+    handleEdit: (item: T) => setForm(item),
     handleCancel: () => setForm(undefined),
   };
 }
 
-export { useAccountForm };
+export { useGenericForm };

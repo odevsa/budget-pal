@@ -16,10 +16,14 @@ export async function accountSaveUseCase(
   return await AccountRepository.save({ ...data, userId: user.id! });
 }
 
-export async function accountListUseCase(): Promise<Account[]> {
+export async function accountListUseCase(page: number = 1): Promise<Account[]> {
   if (!user) return [];
 
-  return await AccountRepository.list({ userId: user.id });
+  return await AccountRepository.list({
+    where: { userId: user.id },
+    orderBy: { title: "asc" },
+    page,
+  });
 }
 
 export async function accountByIdUseCase(

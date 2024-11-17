@@ -26,11 +26,11 @@ model Users {
 model Accounts {
   id        Int      @id @default(autoincrement())
   userId    Int      @map("user_id")
-  title     String   @unique
+  title     String
   createdAt DateTime @default(now()) @map("created_at")
   
   user Users @relation(fields: [userId], references: [id])
 
+  @@unique([userId, title])
   @@map("accounts")
-
 }

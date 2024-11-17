@@ -3,11 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Account } from "@/core/models/Account";
+import { useGenericForm } from "@/hooks/use-generic-form";
 import { PlusIcon, WalletIcon } from "lucide-react";
 import GenericForm from "../_components/generic-form";
 import GenericList from "../_components/generic-list";
 import PageTitle from "../_components/page-title";
-import { useAccountForm } from "@/hooks/use-account-form";
+import BackendFacade from "@/backend";
 
 export default function Accounts() {
   const {
@@ -19,7 +21,14 @@ export default function Accounts() {
     handleNew,
     handleEdit,
     handleCancel,
-  } = useAccountForm();
+  } = useGenericForm<Account>(
+    { title: "" },
+    {
+      list: BackendFacade.accounts.list,
+      save: BackendFacade.accounts.save,
+      delete: BackendFacade.accounts.delete,
+    }
+  );
 
   return (
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
