@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const font = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -43,7 +44,9 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey={Settings.THEME}
         >
-          <div className="flex flex-grow">{children}</div>
+          <TooltipProvider>
+            <div className="flex flex-grow">{children}</div>
+          </TooltipProvider>
           <Toaster />
         </ThemeProvider>
       </body>

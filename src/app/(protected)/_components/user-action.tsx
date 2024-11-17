@@ -17,7 +17,7 @@ export default async function UserAction({}: Readonly<{}>) {
   return (
     <div id="dropdownDefaultButton">
       <DropdownMenu>
-        <DropdownMenuTrigger className="block bg-white bg-opacity-20 shadow-md w-10 h-10 rounded-full p-[2px]">
+        <DropdownMenuTrigger className="block bg-white bg-opacity-20 shadow-md w-10 h-10 rounded-full p-[3px]">
           <img
             className=" rounded-full"
             src={session?.user?.image ?? "/img/avatar.svg"}

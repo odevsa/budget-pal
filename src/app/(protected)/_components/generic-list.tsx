@@ -1,5 +1,16 @@
 "use client";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -9,6 +20,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { EditIcon, TrashIcon } from "lucide-react";
 
 export default function GenericList({
@@ -19,8 +35,8 @@ export default function GenericList({
 }: Readonly<{
   data: any[];
   fields?: object;
-  onEdit?(id: number): void;
-  onDelete?(id: number): void;
+  onEdit?(item: any): void;
+  onDelete?(item: any): void;
 }>) {
   return (
     <Table>
@@ -36,30 +52,59 @@ export default function GenericList({
       </TableHeader>
       <TableBody>
         {data.map((item) => (
-          <TableRow key={item.id}>
+          <TableRow key={`item-${item.id}`}>
             {Object.keys(fields).map((key) => (
-              <TableCell>{item[key]}</TableCell>
+              <TableCell key={`item-${item.id}-key-${key}`}>
+                {item[key]}
+              </TableCell>
             ))}
 
             {(onEdit || onDelete) && (
               <TableCell className="flex flex-row gap-2 justify-end">
                 {onEdit && (
-                  <Button
-                    variant={"warning"}
-                    size={"sm"}
-                    onClick={() => onEdit(item.id)}
-                  >
-                    <EditIcon />
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant={"warning"}
+                        size={"xs"}
+                        onClick={() => onEdit(item)}
+                      >
+                        <EditIcon />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Edit item</TooltipContent>
+                  </Tooltip>
                 )}
                 {onDelete && (
-                  <Button
-                    variant={"destructive"}
-                    size={"sm"}
-                    onClick={() => onDelete(item.id)}
-                  >
-                    <TrashIcon />
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant={"destructive"} size={"xs"}>
+                            <TrashIcon />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Delete confirmation
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will
+                              permanently delete "{item.title}".
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => onDelete(item)}>
+                              Continue
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </TooltipTrigger>
+                    <TooltipContent>Delete item</TooltipContent>
+                  </Tooltip>
                 )}
               </TableCell>
             )}

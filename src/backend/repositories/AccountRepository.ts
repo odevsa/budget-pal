@@ -6,7 +6,7 @@ export default class AccountRepository {
 
   public static async save(data: Account): Promise<Account> {
     const response = await this.db.accounts.upsert({
-      where: { id: data.id },
+      where: { id: data.id ?? 0 },
       update: data,
       create: data,
     });
@@ -14,8 +14,10 @@ export default class AccountRepository {
     return response as Account;
   }
 
-  public static async list(): Promise<any> {
-    return await this.db.accounts.findMany();
+  public static async list(filter?: any): Promise<Account[]> {
+    return await this.db.accounts.findMany({
+      where: filter ?? {},
+    });
   }
 
   public static async byId(id: number): Promise<Account> {
