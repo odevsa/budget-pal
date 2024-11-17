@@ -20,8 +20,13 @@ export default function GenericForm({
   onSave?(): void;
   onCancel?(): void;
 }>) {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    onSave?.();
+  };
+
   return (
-    <div className="flex flex-col gap-3">
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
       <Card>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
@@ -29,17 +34,22 @@ export default function GenericForm({
         <CardContent className="flex flex-col gap-2">{children}</CardContent>
         <CardFooter className="flex flex-row gap-2 justify-end">
           {onCancel && (
-            <Button variant="outline" size="sm" onClick={onCancel}>
+            <Button
+              variant="outline"
+              size="sm"
+              type="button"
+              onClick={onCancel}
+            >
               Cancel
             </Button>
           )}
           {onSave && (
-            <Button variant="success" size="sm" onClick={onSave}>
+            <Button variant="success" size="sm" type="submit">
               Save
             </Button>
           )}
         </CardFooter>
       </Card>
-    </div>
+    </form>
   );
 }
