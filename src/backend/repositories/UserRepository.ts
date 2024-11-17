@@ -1,12 +1,10 @@
 import { User } from "@/core/models/User";
-import { PrismaClient } from "@prisma/client";
+import DB from "@/lib/db";
 
 export default class UserRepository {
-  private static db: PrismaClient = new PrismaClient();
-
   public static async save(data: User): Promise<User | undefined> {
     try {
-      const response = await this.db.users.upsert({
+      const response = await DB.users.upsert({
         where: { email: data.email },
         update: data,
         create: data,
@@ -20,7 +18,7 @@ export default class UserRepository {
 
   public static async byEmail(email: string): Promise<User | undefined> {
     try {
-      return (await this.db.users.findUnique({ where: { email } })) as User;
+      return (await DB.users.findUnique({ where: { email } })) as User;
     } catch (e: any) {
       return undefined;
     }
