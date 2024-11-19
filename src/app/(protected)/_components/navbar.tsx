@@ -29,7 +29,7 @@ export default function NavBar({
                 href={item.path}
                 className={
                   "flex flex-row gap-2 items-center rounded-md px-3 py-2 transition-all" +
-                  " hover:bg-primary hover:text-background hover:ps-5"
+                  " hover:bg-primary hover:text-primary-foreground hover:ps-5"
                 }
               >
                 {item.icon && item.icon}

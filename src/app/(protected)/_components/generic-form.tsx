@@ -8,25 +8,34 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useActionState, useEffect } from "react";
+
+export interface FormActionState {
+  success?: boolean;
+  errors?: any;
+}
 
 export default function GenericForm({
   title,
   children,
-  onSave,
+  action,
   onCancel,
+  onResponse,
 }: Readonly<{
   title: string;
   children: any;
-  onSave?(): void;
+  action: any;
   onCancel?(): void;
+  onResponse?(state: FormActionState): void;
 }>) {
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    onSave?.();
-  };
+  const [state, formAction] = useActionState(action, {});
+
+  useEffect(() => {
+    onResponse?.(state);
+  }, [state]);
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+    <form action={formAction} className="flex flex-col gap-3">
       <Card>
         <CardHeader>
           <CardTitle>{title}</CardTitle>
@@ -43,7 +52,7 @@ export default function GenericForm({
               Cancel
             </Button>
           )}
-          {onSave && (
+          {action && (
             <Button variant="success" size="sm" type="submit">
               Save
             </Button>
