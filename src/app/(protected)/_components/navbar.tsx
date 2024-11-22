@@ -22,7 +22,7 @@ export default function NavBar({
   }, [menu]);
 
   return (
-    <aside className="flex flex-col w-60 bg-navbar">
+    <aside className="flex flex-col w-14 sm:w-60 bg-navbar">
       <div className="flex flex-col p-2">
         <ul className="flex flex-col gap-1">
           {internalMenu.map((item) => {
@@ -32,21 +32,24 @@ export default function NavBar({
                 <a
                   href={item.path}
                   className={cn([
-                    "flex flex-row gap-2 items-center rounded-md px-3 py-2 transition-all",
-                    "hover:bg-primary hover:text-primary-foreground hover:ps-5",
-                    isActive ? "ps-5 bg-primary text-primary-foreground" : "",
+                    "flex flex-row gap-2 items-center rounded-md p-2 sm:px-3 transition-all",
+                    "hover:bg-primary hover:text-primary-foreground sm:hover:ps-5",
+                    isActive
+                      ? "sm:ps-5 bg-primary text-primary-foreground"
+                      : "",
                   ])}
                 >
-                  {item.icon && item.icon}
-                  {item.title}
+                  {item.icon}
+                  <span className="hidden sm:flex">{item.title}</span>
                 </a>
               </li>
             );
           })}
         </ul>
       </div>
-      <div className="mt-auto text-center text-sm py-2 text-foreground-muted">
-        Version {process.env.NEXT_PUBLIC_APP_VERSION}
+      <div className="flex flex-row justify-center mt-auto text-center text-sm py-2 text-foreground-muted">
+        <span className="hidden sm:flex">Version&nbsp;</span>
+        {process.env.NEXT_PUBLIC_APP_VERSION}
       </div>
     </aside>
   );

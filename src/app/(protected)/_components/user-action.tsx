@@ -11,7 +11,7 @@ import { LogOutIcon, SettingsIcon } from "lucide-react";
 import { ToggleTheme } from "./toggle-theme";
 import Link from "next/link";
 
-export default async function UserAction({}: Readonly<{}>) {
+export default async function UserAction() {
   const session = await auth();
 
   return (

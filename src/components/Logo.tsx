@@ -4,6 +4,10 @@ import React from "react";
 
 const variants = cva("", {
   variants: {
+    variant: {
+      default: "",
+      icon: "",
+    },
     size: {
       xl: "h-12",
       lg: "h-10",
@@ -27,7 +31,7 @@ interface LogoProps
     VariantProps<typeof variants> {}
 
 const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
-  ({ className, size = "default", ...props }, ref) => {
+  ({ className, size = "default", variant = "default", ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -42,11 +46,16 @@ const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
           alt={process.env.NEXT_PUBLIC_APP_NAME}
           className={cn(variants({ className, size }))}
         />
-        <div
-          className={cn("font-bold text-foreground", variants({ font: size }))}
-        >
-          Budget<span className="text-primary">Pal</span>
-        </div>
+        {variant != "icon" && (
+          <div
+            className={cn(
+              "font-bold text-foreground",
+              variants({ font: size })
+            )}
+          >
+            Budget<span className="text-primary">Pal</span>
+          </div>
+        )}
       </div>
     );
   }
