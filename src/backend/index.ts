@@ -4,12 +4,17 @@ import {
   accountListUseCase,
   accountSaveUseCase,
 } from "./usecases/account";
-import { userByEmailUseCase, userSaveUseCase } from "./usecases/users";
+import {
+  userByEmailUseCase,
+  userSaveUseCase,
+  userVerifyUseCase,
+} from "./usecases/users";
 
 export default class BackendFacade {
   static readonly users = {
     save: userSaveUseCase,
     byEmail: userByEmailUseCase,
+    verify: userVerifyUseCase,
   };
 
   static readonly accounts = {

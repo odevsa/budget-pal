@@ -11,9 +11,11 @@ export async function saveAction(_previousState: any, data: FormData) {
     errors.title = "Must contain at least 3 and no more than 30 characters!";
   if (!title) errors.title = "Required!";
 
-  const saved = await BackendFacade.accounts.save({ title } as Account);
+  if (Object.keys(errors).length == 0) {
+    const saved = await BackendFacade.accounts.save({ title } as Account);
 
-  if (!saved) errors.message = "Wasn't possible to save!";
+    if (!saved) errors.message = "Wasn't possible to save!";
+  }
 
   return {
     success: Object.keys(errors).length == 0,
