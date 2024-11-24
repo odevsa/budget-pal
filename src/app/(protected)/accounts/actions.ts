@@ -4,7 +4,8 @@ import BackendFacade from "@/backend";
 import { Account } from "@/core/models/Account";
 
 export async function saveAction(_previousState: any, data: FormData) {
-  const title = data.get("title") as string;
+  const id = data.get("id") as string;
+  const title = (data.get("title") as string).trim();
   const errors: any = {};
 
   if (title.length < 3 || title.length > 30)
@@ -12,7 +13,10 @@ export async function saveAction(_previousState: any, data: FormData) {
   if (!title) errors.title = "Required!";
 
   if (Object.keys(errors).length == 0) {
-    const saved = await BackendFacade.accounts.save({ title } as Account);
+    const saved = await BackendFacade.accounts.save({
+      id: id ? parseInt(id) : undefined,
+      title,
+    } as Account);
 
     if (!saved) errors.message = "Wasn't possible to save!";
   }
@@ -21,4 +25,10 @@ export async function saveAction(_previousState: any, data: FormData) {
     success: Object.keys(errors).length == 0,
     errors,
   };
+}
+
+export async function deleteAction(data: Account): Promise<boolean> {
+  if (!data.id) return false;
+
+  return await BackendFacade.accounts.delete(data.id);
 }

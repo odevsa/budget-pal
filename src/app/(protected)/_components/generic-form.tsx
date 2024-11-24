@@ -1,5 +1,6 @@
 "use client";
 
+import { Loading } from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 export interface FormActionState {
   success?: boolean;
@@ -23,42 +24,54 @@ export default function GenericForm({
   onResponse,
 }: Readonly<{
   title: string;
-  children: any;
+  children: React.ReactNode;
   action: any;
   onCancel?(): void;
   onResponse?(state: FormActionState): void;
 }>) {
   const [state, formAction] = useActionState(action, {});
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(false);
     onResponse?.(state);
   }, [state]);
 
+  const handleSubmit = () => {
+    setLoading(true);
+  };
+
   return (
-    <form action={formAction} className="flex flex-col gap-3">
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-2">{children}</CardContent>
-        <CardFooter className="flex flex-row gap-2 justify-end">
-          {onCancel && (
-            <Button
-              variant="outline"
-              size="sm"
-              type="button"
-              onClick={onCancel}
-            >
-              Cancel
-            </Button>
-          )}
-          {action && (
-            <Button variant="success" size="sm" type="submit">
-              Save
-            </Button>
-          )}
-        </CardFooter>
-      </Card>
-    </form>
+    <Loading visible={loading}>
+      <form
+        action={formAction}
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-3"
+      >
+        <Card>
+          <CardHeader>
+            <CardTitle>{title}</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2">{children}</CardContent>
+          <CardFooter className="flex flex-row gap-2 justify-end">
+            {onCancel && (
+              <Button
+                variant="outline"
+                size="sm"
+                type="button"
+                onClick={onCancel}
+              >
+                Cancel
+              </Button>
+            )}
+            {action && (
+              <Button variant="success" size="sm" type="submit">
+                Save
+              </Button>
+            )}
+          </CardFooter>
+        </Card>
+      </form>
+    </Loading>
   );
 }

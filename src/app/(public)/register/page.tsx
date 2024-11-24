@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
-import { registerAction } from "./action";
+import { registerAction } from "./actions";
 
 export default function Login() {
   const { toast } = useToast();
