@@ -2,31 +2,34 @@
 
 import { signIn } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { z } from "zod";
 
-export async function loginAction(_previousState: any, data: FormData) {
-  const email = data.get("email") as string;
-  const password = data.get("password") as string;
+export async function loginAction(_previousState: any, formData: FormData) {
   const errors: any = {};
+  const data = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
 
-  const regex =
-    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
-  if (!regex.test(email)) errors.email = "Must be a valid email address";
-  if (!email) errors.email = "Required!";
+  const validated = z
+    .object({
+      email: z.string().email(),
+      password: z.string().min(6),
+    })
+    .safeParse(data);
 
-  if (password.length < 6) errors.password = "Must contain at least 6!";
-  if (!password) errors.password = "Required!";
+  if (!validated.success)
+    return {
+      success: false,
+      errors: validated.error.flatten().fieldErrors,
+    };
 
-  if (Object.keys(errors).length == 0) {
-    try {
-      return await signIn("credentials", {
-        email,
-        password,
-      });
-    } catch (error) {
-      if (isRedirectError(error)) throw error;
+  try {
+    return await signIn("credentials", data);
+  } catch (error) {
+    if (isRedirectError(error)) throw error;
 
-      errors.message = "Invalid email or password!";
-    }
+    errors.message = "Invalid email or password!";
   }
 
   return {

@@ -2,24 +2,30 @@
 
 import BackendFacade from "@/backend";
 import { Account } from "@/core/models/Account";
+import { z } from "zod";
 
-export async function saveAction(_previousState: any, data: FormData) {
-  const id = data.get("id") as string;
-  const title = (data.get("title") as string).trim();
+export async function saveAction(_previousState: any, formData: FormData) {
   const errors: any = {};
+  const data = {
+    id: formData.get("id") ? parseInt(formData.get("id") as string) : undefined,
+    title: (formData.get("title") as string).trim(),
+  };
 
-  if (title.length < 3 || title.length > 30)
-    errors.title = "Must contain at least 3 and no more than 30 characters!";
-  if (!title) errors.title = "Required!";
+  const validated = z
+    .object({
+      title: z.string().min(3).max(30),
+    })
+    .safeParse(data);
 
-  if (Object.keys(errors).length == 0) {
-    const saved = await BackendFacade.accounts.save({
-      id: id ? parseInt(id) : undefined,
-      title,
-    } as Account);
+  if (!validated.success)
+    return {
+      success: false,
+      errors: validated.error.flatten().fieldErrors,
+    };
 
-    if (!saved) errors.message = "Wasn't possible to save!";
-  }
+  const saved = await BackendFacade.accounts.save(data as Account);
+
+  if (!saved) errors.message = "Wasn't possible to save!";
 
   return {
     success: Object.keys(errors).length == 0,

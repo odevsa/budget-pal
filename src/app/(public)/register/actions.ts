@@ -4,50 +4,49 @@ import { signIn } from "@/auth";
 import BackendFacade from "@/backend";
 import { User } from "@/core/models/User";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { z } from "zod";
 
-export async function registerAction(_previousState: any, data: FormData) {
-  const name = data.get("name") as string;
-  const email = data.get("email") as string;
-  const password = data.get("password") as string;
+export async function registerAction(_previousState: any, formData: FormData) {
   const errors: any = {};
+  const data = {
+    name: formData.get("name") as string,
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
 
-  if (name.length < 3 || name.length > 30)
-    errors.name = "Must contain at least 3 and no more than 30 characters!";
-  if (!name) errors.name = "Required!";
+  const validated = z
+    .object({
+      name: z.string().min(3).max(50),
+      email: z.string().email(),
+      password: z.string().min(6),
+    })
+    .safeParse(data);
 
-  const regex =
-    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
-  if (!regex.test(email)) errors.email = "Must be a valid email address";
-  if (!email) errors.email = "Required!";
+  if (!validated.success)
+    return {
+      success: false,
+      errors: validated.error.flatten().fieldErrors,
+    };
 
-  if (password.length < 6) errors.password = "Must contain at least 6!";
-  if (!password) errors.password = "Required!";
+  const user = await BackendFacade.users.byEmail(data.email);
+
+  if (user) errors.message = "User already registered";
 
   if (Object.keys(errors).length == 0) {
-    const user = await BackendFacade.users.byEmail(email);
+    const saved = await BackendFacade.users.save(data as User);
+    if (!saved) errors.message = "Wasn't possible to create user!";
+  }
 
-    if (user) errors.message = "User already registered";
+  if (Object.keys(errors).length == 0) {
+    try {
+      return await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+      });
+    } catch (error) {
+      if (isRedirectError(error)) throw error;
 
-    if (Object.keys(errors).length == 0) {
-      const saved = await BackendFacade.users.save({
-        name,
-        email,
-        password,
-      } as User);
-      if (!saved) errors.message = "Wasn't possible to create user!";
-    }
-
-    if (Object.keys(errors).length == 0) {
-      try {
-        return await signIn("credentials", {
-          email,
-          password,
-        });
-      } catch (error) {
-        if (isRedirectError(error)) throw error;
-
-        errors.message = "Couldn't log you in, try login again!";
-      }
+      errors.message = "Couldn't log you in, try login again!";
     }
   }
 
