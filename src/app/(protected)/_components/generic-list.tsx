@@ -153,7 +153,7 @@ export default function GenericList({
             ))}
           </TableBody>
         </Table>
-        <GenericPagination page={page} lastPage={lastPage} />
+        <GenericPagination page={page} total={total} lastPage={lastPage} />
       </Loading>
     </div>
   );

@@ -28,7 +28,6 @@ export default async function Accounts({
     >
       <GenericList
         data={pagination.data}
-        total={pagination.total}
         lastPage={pagination.lastPage}
         page={pagination.page}
         editPath="/accounts/edit/[id]"

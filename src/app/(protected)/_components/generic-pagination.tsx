@@ -30,16 +30,17 @@ export default function GenericPagination({
             </PaginationItem>
           )}
 
-          {Array.from({ length: lastPage }, (x, i) => i + 1).map((value) => (
-            <PaginationItem key={value}>
-              <PaginationLink
-                isActive={value == page}
-                href={path.replace("[page]", value.toString())}
-              >
-                {value}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+          {lastPage > 1 &&
+            Array.from({ length: lastPage }, (x, i) => i + 1).map((value) => (
+              <PaginationItem key={value}>
+                <PaginationLink
+                  isActive={value == page}
+                  href={path.replace("[page]", value.toString())}
+                >
+                  {value}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
 
           {page < lastPage && (
             <PaginationItem>
