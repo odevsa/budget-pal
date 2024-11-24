@@ -5,25 +5,31 @@ import Link from "next/link";
 import GenericList from "../_components/generic-list";
 import GenericPage from "../_components/generic-page";
 import { deleteAction } from "./actions";
+import GenericSearch from "../_components/generic-search";
 
 export default async function Accounts({
   searchParams,
 }: {
-  searchParams: { page: string };
+  searchParams: { q: string; page: string };
 }) {
+  const q = (await searchParams).q;
   const page = parseInt((await searchParams).page || "1");
-  const pagination = await BackendFacade.accounts.all(page);
+  const pagination = await BackendFacade.accounts.all({ q, page });
 
   return (
     <GenericPage
       title="Accounts"
       icon={<WalletIcon />}
       actions={
-        <Link href={"/accounts/new"}>
-          <Button variant={"success"} size={"xs"}>
-            <PlusIcon /> New
-          </Button>
-        </Link>
+        <>
+          <GenericSearch q={q} page={page} />
+
+          <Link href={"/accounts/new"}>
+            <Button variant={"success"}>
+              <PlusIcon /> New
+            </Button>
+          </Link>
+        </>
       }
     >
       <GenericList

@@ -32,9 +32,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import GenericPagination from "./generic-pagination";
+import GenericSearch from "./generic-search";
 
 export default function GenericList({
   data = [],
+  q,
   page = 1,
   total,
   lastPage = 1,
@@ -43,6 +45,7 @@ export default function GenericList({
   actionDelete,
 }: Readonly<{
   data: any[];
+  q?: string;
   page?: number;
   total?: number;
   lastPage?: number;
