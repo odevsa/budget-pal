@@ -6,6 +6,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useSearchParams } from "next/navigation";
 
 export default function GenericPagination({
   path = "?page=[page]",
@@ -18,6 +19,10 @@ export default function GenericPagination({
   total?: number;
   lastPage?: number;
 }>) {
+  const searchParams = useSearchParams();
+  const q = searchParams.get("q");
+  const newPath = q ? `?q=${q}${path.replace("?", "&")}` : path;
+
   return (
     <div className="flex flex-row items-center">
       <Pagination>
@@ -25,7 +30,7 @@ export default function GenericPagination({
           {page > 1 && (
             <PaginationItem>
               <PaginationPrevious
-                href={path.replace("[page]", (page - 1).toString())}
+                href={newPath.replace("[page]", (page - 1).toString())}
               />
             </PaginationItem>
           )}
@@ -35,7 +40,7 @@ export default function GenericPagination({
               <PaginationItem key={value}>
                 <PaginationLink
                   isActive={value == page}
-                  href={path.replace("[page]", value.toString())}
+                  href={newPath.replace("[page]", value.toString())}
                 >
                   {value}
                 </PaginationLink>
@@ -45,7 +50,7 @@ export default function GenericPagination({
           {page < lastPage && (
             <PaginationItem>
               <PaginationNext
-                href={path.replace("[page]", (page + 1).toString())}
+                href={newPath.replace("[page]", (page + 1).toString())}
               />
             </PaginationItem>
           )}

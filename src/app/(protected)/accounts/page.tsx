@@ -22,7 +22,7 @@ export default async function Accounts({
       icon={<WalletIcon />}
       actions={
         <>
-          <GenericSearch q={q} page={page} />
+          <GenericSearch q={q} />
 
           <Link href={"/accounts/new"}>
             <Button variant={"success"}>

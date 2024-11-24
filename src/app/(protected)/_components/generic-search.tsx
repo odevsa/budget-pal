@@ -6,7 +6,7 @@ import { SearchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function GenericSearch({
-  q,
+  q = "",
   page,
 }: Readonly<{ q?: string; page?: number }>) {
   const [query, setQuery] = useState<string | undefined>(q);

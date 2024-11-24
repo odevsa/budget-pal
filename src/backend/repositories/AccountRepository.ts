@@ -20,7 +20,7 @@ export default class AccountRepository {
   public static async all({
     where = {},
     orderBy = {},
-    take = 15,
+    take = 10,
     page = 1,
   }): Promise<Pagination<Account>> {
     const data = await DB.accounts.findMany({
