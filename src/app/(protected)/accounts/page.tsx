@@ -6,8 +6,13 @@ import GenericList from "../_components/generic-list";
 import GenericPage from "../_components/generic-page";
 import { deleteAction } from "./actions";
 
-export default async function Accounts() {
-  const list = await BackendFacade.accounts.list();
+export default async function Accounts({
+  searchParams,
+}: {
+  searchParams: { page: string };
+}) {
+  const page = parseInt((await searchParams).page || "1");
+  const pagination = await BackendFacade.accounts.all(page);
 
   return (
     <GenericPage
@@ -22,7 +27,10 @@ export default async function Accounts() {
       }
     >
       <GenericList
-        data={list}
+        data={pagination.data}
+        total={pagination.total}
+        lastPage={pagination.lastPage}
+        page={pagination.page}
         editPath="/accounts/edit/[id]"
         actionDelete={deleteAction}
       />

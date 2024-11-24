@@ -31,14 +31,21 @@ import { EditIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import GenericPagination from "./generic-pagination";
 
 export default function GenericList({
   data = [],
+  page = 1,
+  total,
+  lastPage = 1,
   fields = { id: "#", title: "Title" },
   editPath,
   actionDelete,
 }: Readonly<{
   data: any[];
+  page?: number;
+  total?: number;
+  lastPage?: number;
   fields?: object;
   editPath?: string;
   actionDelete?(item: any): Promise<boolean>;
@@ -146,6 +153,7 @@ export default function GenericList({
             ))}
           </TableBody>
         </Table>
+        <GenericPagination page={page} lastPage={lastPage} />
       </Loading>
     </div>
   );

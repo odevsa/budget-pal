@@ -1,7 +1,7 @@
 import {
+  accountAllUseCase,
   accountByIdUseCase,
   accountDeleteUseCase,
-  accountListUseCase,
   accountSaveUseCase,
 } from "./usecases/account";
 import {
@@ -19,7 +19,7 @@ export default class BackendFacade {
 
   static readonly accounts = {
     save: accountSaveUseCase,
-    list: accountListUseCase,
+    all: accountAllUseCase,
     byId: accountByIdUseCase,
     delete: accountDeleteUseCase,
   };

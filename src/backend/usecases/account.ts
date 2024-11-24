@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import AccountRepository from "@/backend/repositories/AccountRepository";
 import { Account } from "@/core/models/Account";
+import { Pagination } from "@/core/models/Pagination";
 
 export async function accountSaveUseCase(
   data: Account
@@ -13,11 +14,13 @@ export async function accountSaveUseCase(
   return await AccountRepository.save({ ...data, userId: session?.user.id });
 }
 
-export async function accountListUseCase(page: number = 1): Promise<Account[]> {
+export async function accountAllUseCase(
+  page: number = 1
+): Promise<Pagination<Account>> {
   const session = await auth();
-  if (!session?.user?.id) return [];
+  if (!session?.user?.id) return {} as any;
 
-  return await AccountRepository.list({
+  return await AccountRepository.all({
     where: { userId: session?.user.id },
     orderBy: { title: "asc" },
     page,

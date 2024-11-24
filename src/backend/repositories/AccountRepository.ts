@@ -1,4 +1,5 @@
 import { Account } from "@/core/models/Account";
+import { Pagination } from "@/core/models/Pagination";
 import DB from "@/lib/db";
 
 export default class AccountRepository {
@@ -16,18 +17,30 @@ export default class AccountRepository {
     }
   }
 
-  public static async list({
+  public static async all({
     where = {},
     orderBy = {},
-    take = 20,
+    take = 15,
     page = 1,
-  }): Promise<Account[]> {
-    return await DB.accounts.findMany({
+  }): Promise<Pagination<Account>> {
+    const data = await DB.accounts.findMany({
       where,
       orderBy,
       take,
       skip: (page - 1) * take,
     });
+
+    const total = await DB.accounts.count({
+      where,
+    });
+
+    return {
+      data,
+      total,
+      page,
+      totalPerPage: take,
+      lastPage: Math.ceil(total / take),
+    };
   }
 
   public static async byId(id: number): Promise<Account | undefined> {
