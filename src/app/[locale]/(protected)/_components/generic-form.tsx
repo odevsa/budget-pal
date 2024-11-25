@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { SaveIcon, SkipBackIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 
@@ -63,11 +64,13 @@ export default function GenericForm({
                 type="button"
                 onClick={onCancel}
               >
+                <SkipBackIcon />
                 {t("crud.cancel")}
               </Button>
             )}
             {action && (
               <Button variant="success" size="sm" type="submit">
+                <SaveIcon />
                 {t("crud.save")}
               </Button>
             )}

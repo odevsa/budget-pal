@@ -59,7 +59,7 @@ export default function AccountsForm({
   };
 
   return (
-    <GenericPage title="Accounts" icon={<WalletIcon />}>
+    <GenericPage title={t("accounts.title")} icon={<WalletIcon />}>
       <GenericForm
         title={!formData?.id ? t("crud.create") : t("crud.edit")}
         action={saveAction}
