@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { redirect } from "@/i18n/routing";
 import {
   ArrowLeftRightIcon,
   GaugeIcon,
@@ -8,18 +9,20 @@ import {
   TagIcon,
   WalletIcon,
 } from "lucide-react";
-import { redirect } from "next/navigation";
 import Footer from "./_components/footer";
 import Header from "./_components/header";
 import NavBar from "./_components/navbar";
 
 export default async function PanelLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const locale = (await params).locale;
   const session = await auth();
-  if (!session?.user) return redirect("/login");
+  if (!session?.user) return redirect({ href: "/login", locale });
 
   const menu = [
     { title: "menu.dashboard", path: "/", icon: <LayoutDashboardIcon /> },
