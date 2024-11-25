@@ -1,10 +1,12 @@
 "use server";
 
 import { signIn } from "@/auth";
+import { getTranslations } from "next-intl/server";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { z } from "zod";
 
 export async function loginAction(_previousState: any, formData: FormData) {
+  const t = await getTranslations();
   const errors: any = {};
   const data = {
     email: formData.get("email") as string,
@@ -29,7 +31,7 @@ export async function loginAction(_previousState: any, formData: FormData) {
   } catch (error) {
     if (isRedirectError(error)) throw error;
 
-    errors.message = "Invalid email or password!";
+    errors.message = t("auth.message.loginFailure");
   }
 
   return {

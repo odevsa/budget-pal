@@ -1,6 +1,8 @@
 "use client";
 
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -16,6 +18,7 @@ export default function NavBar({
 }>) {
   const [internalMenu, setInternalMenu] = useState<NavBarItem[]>(menu ?? []);
   const pathname = usePathname();
+  const t = useTranslations();
 
   useEffect(() => {
     if (menu) setInternalMenu(menu);
@@ -29,7 +32,7 @@ export default function NavBar({
             const isActive: boolean = pathname == item.path;
             return (
               <li key={JSON.stringify(item)}>
-                <a
+                <Link
                   href={item.path}
                   className={cn([
                     "flex flex-row gap-2 items-center rounded-md p-2 sm:px-3 transition-all",
@@ -40,15 +43,15 @@ export default function NavBar({
                   ])}
                 >
                   {item.icon}
-                  <span className="hidden sm:flex">{item.title}</span>
-                </a>
+                  <span className="hidden sm:flex">{t(item.title)}</span>
+                </Link>
               </li>
             );
           })}
         </ul>
       </div>
       <div className="flex flex-row justify-center mt-auto text-center text-sm py-2 text-foreground-muted">
-        <span className="hidden sm:flex">Version&nbsp;</span>
+        <span className="hidden sm:flex">{t("geral.version")}&nbsp;</span>
         {process.env.NEXT_PUBLIC_APP_VERSION}
       </div>
     </aside>

@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 export default function GenericSearch({
   q = "",
   page,
 }: Readonly<{ q?: string; page?: number }>) {
+  const t = useTranslations();
   const [query, setQuery] = useState<string | undefined>(q);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function GenericSearch({
     <form className="flex flex-row gap-0 relative">
       <Input
         name="q"
-        placeholder="Search..."
+        placeholder={t("crud.search")}
         value={query}
         onChange={(e) => setQuery(e.currentTarget.value)}
         className="pe-14"

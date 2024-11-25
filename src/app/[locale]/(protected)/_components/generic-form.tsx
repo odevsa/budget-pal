@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 
 export interface FormActionState {
@@ -29,6 +30,7 @@ export default function GenericForm({
   onCancel?(): void;
   onResponse?(state: FormActionState): void;
 }>) {
+  const t = useTranslations();
   const [state, formAction] = useActionState(action, {});
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -61,12 +63,12 @@ export default function GenericForm({
                 type="button"
                 onClick={onCancel}
               >
-                Cancel
+                {t("crud.cancel")}
               </Button>
             )}
             {action && (
               <Button variant="success" size="sm" type="submit">
-                Save
+                {t("crud.save")}
               </Button>
             )}
           </CardFooter>

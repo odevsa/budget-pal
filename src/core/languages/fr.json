@@ -1,0 +1,70 @@
+{
+  "geral": {
+    "version": "Version",
+    "lightMode": "Mode Clair",
+    "darkMode": "Mode Sombre",
+    "settings": "Paramètres"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "name": "Nom",
+    "namePlaceholder": "Votre nom",
+    "email": "E-mail",
+    "emailPlaceholder": "Votre e-mail",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Votre mot de passe",
+    "signIn": "Se connecter",
+    "signInGoogle": "Se connecter avec Google",
+    "signOut": "Se déconnecter",
+    "message": {
+      "loginDescription": "Choisissez une méthode de connexion",
+      "loginSuccess": "Redirection vers le tableau de bord",
+      "loginFailure": "E-mail ou mot de passe invalide !",
+      "registerDescription": "Remplissez les champs pour créer un compte",
+      "registerSuccess": "Redirection vers le tableau de bord",
+      "registerUserAlreadyRegistered": "Utilisateur déjà enregistré",
+      "registerCanNotLogin": "Impossible de vous connecter, réessayez !",
+      "registerFailure": "Impossible de créer l'utilisateur !",
+      "noAccount": "Vous n'avez pas de compte ?"
+    }
+  },
+  "menu": {
+    "dashboard": "Tableau de bord",
+    "transactions": "Transactions",
+    "budgets": "Budgets",
+    "bills": "Factures",
+    "accounts": "Comptes",
+    "categories": "Catégories",
+    "settings": "Paramètres"
+  },
+  "crud": {
+    "search": "Rechercher...",
+    "new": "Nouveau",
+    "id": "#",
+    "title": "Titre",
+    "actions": "Actions",
+    "create": "Créer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "continue": "Continuer",
+    "save": "Enregistrer",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "deleteConfirmation": "Confirmation de suppression",
+    "deleteMessage": "Cette action est irréversible. Cela supprimera définitivement \"{title}\".",
+    "message": {
+      "saveSuccess": "Enregistré avec succès !",
+      "saveFailure": "Impossible d'enregistrer !",
+      "deleteSuccess": "Supprimé avec succès !",
+      "deleteFailure": "Impossible de supprimer !"
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord"
+  },
+  "accounts": {
+    "title": "Comptes"
+  }
+}

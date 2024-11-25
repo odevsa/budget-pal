@@ -5,11 +5,12 @@ import { Label } from "@/components/ui/label";
 import { Account } from "@/core/models/Account";
 import { useToast } from "@/hooks/use-toast";
 import { WalletIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import GenericForm, { FormActionState } from "../_components/generic-form";
 import GenericPage from "../_components/generic-page";
 import { saveAction } from "./actions";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/routing";
 
 const INITIAL_STATE = {
   title: "",
@@ -20,6 +21,7 @@ export default function AccountsForm({
 }: {
   data?: Account;
 }) {
+  const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
   const [formState, setFormState] = useState<FormActionState>();
@@ -40,7 +42,7 @@ export default function AccountsForm({
       if (state?.errors?.message)
         toast({
           variant: "destructive",
-          title: "Save",
+          title: t("crud.save"),
           description: state.errors.message,
         });
 
@@ -49,8 +51,8 @@ export default function AccountsForm({
 
     toast({
       variant: "success",
-      title: "Save",
-      description: `Successfully saved!`,
+      title: t("crud.save"),
+      description: t("crud.message.saveSuccess"),
     });
 
     backToList();
@@ -59,18 +61,17 @@ export default function AccountsForm({
   return (
     <GenericPage title="Accounts" icon={<WalletIcon />}>
       <GenericForm
-        title={!formData?.id ? "Create" : "Edit"}
+        title={!formData?.id ? t("crud.create") : t("crud.edit")}
         action={saveAction}
         onResponse={handleResponse}
         onCancel={backToList}
       >
         {data.id && <Input name="id" value={data.id} type="hidden" />}
         <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="title">Title</Label>
+          <Label htmlFor="title">{t("crud.title")}</Label>
           <Input
             id="title"
             name="title"
-            placeholder="Account title"
             value={formData?.title}
             onChange={(e) =>
               setFormData({

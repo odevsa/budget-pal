@@ -28,11 +28,11 @@ import {
 } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { EditIcon, TrashIcon } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import GenericPagination from "./generic-pagination";
-import GenericSearch from "./generic-search";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 export default function GenericList({
   data = [],
@@ -40,7 +40,7 @@ export default function GenericList({
   page = 1,
   total,
   lastPage = 1,
-  fields = { id: "#", title: "Title" },
+  fields = { id: "crud.id", title: "crud.title" },
   editPath,
   actionDelete,
 }: Readonly<{
@@ -53,6 +53,7 @@ export default function GenericList({
   editPath?: string;
   actionDelete?(item: any): Promise<boolean>;
 }>) {
+  const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
@@ -66,10 +67,10 @@ export default function GenericList({
 
     toast({
       variant: deleted ? "success" : "destructive",
-      title: "Delete",
+      title: t("crud.delete"),
       description: deleted
-        ? "Successfully deleted!"
-        : "Wasn't possible to delete!",
+        ? t("crud.message.deleteSuccess")
+        : t("crud.message.deleteFailure"),
     });
 
     if (!deleted) return;
@@ -84,10 +85,12 @@ export default function GenericList({
           <TableHeader>
             <TableRow>
               {Object.values(fields).map((title) => (
-                <TableHead key={title}>{title}</TableHead>
+                <TableHead key={title}>{t(title)}</TableHead>
               ))}
               {(editPath || actionDelete) && (
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="text-right">
+                  {t("crud.actions")}
+                </TableHead>
               )}
             </TableRow>
           </TableHeader>
@@ -114,40 +117,41 @@ export default function GenericList({
                             </Button>
                           </Link>
                         </TooltipTrigger>
-                        <TooltipContent>Edit item</TooltipContent>
+                        <TooltipContent>{t("crud.edit")}</TooltipContent>
                       </Tooltip>
                     )}
                     {actionDelete && (
                       <Tooltip>
-                        <TooltipTrigger asChild>
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <TooltipTrigger asChild>
                               <Button variant={"destructive"} size={"xs"}>
                                 <TrashIcon />
                               </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  Delete confirmation
-                                </AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  This action cannot be undone. This will
-                                  permanently delete "{item.title}".
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => handleDelete(item)}
-                                >
-                                  Continue
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </TooltipTrigger>
-                        <TooltipContent>Delete item</TooltipContent>
+                            </TooltipTrigger>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                {t("crud.deleteConfirmation")}
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                {t("crud.deleteMessage", { title: item.title })}
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>
+                                {t("crud.cancel")}
+                              </AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => handleDelete(item)}
+                              >
+                                {t("crud.continue")}
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                        <TooltipContent>{t("crud.delete")}</TooltipContent>
                       </Tooltip>
                     )}
                   </TableCell>

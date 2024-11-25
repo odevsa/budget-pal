@@ -1,0 +1,70 @@
+{
+  "geral": {
+    "version": "Versión",
+    "lightMode": "Modo Claro",
+    "darkMode": "Modo Oscuro",
+    "settings": "Configuración"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Tu correo electrónico",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña",
+    "signIn": "Iniciar sesión",
+    "signInGoogle": "Iniciar sesión con Google",
+    "signOut": "Cerrar sesión",
+    "message": {
+      "loginDescription": "Elige un método para iniciar sesión",
+      "loginSuccess": "Redirigiendo al panel",
+      "loginFailure": "¡Correo electrónico o contraseña inválidos!",
+      "registerDescription": "Completa los campos para crear una cuenta",
+      "registerSuccess": "Redirigiendo al panel",
+      "registerUserAlreadyRegistered": "Usuario ya registrado",
+      "registerCanNotLogin": "¡No se pudo iniciar sesión, intenta de nuevo!",
+      "registerFailure": "¡No se pudo crear el usuario!",
+      "noAccount": "¿No tienes una cuenta?"
+    }
+  },
+  "menu": {
+    "dashboard": "Panel",
+    "transactions": "Transacciones",
+    "budgets": "Presupuestos",
+    "bills": "Facturas",
+    "accounts": "Cuentas",
+    "categories": "Categorías",
+    "settings": "Configuración"
+  },
+  "crud": {
+    "search": "Buscar...",
+    "new": "Nuevo",
+    "id": "#",
+    "title": "Título",
+    "actions": "Acciones",
+    "create": "Crear",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "continue": "Continuar",
+    "save": "Guardar",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "deleteConfirmation": "Confirmación de eliminación",
+    "deleteMessage": "Esta acción no se puede deshacer. Esto eliminará permanentemente \"{title}\".",
+    "message": {
+      "saveSuccess": "¡Guardado con éxito!",
+      "saveFailure": "¡No se pudo guardar!",
+      "deleteSuccess": "¡Eliminado con éxito!",
+      "deleteFailure": "¡No se pudo eliminar!"
+    }
+  },
+  "dashboard": {
+    "title": "Panel"
+  },
+  "accounts": {
+    "title": "Cuentas"
+  }
+}

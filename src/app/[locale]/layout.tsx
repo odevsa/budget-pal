@@ -1,10 +1,14 @@
 import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { Settings } from "@/core/constants/Settings";
+import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 import { Roboto } from "next/font/google";
+import { notFound } from "next/navigation";
 import "./globals.css";
-import { TooltipProvider } from "@/components/ui/tooltip";
 
 const font = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -28,13 +32,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const locale = (await params).locale;
+
+  if (!routing.locales.includes(locale as any)) notFound();
+
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head />
       <body className={`flex ${font.className} antialiased`}>
         <ThemeProvider
@@ -45,7 +57,9 @@ export default function RootLayout({
           storageKey={Settings.THEME}
         >
           <TooltipProvider>
-            <div className="flex flex-grow">{children}</div>
+            <NextIntlClientProvider messages={messages}>
+              <div className="flex flex-grow">{children}</div>
+            </NextIntlClientProvider>
           </TooltipProvider>
           <Toaster />
         </ThemeProvider>

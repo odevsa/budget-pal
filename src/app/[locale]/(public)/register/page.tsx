@@ -5,22 +5,24 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { LogInIcon } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { PlusIcon } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
-import { loginAction, loginGoogleAction } from "./actions";
+import { registerAction } from "./actions";
+import { useTranslations } from "next-intl";
 
 export default function Login() {
+  const t = useTranslations();
   const { toast } = useToast();
-  const [state, formAction] = useActionState(loginAction, {} as any);
+  const [state, formAction] = useActionState(registerAction, {} as any);
   const [form, setForm] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -29,7 +31,7 @@ export default function Login() {
     if (state?.errors?.message) {
       toast({
         variant: "destructive",
-        title: "Login",
+        title: t("auth.register"),
         description: state.errors.message,
       });
     }
@@ -38,8 +40,8 @@ export default function Login() {
 
     toast({
       variant: "success",
-      title: "Login",
-      description: "Redirect to dashboard",
+      title: t("auth.register"),
+      description: t("auth.message.registerSuccess"),
     });
   }, [state]);
 
@@ -47,17 +49,34 @@ export default function Login() {
     <div className="flex flex-col flex-grow gap-5 justify-center items-center">
       <Card>
         <CardHeader className="text-center">
-          <CardTitle>Login</CardTitle>
-          <CardDescription>Choose a sign-in method</CardDescription>
+          <CardTitle>{t("auth.register")}</CardTitle>
+          <CardDescription>
+            {t("auth.message.registerDescription")}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form className="flex flex-col gap-4" action={formAction}>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">E-mail</Label>
+              <Label htmlFor="name">{t("auth.name")}</Label>
+              <Input
+                id="name"
+                name="name"
+                placeholder={t("auth.namePlaceholder")}
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+              />
+              {state?.errors?.name && (
+                <span className="text-destructive font-bold text-xs">
+                  {state.errors.name}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="email">{t("auth.email")}</Label>
               <Input
                 id="email"
                 name="email"
-                placeholder="Your e-mail"
+                placeholder={t("auth.emailPlaceholder")}
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
@@ -67,14 +86,13 @@ export default function Login() {
                 </span>
               )}
             </div>
-
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("auth.password")}</Label>
               <Input
                 id="password"
                 name="password"
+                placeholder={t("auth.passwordPlaceholder")}
                 type="password"
-                placeholder="Your password"
               />
               {state?.errors?.password && (
                 <span className="text-destructive font-bold text-xs">
@@ -82,34 +100,17 @@ export default function Login() {
                 </span>
               )}
             </div>
-
             <Button type="submit">
               <div className="w-4 flex justify-center">
-                <LogInIcon />
+                <PlusIcon />
               </div>
-              <div className="flex-grow">Sign-in</div>
+              <div className="flex-grow">{t("auth.register")}</div>
             </Button>
+            <div className="text-center">
+              <Link href={"/"}>{t("auth.login")}</Link>
+            </div>
           </form>
         </CardContent>
-        <CardFooter className="flex flex-col gap-4">
-          <form
-            className="flex flex-col flex-grow w-full"
-            action={loginGoogleAction}
-          >
-            <Button
-              type="submit"
-              variant={"destructive"}
-              className="flex flex-row"
-            >
-              <div className="w-4 flex justify-center">G</div>
-              <div className="flex-grow">Sign-in with Google</div>
-            </Button>
-          </form>
-          <div className="text-sm">
-            Don't have an account?&nbsp;
-            <Link href={"/register"}>Register</Link>
-          </div>
-        </CardFooter>
       </Card>
     </div>
   );

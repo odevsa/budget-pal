@@ -22,17 +22,17 @@ export default async function PanelLayout({
   if (!session?.user) return redirect("/login");
 
   const menu = [
-    { title: "Dashboard", path: "/", icon: <LayoutDashboardIcon /> },
+    { title: "menu.dashboard", path: "/", icon: <LayoutDashboardIcon /> },
     {
-      title: "Transactions",
+      title: "menu.transactions",
       path: "/transactions",
       icon: <ArrowLeftRightIcon />,
     },
-    { title: "Budgets", path: "/budgets", icon: <GaugeIcon /> },
-    { title: "Bills", path: "/bills", icon: <ReceiptIcon /> },
-    { title: "Accounts", path: "/accounts", icon: <WalletIcon /> },
-    { title: "Categories", path: "/categories", icon: <TagIcon /> },
-    { title: "Settings", path: "/settings", icon: <SettingsIcon /> },
+    { title: "menu.budgets", path: "/budgets", icon: <GaugeIcon /> },
+    { title: "menu.bills", path: "/bills", icon: <ReceiptIcon /> },
+    { title: "menu.accounts", path: "/accounts", icon: <WalletIcon /> },
+    { title: "menu.categories", path: "/categories", icon: <TagIcon /> },
+    { title: "menu.settings", path: "/settings", icon: <SettingsIcon /> },
   ];
 
   return (

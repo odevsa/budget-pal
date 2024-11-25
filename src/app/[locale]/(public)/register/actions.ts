@@ -3,10 +3,12 @@
 import { signIn } from "@/auth";
 import BackendFacade from "@/backend";
 import { User } from "@/core/models/User";
+import { getTranslations } from "next-intl/server";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { z } from "zod";
 
 export async function registerAction(_previousState: any, formData: FormData) {
+  const t = await getTranslations();
   const errors: any = {};
   const data = {
     name: formData.get("name") as string,
@@ -30,11 +32,11 @@ export async function registerAction(_previousState: any, formData: FormData) {
 
   const user = await BackendFacade.users.byEmail(data.email);
 
-  if (user) errors.message = "User already registered";
+  if (user) errors.message = t("auth.message.registerUserAlreadyRegistered");
 
   if (Object.keys(errors).length == 0) {
     const saved = await BackendFacade.users.save(data as User);
-    if (!saved) errors.message = "Wasn't possible to create user!";
+    if (!saved) errors.message = t("auth.message.registerFailure");
   }
 
   if (Object.keys(errors).length == 0) {
@@ -46,7 +48,7 @@ export async function registerAction(_previousState: any, formData: FormData) {
     } catch (error) {
       if (isRedirectError(error)) throw error;
 
-      errors.message = "Couldn't log you in, try login again!";
+      errors.message = t("auth.message.registerCanNotLogin");
     }
   }
 

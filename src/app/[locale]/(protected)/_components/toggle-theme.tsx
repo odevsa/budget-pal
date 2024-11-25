@@ -1,6 +1,7 @@
 "use client";
 
 import { MoonIcon, SunIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
 export function ToggleTheme(
@@ -9,6 +10,7 @@ export function ToggleTheme(
     HTMLDivElement
   >
 ) {
+  const t = useTranslations();
   const { setTheme } = useTheme();
 
   return (
@@ -18,14 +20,14 @@ export function ToggleTheme(
         onClick={() => setTheme("light")}
       >
         <SunIcon />
-        Light Mode
+        {t("geral.lightMode")}
       </button>
       <button
         className="flex flex-row items-center gap-2 dark:hidden"
         onClick={() => setTheme("dark")}
       >
         <MoonIcon />
-        Dark Mode
+        {t("geral.darkMode")}
       </button>
     </>
   );

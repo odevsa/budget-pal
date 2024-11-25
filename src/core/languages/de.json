@@ -1,0 +1,70 @@
+{
+  "geral": {
+    "version": "Version",
+    "lightMode": "Heller Modus",
+    "darkMode": "Dunkler Modus",
+    "settings": "Einstellungen"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "name": "Name",
+    "namePlaceholder": "Ihr Name",
+    "email": "E-Mail",
+    "emailPlaceholder": "Ihre E-Mail",
+    "password": "Passwort",
+    "passwordPlaceholder": "Ihr Passwort",
+    "signIn": "Anmelden",
+    "signInGoogle": "Mit Google anmelden",
+    "signOut": "Abmelden",
+    "message": {
+      "loginDescription": "Wählen Sie eine Anmeldemethode",
+      "loginSuccess": "Weiterleitung zum Dashboard",
+      "loginFailure": "Ungültige E-Mail oder Passwort!",
+      "registerDescription": "Füllen Sie die Felder aus, um ein Konto zu erstellen",
+      "registerSuccess": "Weiterleitung zum Dashboard",
+      "registerUserAlreadyRegistered": "Benutzer ist bereits registriert",
+      "registerCanNotLogin": "Anmeldung nicht möglich, bitte erneut versuchen!",
+      "registerFailure": "Benutzer konnte nicht erstellt werden!",
+      "noAccount": "Noch kein Konto?"
+    }
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "transactions": "Transaktionen",
+    "budgets": "Budgets",
+    "bills": "Rechnungen",
+    "accounts": "Konten",
+    "categories": "Kategorien",
+    "settings": "Einstellungen"
+  },
+  "crud": {
+    "search": "Suchen...",
+    "new": "Neu",
+    "id": "#",
+    "title": "Titel",
+    "actions": "Aktionen",
+    "create": "Erstellen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "cancel": "Abbrechen",
+    "continue": "Fortfahren",
+    "save": "Speichern",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "deleteConfirmation": "Löschbestätigung",
+    "deleteMessage": "Diese Aktion kann nicht rückgängig gemacht werden. Dies wird \"{title}\" dauerhaft löschen.",
+    "message": {
+      "saveSuccess": "Erfolgreich gespeichert!",
+      "saveFailure": "Speichern fehlgeschlagen!",
+      "deleteSuccess": "Erfolgreich gelöscht!",
+      "deleteFailure": "Löschen fehlgeschlagen!"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "accounts": {
+    "title": "Konten"
+  }
+}

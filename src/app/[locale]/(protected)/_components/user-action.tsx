@@ -9,9 +9,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOutIcon, SettingsIcon } from "lucide-react";
 import { ToggleTheme } from "./toggle-theme";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 
 export default async function UserAction() {
+  const t = await getTranslations();
   const session = await auth();
 
   return (
@@ -38,7 +40,7 @@ export default async function UserAction() {
           <Link href="/settings" legacyBehavior passHref>
             <DropdownMenuItem>
               <SettingsIcon />
-              Settings
+              {t("geral.settings")}
             </DropdownMenuItem>
           </Link>
           <DropdownMenuSeparator />
@@ -54,7 +56,7 @@ export default async function UserAction() {
                 className="flex flex-row items-center gap-2 "
               >
                 <LogOutIcon />
-                Sign out
+                {t("auth.signOut")}
               </button>
             </DropdownMenuItem>
           </form>

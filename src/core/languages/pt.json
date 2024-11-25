@@ -1,0 +1,70 @@
+{
+  "geral": {
+    "version": "Versão",
+    "lightMode": "Modo Claro",
+    "darkMode": "Modo Escuro",
+    "settings": "Configurações"
+  },
+  "auth": {
+    "login": "Entrar",
+    "register": "Registrar-se",
+    "name": "Nome",
+    "namePlaceholder": "Seu nome",
+    "email": "E-mail",
+    "emailPlaceholder": "Seu e-mail",
+    "password": "Senha",
+    "passwordPlaceholder": "Sua senha",
+    "signIn": "Entrar",
+    "signInGoogle": "Entrar com o Google",
+    "signOut": "Sair",
+    "message": {
+      "loginDescription": "Escolha um método de login",
+      "loginSuccess": "Redirecionando para o painel",
+      "loginFailure": "E-mail ou senha inválidos!",
+      "registerDescription": "Preencha os campos para criar uma conta",
+      "registerSuccess": "Redirecionando para o painel",
+      "registerUserAlreadyRegistered": "Usuário já registrado",
+      "registerCanNotLogin": "Não foi possível fazer login, tente novamente!",
+      "registerFailure": "Não foi possível criar o usuário!",
+      "noAccount": "Não tem uma conta?"
+    }
+  },
+  "menu": {
+    "dashboard": "Painel",
+    "transactions": "Transações",
+    "budgets": "Orçamentos",
+    "bills": "Contas",
+    "accounts": "Contas",
+    "categories": "Categorias",
+    "settings": "Configurações"
+  },
+  "crud": {
+    "search": "Buscar...",
+    "new": "Novo",
+    "id": "#",
+    "title": "Título",
+    "actions": "Ações",
+    "create": "Criar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "cancel": "Cancelar",
+    "continue": "Continuar",
+    "save": "Salvar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "deleteConfirmation": "Confirmação de exclusão",
+    "deleteMessage": "Esta ação não pode ser desfeita. Isto irá excluir permanentemente \"{title}\".",
+    "message": {
+      "saveSuccess": "Salvo com sucesso!",
+      "saveFailure": "Não foi possível salvar!",
+      "deleteSuccess": "Excluído com sucesso!",
+      "deleteFailure": "Não foi possível excluir!"
+    }
+  },
+  "dashboard": {
+    "title": "Painel"
+  },
+  "accounts": {
+    "title": "Contas"
+  }
+}

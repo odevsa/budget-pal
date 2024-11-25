@@ -1,0 +1,70 @@
+{
+  "geral": {
+    "version": "Versie",
+    "lightMode": "Lichte modus",
+    "darkMode": "Donkere modus",
+    "settings": "Instellingen"
+  },
+  "auth": {
+    "login": "Inloggen",
+    "register": "Registreren",
+    "name": "Naam",
+    "namePlaceholder": "Uw naam",
+    "email": "E-mail",
+    "emailPlaceholder": "Uw e-mail",
+    "password": "Wachtwoord",
+    "passwordPlaceholder": "Uw wachtwoord",
+    "signIn": "Inloggen",
+    "signInGoogle": "Inloggen met Google",
+    "signOut": "Uitloggen",
+    "message": {
+      "loginDescription": "Kies een inlogmethode",
+      "loginSuccess": "Doorverwijzen naar dashboard",
+      "loginFailure": "Ongeldig e-mailadres of wachtwoord!",
+      "registerDescription": "Vul de velden in om een account aan te maken",
+      "registerSuccess": "Doorverwijzen naar dashboard",
+      "registerUserAlreadyRegistered": "Gebruiker is al geregistreerd",
+      "registerCanNotLogin": "Kan niet inloggen, probeer opnieuw!",
+      "registerFailure": "Kan gebruiker niet aanmaken!",
+      "noAccount": "Heeft u nog geen account?"
+    }
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "transactions": "Transacties",
+    "budgets": "Budgetten",
+    "bills": "Rekeningen",
+    "accounts": "Rekeningen",
+    "categories": "Categorieën",
+    "settings": "Instellingen"
+  },
+  "crud": {
+    "search": "Zoeken...",
+    "new": "Nieuw",
+    "id": "#",
+    "title": "Titel",
+    "actions": "Acties",
+    "create": "Aanmaken",
+    "edit": "Bewerken",
+    "delete": "Verwijderen",
+    "cancel": "Annuleren",
+    "continue": "Doorgaan",
+    "save": "Opslaan",
+    "next": "Volgende",
+    "previous": "Vorige",
+    "deleteConfirmation": "Bevestiging verwijderen",
+    "deleteMessage": "Deze actie kan niet ongedaan worden gemaakt. Dit verwijdert \"{title}\" permanent.",
+    "message": {
+      "saveSuccess": "Succesvol opgeslagen!",
+      "saveFailure": "Opslaan mislukt!",
+      "deleteSuccess": "Succesvol verwijderd!",
+      "deleteFailure": "Verwijderen mislukt!"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "accounts": {
+    "title": "Rekeningen"
+  }
+}

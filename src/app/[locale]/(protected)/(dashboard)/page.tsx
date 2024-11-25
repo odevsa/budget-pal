@@ -19,19 +19,21 @@ import {
   TrashIcon,
 } from "lucide-react";
 import PageTitle from "../_components/page-title";
+import { useTranslations } from "next-intl";
 
 export default function Panel() {
+  const t = useTranslations("dashboard");
   const { toast } = useToast();
 
   return (
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
-      <PageTitle title="Dashboard" icon={<LayoutDashboardIcon />} />
+      <PageTitle title={t("title")} icon={<LayoutDashboardIcon />} />
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         <Card>
           <CardHeader>
-            <CardTitle>Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
+            <CardTitle>I18N</CardTitle>
+            <CardDescription>{t("title")}</CardDescription>
           </CardHeader>
         </Card>
 

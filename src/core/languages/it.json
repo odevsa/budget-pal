@@ -1,0 +1,70 @@
+{
+  "geral": {
+    "version": "Versione",
+    "lightMode": "Modalità Chiara",
+    "darkMode": "Modalità Scura",
+    "settings": "Impostazioni"
+  },
+  "auth": {
+    "login": "Accedi",
+    "register": "Registrati",
+    "name": "Nome",
+    "namePlaceholder": "Il tuo nome",
+    "email": "E-mail",
+    "emailPlaceholder": "La tua e-mail",
+    "password": "Password",
+    "passwordPlaceholder": "La tua password",
+    "signIn": "Accedi",
+    "signInGoogle": "Accedi con Google",
+    "signOut": "Esci",
+    "message": {
+      "loginDescription": "Scegli un metodo di accesso",
+      "loginSuccess": "Reindirizzamento al pannello",
+      "loginFailure": "E-mail o password non validi!",
+      "registerDescription": "Compila i campi per creare un account",
+      "registerSuccess": "Reindirizzamento al pannello",
+      "registerUserAlreadyRegistered": "Utente già registrato",
+      "registerCanNotLogin": "Impossibile accedere, prova di nuovo!",
+      "registerFailure": "Impossibile creare l'utente!",
+      "noAccount": "Non hai un account?"
+    }
+  },
+  "menu": {
+    "dashboard": "Pannello",
+    "transactions": "Transazioni",
+    "budgets": "Budget",
+    "bills": "Fatture",
+    "accounts": "Conti",
+    "categories": "Categorie",
+    "settings": "Impostazioni"
+  },
+  "crud": {
+    "search": "Cerca...",
+    "new": "Nuovo",
+    "id": "#",
+    "title": "Titolo",
+    "actions": "Azioni",
+    "create": "Crea",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "cancel": "Annulla",
+    "continue": "Continua",
+    "save": "Salva",
+    "next": "Successivo",
+    "previous": "Precedente",
+    "deleteConfirmation": "Conferma eliminazione",
+    "deleteMessage": "Questa azione non può essere annullata. Questo eliminerà permanentemente \"{title}\".",
+    "message": {
+      "saveSuccess": "Salvato con successo!",
+      "saveFailure": "Impossibile salvare!",
+      "deleteSuccess": "Eliminato con successo!",
+      "deleteFailure": "Impossibile eliminare!"
+    }
+  },
+  "dashboard": {
+    "title": "Pannello"
+  },
+  "accounts": {
+    "title": "Conti"
+  }
+}

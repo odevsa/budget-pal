@@ -1,0 +1,70 @@
+{
+  "geral": {
+    "version": "Версия",
+    "lightMode": "Светлый режим",
+    "darkMode": "Тёмный режим",
+    "settings": "Настройки"
+  },
+  "auth": {
+    "login": "Войти",
+    "register": "Регистрация",
+    "name": "Имя",
+    "namePlaceholder": "Ваше имя",
+    "email": "Электронная почта",
+    "emailPlaceholder": "Ваш e-mail",
+    "password": "Пароль",
+    "passwordPlaceholder": "Ваш пароль",
+    "signIn": "Войти",
+    "signInGoogle": "Войти через Google",
+    "signOut": "Выйти",
+    "message": {
+      "loginDescription": "Выберите способ входа",
+      "loginSuccess": "Перенаправление на панель управления",
+      "loginFailure": "Неверный e-mail или пароль!",
+      "registerDescription": "Заполните поля для создания аккаунта",
+      "registerSuccess": "Перенаправление на панель управления",
+      "registerUserAlreadyRegistered": "Пользователь уже зарегистрирован",
+      "registerCanNotLogin": "Не удалось войти, попробуйте снова!",
+      "registerFailure": "Не удалось создать пользователя!",
+      "noAccount": "Нет аккаунта?"
+    }
+  },
+  "menu": {
+    "dashboard": "Панель управления",
+    "transactions": "Транзакции",
+    "budgets": "Бюджеты",
+    "bills": "Счета",
+    "accounts": "Аккаунты",
+    "categories": "Категории",
+    "settings": "Настройки"
+  },
+  "crud": {
+    "search": "Поиск...",
+    "new": "Новый",
+    "id": "#",
+    "title": "Название",
+    "actions": "Действия",
+    "create": "Создать",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "cancel": "Отмена",
+    "continue": "Продолжить",
+    "save": "Сохранить",
+    "next": "Далее",
+    "previous": "Назад",
+    "deleteConfirmation": "Подтверждение удаления",
+    "deleteMessage": "Это действие нельзя отменить. Это навсегда удалит \"{title}\".",
+    "message": {
+      "saveSuccess": "Успешно сохранено!",
+      "saveFailure": "Не удалось сохранить!",
+      "deleteSuccess": "Успешно удалено!",
+      "deleteFailure": "Не удалось удалить!"
+    }
+  },
+  "dashboard": {
+    "title": "Панель управления"
+  },
+  "accounts": {
+    "title": "Аккаунты"
+  }
+}

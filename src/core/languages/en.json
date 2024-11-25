@@ -1,0 +1,70 @@
+{
+  "geral": {
+    "version": "Version",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "E-mail",
+    "emailPlaceholder": "Your e-mail",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "signIn": "Sign in",
+    "signInGoogle": "Sign in with Google",
+    "signOut": "Sign out",
+    "message": {
+      "loginDescription": "Choose a sign-in method",
+      "loginSuccess": "Redirect to dashboard",
+      "loginFailure": "Invalid email or password!",
+      "registerDescription": "Fill the fields to create an account",
+      "registerSuccess": "Redirect to dashboard",
+      "registerUserAlreadyRegistered": "User already registered",
+      "registerCanNotLogin": "Couldn't log you in, try login again!",
+      "registerFailure": "Wasn't possible to create user!",
+      "noAccount": "Don't have an account?"
+    }
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "transactions": "Transactions",
+    "budgets": "Budgets",
+    "bills": "Bills",
+    "accounts": "Accounts",
+    "categories": "Categories",
+    "settings": "Settings"
+  },
+  "crud": {
+    "search": "Search...",
+    "new": "New",
+    "id": "#",
+    "title": "Title",
+    "actions": "Actions",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "save": "Save",
+    "next": "Next",
+    "previous": "Previous",
+    "deleteConfirmation": "Delete confirmation",
+    "deleteMessage": "This action cannot be undone. This will permanently delete \"{title}\".",
+    "message": {
+      "saveSuccess": "Successfully saved!",
+      "saveFailure": "Wasn't possible to save!",
+      "deleteSuccess": "Successfully deleted!",
+      "deleteFailure": "Wasn't possible to delete!"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "accounts": {
+    "title": "Accounts"
+  }
+}
