@@ -1,7 +1,7 @@
 "use server";
 
 import BackendFacade from "@/backend";
-import { Account } from "@/core/models/Account";
+import { Account, validationAccountCreate } from "@/core/models/Account";
 import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 
@@ -13,16 +13,11 @@ export async function saveAction(_previousState: any, formData: FormData) {
     title: (formData.get("title") as string).trim(),
   };
 
-  const validated = z
-    .object({
-      title: z.string().min(3).max(30),
-    })
-    .safeParse(data);
-
-  if (!validated.success)
+  const validation = z.object(validationAccountCreate).safeParse(data);
+  if (!validation.success)
     return {
       success: false,
-      errors: validated.error.flatten().fieldErrors,
+      errors: validation.error.flatten().fieldErrors,
     };
 
   const saved = await BackendFacade.accounts.save(data as Account);

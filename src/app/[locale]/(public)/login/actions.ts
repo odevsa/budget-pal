@@ -1,6 +1,7 @@
 "use server";
 
 import { signIn } from "@/auth";
+import { validationUserLogin } from "@/core/models/User";
 import { getTranslations } from "next-intl/server";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { z } from "zod";
@@ -13,17 +14,12 @@ export async function loginAction(_previousState: any, formData: FormData) {
     password: formData.get("password") as string,
   };
 
-  const validated = z
-    .object({
-      email: z.string().email(),
-      password: z.string().min(6),
-    })
-    .safeParse(data);
+  const validation = z.object(validationUserLogin).safeParse(data);
 
-  if (!validated.success)
+  if (!validation.success)
     return {
       success: false,
-      errors: validated.error.flatten().fieldErrors,
+      errors: validation.error.flatten().fieldErrors,
     };
 
   try {

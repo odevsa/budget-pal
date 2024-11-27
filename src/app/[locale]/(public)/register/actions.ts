@@ -2,7 +2,7 @@
 
 import { signIn } from "@/auth";
 import BackendFacade from "@/backend";
-import { User } from "@/core/models/User";
+import { User, validationUserRegister } from "@/core/models/User";
 import { getTranslations } from "next-intl/server";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { z } from "zod";
@@ -16,18 +16,12 @@ export async function registerAction(_previousState: any, formData: FormData) {
     password: formData.get("password") as string,
   };
 
-  const validated = z
-    .object({
-      name: z.string().min(3).max(50),
-      email: z.string().email(),
-      password: z.string().min(6),
-    })
-    .safeParse(data);
+  const validation = z.object(validationUserRegister).safeParse(data);
 
-  if (!validated.success)
+  if (!validation.success)
     return {
       success: false,
-      errors: validated.error.flatten().fieldErrors,
+      errors: validation.error.flatten().fieldErrors,
     };
 
   const user = await BackendFacade.users.byEmail(data.email);

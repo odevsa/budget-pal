@@ -1,21 +1,63 @@
 import { auth } from "@/auth";
 import BackendFacade from "@/backend";
-import { NextResponse } from "next/server";
+import { Account, validationAccountUpdate } from "@/core/models/Account";
+import { getTranslations } from "next-intl/server";
+import { z } from "zod";
+import {
+  responseBadRequest,
+  responseNoContent,
+  responseNotFound,
+  responseOk,
+  responseUnauthenticated,
+} from "../../response";
 
 export const GET = auth(async (request, { params }) => {
-  if (!request.auth)
-    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  if (!request.auth) return responseUnauthenticated();
 
   const { id } = (await params) as { id: string };
-  if (!id)
-    return NextResponse.json({ message: "ID is required" }, { status: 400 });
+  if (!id) return responseBadRequest({ message: "ID is required" });
 
   const item = await BackendFacade.accounts.byId(parseInt(id));
 
-  if (!item)
-    return NextResponse.json({ message: "Invalid ID" }, { status: 400 });
+  if (!item) return responseNotFound();
 
-  return new Response(JSON.stringify(item), {
-    status: 200,
-  });
+  return responseOk(item);
+});
+
+export const PUT = auth(async (request, { params }) => {
+  const t = await getTranslations();
+  if (!request.auth) return responseUnauthenticated();
+
+  const { id } = (await params) as { id: string };
+  if (!id) return responseBadRequest({ message: "ID is required" });
+
+  const data = await request.json();
+  const dataToEdit = { ...data, id: parseInt(id) } as Account;
+
+  const validation = z.object(validationAccountUpdate).safeParse(dataToEdit);
+  if (!validation.success)
+    return responseBadRequest(validation.error.flatten().fieldErrors);
+
+  const saved = await BackendFacade.accounts.save(dataToEdit);
+  console.log(saved);
+
+  if (!saved)
+    return responseBadRequest({
+      message: t("crud.message.saveFailure"),
+    });
+
+  return responseOk(saved);
+});
+
+export const DELETE = auth(async (request, { params }) => {
+  if (!request.auth) return responseUnauthenticated();
+
+  const { id } = (await params) as { id: string };
+  if (!id) return responseBadRequest({ message: "ID is required" });
+
+  const deleted = await BackendFacade.accounts.delete(parseInt(id));
+
+  if (!deleted) return responseNotFound();
+
+  return responseNoContent();
 });
