@@ -107,7 +107,7 @@ export default function Login() {
               <div className="flex-grow">{t("auth.register")}</div>
             </Button>
             <div className="text-center">
-              <Link href={"/"}>{t("auth.login")}</Link>
+              <Link href={"/login"}>{t("auth.login")}</Link>
             </div>
           </form>
         </CardContent>

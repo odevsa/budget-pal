@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     icon: [
       {
         media: "(prefers-color-scheme: light)",
-        url: "img/logo.svg",
-        href: "img/logo.svg",
+        url: "images/logo.svg",
+        href: "images/logo.svg",
       },
       {
         media: "(prefers-color-scheme: dark)",
-        url: "img/logo.svg",
-        href: "img/logo.svg",
+        url: "images/logo.svg",
+        href: "images/logo.svg",
       },
     ],
   },

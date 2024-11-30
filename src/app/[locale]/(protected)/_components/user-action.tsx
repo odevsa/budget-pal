@@ -22,7 +22,7 @@ export default async function UserAction() {
         <DropdownMenuTrigger className="block bg-white bg-opacity-20 shadow-md w-10 h-10 rounded-full p-[3px]">
           <img
             className=" rounded-full"
-            src={session?.user?.image ?? "/img/avatar.svg"}
+            src={session?.user?.image ?? "/images/avatar.svg"}
             alt="Avatar"
           />
         </DropdownMenuTrigger>

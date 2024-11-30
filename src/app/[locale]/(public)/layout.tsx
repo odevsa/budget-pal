@@ -1,15 +1,18 @@
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import { ToggleTheme } from "./_components/toggle-theme";
 import Logo from "@/components/Logo";
+import { redirect } from "@/i18n/routing";
 
 export default async function PublicLayout({
+  params,
   children,
 }: Readonly<{
+  params: { locale: string };
   children: React.ReactNode;
 }>) {
+  const locale = (await params).locale;
   const session = await auth();
-  if (session?.user) return redirect("/");
+  if (session?.user) return redirect({ href: "/", locale });
 
   return (
     <div className="flex flex-col flex-grow">

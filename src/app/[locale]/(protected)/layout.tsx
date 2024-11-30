@@ -14,11 +14,11 @@ import Header from "./_components/header";
 import NavBar from "./_components/navbar";
 
 export default async function PanelLayout({
-  children,
   params,
+  children,
 }: Readonly<{
-  children: React.ReactNode;
   params: { locale: string };
+  children: React.ReactNode;
 }>) {
   const locale = (await params).locale;
   const session = await auth();

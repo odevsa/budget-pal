@@ -42,7 +42,7 @@ const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
         {...props}
       >
         <img
-          src="/img/logo.svg"
+          src="/images/logo.svg"
           alt={process.env.NEXT_PUBLIC_APP_NAME}
           className={cn(variants({ className, size }))}
         />

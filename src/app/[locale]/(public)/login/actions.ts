@@ -11,6 +11,7 @@ export async function loginAction(_previousState: any, formData: FormData) {
   const data = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
+    redirectTo: formData.get("callback") as string,
   };
 
   const validated = z
@@ -40,6 +41,7 @@ export async function loginAction(_previousState: any, formData: FormData) {
   };
 }
 
-export async function loginGoogleAction() {
-  await signIn("google", { redirectTo: "/" });
+export async function loginGoogleAction(formData: FormData) {
+  const redirectTo = formData.get("callback") as string;
+  await signIn("google", { redirectTo });
 }

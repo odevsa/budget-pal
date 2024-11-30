@@ -17,9 +17,12 @@ import { LogInIcon } from "lucide-react";
 import { useActionState, useEffect, useState } from "react";
 import { loginAction, loginGoogleAction } from "./actions";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 
 export default function Login() {
   const t = useTranslations();
+  const searchParams = useSearchParams();
+  const callback = searchParams.get("callback");
   const { toast } = useToast();
   const [state, formAction] = useActionState(loginAction, {} as any);
   const [form, setForm] = useState({
@@ -56,6 +59,9 @@ export default function Login() {
         </CardHeader>
         <CardContent>
           <form className="flex flex-col gap-4" action={formAction}>
+            {callback && (
+              <input name="callback" type="hidden" value={callback} />
+            )}
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">{t("auth.email")}</Label>
               <Input
@@ -100,6 +106,9 @@ export default function Login() {
             className="flex flex-col flex-grow w-full"
             action={loginGoogleAction}
           >
+            {callback && (
+              <input name="callback" type="hidden" value={callback} />
+            )}
             <Button
               type="submit"
               variant={"destructive"}
