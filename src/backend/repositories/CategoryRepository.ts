@@ -17,6 +17,10 @@ export default class CategoryRepository {
     }
   }
 
+  public static async total(): Promise<number> {
+    return await DB.categories.count();
+  }
+
   public static async all({
     where = {},
     orderBy = {},

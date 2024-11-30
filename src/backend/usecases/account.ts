@@ -15,6 +15,13 @@ export async function accountSaveUseCase(
   return await AccountRepository.save({ ...data, userId: session?.user.id });
 }
 
+export async function accountTotalUseCase(): Promise<number> {
+  const session = await auth();
+  if (!session?.user?.id) return {} as any;
+
+  return await AccountRepository.total();
+}
+
 export async function accountAllUseCase({
   q = "",
   page = 1,

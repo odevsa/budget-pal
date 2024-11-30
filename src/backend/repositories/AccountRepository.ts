@@ -17,6 +17,10 @@ export default class AccountRepository {
     }
   }
 
+  public static async total(): Promise<number> {
+    return await DB.accounts.count();
+  }
+
   public static async all({
     where = {},
     orderBy = {},

@@ -15,6 +15,13 @@ export async function categorySaveUseCase(
   return await CategoryRepository.save({ ...data, userId: session?.user.id });
 }
 
+export async function categoryTotalUseCase(): Promise<number> {
+  const session = await auth();
+  if (!session?.user?.id) return {} as any;
+
+  return await CategoryRepository.total();
+}
+
 export async function categoryAllUseCase({
   q = "",
   page = 1,
