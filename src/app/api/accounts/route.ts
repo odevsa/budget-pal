@@ -1,14 +1,38 @@
 import { auth } from "@/auth";
 import BackendFacade from "@/backend";
-import { NextResponse } from "next/server";
+import { Account, validationAccountCreate } from "@/core/models/Account";
+import { getTranslations } from "next-intl/server";
+import { z } from "zod";
+import {
+  responseBadRequest,
+  responseOk,
+  responseOkPage,
+  responseUnauthenticated,
+} from "../response";
 
 export const GET = auth(async (request) => {
-  if (!request.auth)
-    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  if (!request.auth) return responseUnauthenticated();
 
   const page = await BackendFacade.accounts.all();
 
-  return new Response(JSON.stringify(page), {
-    status: 200,
-  });
+  return responseOkPage(page);
+});
+
+export const POST = auth(async (request) => {
+  if (!request.auth) return responseUnauthenticated();
+
+  const t = await getTranslations();
+  const data = (await request.json()) as Account;
+  const validation = z.object(validationAccountCreate).safeParse(data);
+  if (!validation.success)
+    return responseBadRequest(validation.error.flatten().fieldErrors);
+
+  const saved = await BackendFacade.accounts.save(data);
+
+  if (!saved)
+    return responseBadRequest({
+      message: t("crud.message.saveFailure"),
+    });
+
+  return responseOk(saved);
 });

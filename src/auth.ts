@@ -21,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (
           !user ||
-          !(await BackendFacade.users.verify(user?.email!, password as string))
+          !(await BackendFacade.users.verify(user?.email, password as string))
         )
           throw new InvalidCredentialsSignin();
 
@@ -44,14 +44,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async jwt({ token, user }) {
       if (user) {
-        const databaseUser = await BackendFacade.users.byEmail(user.email!);
-        token.userId = databaseUser?.id;
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.image = user.image;
       }
       return token;
     },
     async session({ session, token }) {
-      if (token && token.userId) {
-        (session.user as { id: number }).id = token.userId as number;
+      if (token?.id) {
+        (session.user as { id: number }).id = parseInt(token.id as string);
       }
       return session;
     },

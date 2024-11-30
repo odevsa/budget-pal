@@ -11,12 +11,14 @@ import { getTranslations } from "next-intl/server";
 export default async function Accounts({
   searchParams,
 }: {
-  searchParams: { q: string; page: string };
+  readonly searchParams: Promise<{ q: string; page: string }>;
 }) {
   const t = await getTranslations();
-  const q = (await searchParams).q;
-  const page = parseInt((await searchParams).page || "1");
-  const pagination = await BackendFacade.accounts.all({ q, page });
+  const { q, page } = await searchParams;
+  const pagination = await BackendFacade.accounts.all({
+    q,
+    page: parseInt(page || "1"),
+  });
 
   return (
     <GenericPage
