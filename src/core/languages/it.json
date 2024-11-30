@@ -61,10 +61,7 @@
       "deleteFailure": "Impossibile eliminare!"
     }
   },
-  "dashboard": {
-    "title": "Pannello"
-  },
-  "accounts": {
-    "title": "Conti"
-  }
+  "dashboard": {},
+  "accounts": {},
+  "categories": {}
 }

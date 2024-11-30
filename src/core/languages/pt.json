@@ -61,10 +61,7 @@
       "deleteFailure": "Não foi possível excluir!"
     }
   },
-  "dashboard": {
-    "title": "Painel"
-  },
-  "accounts": {
-    "title": "Contas"
-  }
+  "dashboard": {},
+  "accounts": {},
+  "categories": {}
 }

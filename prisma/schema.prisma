@@ -19,6 +19,7 @@ model Users {
   createdAt DateTime @default(now()) @map("created_at")
 
   accounts Accounts[]
+  categories Categories[]
 
   @@map("users")
 }
@@ -33,4 +34,16 @@ model Accounts {
 
   @@unique([userId, title])
   @@map("accounts")
+}
+
+model Categories {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  title     String
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  user Users @relation(fields: [userId], references: [id])
+
+  @@unique([userId, title])
+  @@map("categories")
 }

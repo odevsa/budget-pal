@@ -22,7 +22,7 @@ export default async function Accounts({
 
   return (
     <GenericPage
-      title={t("accounts.title")}
+      title={t("menu.accounts")}
       icon={<WalletIcon />}
       actions={
         <>

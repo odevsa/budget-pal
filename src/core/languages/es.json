@@ -61,10 +61,7 @@
       "deleteFailure": "¡No se pudo eliminar!"
     }
   },
-  "dashboard": {
-    "title": "Panel"
-  },
-  "accounts": {
-    "title": "Cuentas"
-  }
+  "dashboard": {},
+  "accounts": {},
+  "categories": {}
 }

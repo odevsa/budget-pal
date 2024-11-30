@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Account } from "@/core/models/Account";
+import { Category } from "@/core/models/Category";
 import { useToast } from "@/hooks/use-toast";
 import { WalletIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -14,25 +14,25 @@ import { useRouter } from "@/i18n/routing";
 
 const INITIAL_STATE = {
   title: "",
-} as Account;
+} as Category;
 
-export default function AccountsForm({
+export default function CategoriesForm({
   data = INITIAL_STATE,
 }: {
-  data?: Account;
+  data?: Category;
 }) {
   const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
   const [formState, setFormState] = useState<FormActionState>();
-  const [formData, setFormData] = useState<Account>(data);
+  const [formData, setFormData] = useState<Category>(data);
 
   useEffect(() => {
     setFormData(data);
   }, [data]);
 
   const backToList = () => {
-    router.push("/accounts");
+    router.push("/categories");
   };
 
   const handleResponse = (state: FormActionState) => {
@@ -59,7 +59,7 @@ export default function AccountsForm({
   };
 
   return (
-    <GenericPage title={t("menu.accounts")} icon={<WalletIcon />}>
+    <GenericPage title={t("menu.categories")} icon={<WalletIcon />}>
       <GenericForm
         title={!formData?.id ? t("crud.create") : t("crud.edit")}
         action={saveAction}

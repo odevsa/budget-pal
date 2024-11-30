@@ -61,10 +61,7 @@
       "deleteFailure": "Wasn't possible to delete!"
     }
   },
-  "dashboard": {
-    "title": "Dashboard"
-  },
-  "accounts": {
-    "title": "Accounts"
-  }
+  "dashboard": {},
+  "accounts": {},
+  "categories": {}
 }

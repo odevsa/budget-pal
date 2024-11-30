@@ -5,6 +5,12 @@ import {
   accountSaveUseCase,
 } from "./usecases/account";
 import {
+  categoryAllUseCase,
+  categoryByIdUseCase,
+  categoryDeleteUseCase,
+  categorySaveUseCase,
+} from "./usecases/category";
+import {
   userByEmailUseCase,
   userSaveUseCase,
   userVerifyUseCase,
@@ -22,5 +28,12 @@ export default class BackendFacade {
     all: accountAllUseCase,
     byId: accountByIdUseCase,
     delete: accountDeleteUseCase,
+  };
+
+  static readonly categories = {
+    save: categorySaveUseCase,
+    all: categoryAllUseCase,
+    byId: categoryByIdUseCase,
+    delete: categoryDeleteUseCase,
   };
 }

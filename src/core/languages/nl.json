@@ -61,10 +61,7 @@
       "deleteFailure": "Verwijderen mislukt!"
     }
   },
-  "dashboard": {
-    "title": "Dashboard"
-  },
-  "accounts": {
-    "title": "Rekeningen"
-  }
+  "dashboard": {},
+  "accounts": {},
+  "categories": {}
 }

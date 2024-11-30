@@ -27,16 +27,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "@/i18n/routing";
 import { EditIcon, TrashIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import GenericPagination from "./generic-pagination";
-import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
 
 export default function GenericList({
   data = [],
-  q,
   page = 1,
   total,
   lastPage = 1,
@@ -45,7 +44,6 @@ export default function GenericList({
   actionDelete,
 }: Readonly<{
   data: any[];
-  q?: string;
   page?: number;
   total?: number;
   lastPage?: number;

@@ -61,10 +61,7 @@
       "deleteFailure": "Löschen fehlgeschlagen!"
     }
   },
-  "dashboard": {
-    "title": "Dashboard"
-  },
-  "accounts": {
-    "title": "Konten"
-  }
+  "dashboard": {},
+  "accounts": {},
+  "categories": {}
 }

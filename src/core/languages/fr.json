@@ -61,10 +61,7 @@
       "deleteFailure": "Impossible de supprimer !"
     }
   },
-  "dashboard": {
-    "title": "Tableau de bord"
-  },
-  "accounts": {
-    "title": "Comptes"
-  }
+  "dashboard": {},
+  "accounts": {},
+  "categories": {}
 }

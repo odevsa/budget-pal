@@ -61,10 +61,7 @@
       "deleteFailure": "Не удалось удалить!"
     }
   },
-  "dashboard": {
-    "title": "Панель управления"
-  },
-  "accounts": {
-    "title": "Аккаунты"
-  }
+  "dashboard": {},
+  "accounts": {},
+  "categories": {}
 }
