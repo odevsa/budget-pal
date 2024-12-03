@@ -63,5 +63,11 @@
   },
   "dashboard": {},
   "accounts": {},
-  "categories": {}
+  "categories": {},
+  "invoices": {
+    "value": "Waarde",
+    "isInput": "Ontvangen",
+    "isActive": "Actief",
+    "dueDay": "Vervaldag"
+  }
 }

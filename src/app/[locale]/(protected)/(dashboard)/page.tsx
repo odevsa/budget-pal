@@ -1,14 +1,14 @@
+import BackendFacade from "@/backend";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link } from "@/i18n/routing";
 import { LayoutDashboardIcon, TagIcon, WalletIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import PageTitle from "../_components/page-title";
-import BackendFacade from "@/backend";
-import { Link } from "@/i18n/routing";
 
 export default async function Panel() {
   const t = await getTranslations();

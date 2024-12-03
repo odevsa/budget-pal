@@ -63,5 +63,11 @@
   },
   "dashboard": {},
   "accounts": {},
-  "categories": {}
+  "categories": {},
+  "invoices": {
+    "value": "Valor",
+    "isInput": "Recibir",
+    "isActive": "Activo",
+    "dueDay": "Día de Vencimiento"
+  }
 }

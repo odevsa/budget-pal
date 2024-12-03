@@ -1,12 +1,48 @@
-import { ReceiptIcon } from "lucide-react";
+import BackendFacade from "@/backend";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
+import { PlusIcon, ReceiptIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import PageTitle from "../_components/page-title";
+import GenericList from "../_components/generic-list";
+import GenericPage from "../_components/generic-page";
+import GenericSearch from "../_components/generic-search";
+import { deleteAction } from "./actions";
 
-export default async function Invoices() {
+export default async function Invoices({
+  searchParams,
+}: {
+  readonly searchParams: Promise<{ q: string; page: string }>;
+}) {
   const t = await getTranslations();
+  const { q, page } = await searchParams;
+  const pagination = await BackendFacade.invoices.all({
+    q,
+    page: parseInt(page || "1"),
+  });
+
   return (
-    <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
-      <PageTitle title={t("menu.invoices")} icon={<ReceiptIcon />} />
-    </div>
+    <GenericPage
+      title={t("menu.invoices")}
+      icon={<ReceiptIcon />}
+      actions={
+        <>
+          <GenericSearch q={q} />
+
+          <Link href={"/invoices/new"}>
+            <Button variant={"success"}>
+              <PlusIcon /> {t("crud.new")}
+            </Button>
+          </Link>
+        </>
+      }
+    >
+      <GenericList
+        data={pagination.data}
+        lastPage={pagination.lastPage}
+        page={pagination.page}
+        editPath="/invoices/edit/[id]"
+        actionDelete={deleteAction}
+      />
+    </GenericPage>
   );
 }

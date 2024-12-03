@@ -1,16 +1,16 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Category } from "@/core/models/Category";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "@/i18n/routing";
 import { WalletIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import GenericForm, { FormActionState } from "../_components/generic-form";
+import GenericInput from "../_components/generic-input";
 import GenericPage from "../_components/generic-page";
 import { saveAction } from "./actions";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/routing";
 
 const INITIAL_STATE = {
   title: "",
@@ -67,25 +67,19 @@ export default function CategoriesForm({
         onCancel={backToList}
       >
         {data.id && <Input name="id" value={data.id} type="hidden" />}
-        <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="title">{t("crud.title")}</Label>
-          <Input
-            id="title"
-            name="title"
-            value={formData?.title}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                title: e.currentTarget.value,
-              })
-            }
-          />
-          {formState?.errors?.title && (
-            <span className="text-destructive font-bold text-xs">
-              {formState.errors.title}
-            </span>
-          )}
-        </div>
+
+        <GenericInput
+          title={t("crud.title")}
+          name="title"
+          error={formState?.errors?.title}
+          value={formData?.title}
+          onChange={(value) =>
+            setFormData({
+              ...formData,
+              title: value,
+            })
+          }
+        />
       </GenericForm>
     </GenericPage>
   );

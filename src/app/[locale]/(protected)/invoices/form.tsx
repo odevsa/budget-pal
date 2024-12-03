@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Account } from "@/core/models/Account";
+import { Invoice } from "@/core/models/Invoice";
 import { useToast } from "@/hooks/use-toast";
 import { WalletIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -12,28 +12,32 @@ import { saveAction } from "./actions";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 import GenericInput from "../_components/generic-input";
+import GenericSwitch from "../_components/generic-switch";
 
 const INITIAL_STATE = {
   title: "",
-} as Account;
+  value: 0,
+  isInput: false,
+  isActive: true,
+} as Invoice;
 
-export default function AccountsForm({
+export default function InvoicesForm({
   data = INITIAL_STATE,
 }: {
-  data?: Account;
+  data?: Invoice;
 }) {
   const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
   const [formState, setFormState] = useState<FormActionState>();
-  const [formData, setFormData] = useState<Account>(data);
+  const [formData, setFormData] = useState<Invoice>(data);
 
   useEffect(() => {
     setFormData(data);
   }, [data]);
 
   const backToList = () => {
-    router.push("/accounts");
+    router.push("/invoices");
   };
 
   const handleResponse = (state: FormActionState) => {
@@ -60,7 +64,7 @@ export default function AccountsForm({
   };
 
   return (
-    <GenericPage title={t("menu.accounts")} icon={<WalletIcon />}>
+    <GenericPage title={t("menu.invoices")} icon={<WalletIcon />}>
       <GenericForm
         title={!formData?.id ? t("crud.create") : t("crud.edit")}
         action={saveAction}
@@ -68,7 +72,6 @@ export default function AccountsForm({
         onCancel={backToList}
       >
         {data.id && <Input name="id" value={data.id} type="hidden" />}
-
         <GenericInput
           title={t("crud.title")}
           name="title"
@@ -78,6 +81,60 @@ export default function AccountsForm({
             setFormData({
               ...formData,
               title: value,
+            })
+          }
+        />
+
+        <GenericInput
+          title={t("invoices.value")}
+          type="number"
+          name="value"
+          error={formState?.errors?.value}
+          value={formData?.value}
+          onChange={(value) =>
+            setFormData({
+              ...formData,
+              value: value,
+            })
+          }
+        />
+
+        <GenericInput
+          title={t("invoices.dueDay")}
+          type="number"
+          name="dueDay"
+          error={formState?.errors?.dueDay}
+          value={formData?.dueDay}
+          onChange={(value) =>
+            setFormData({
+              ...formData,
+              dueDay: value,
+            })
+          }
+        />
+
+        <GenericSwitch
+          title={t("invoices.isInput")}
+          name="isInput"
+          error={formState?.errors?.isInput}
+          value={formData?.isInput}
+          onChange={(value) =>
+            setFormData({
+              ...formData,
+              isInput: value,
+            })
+          }
+        />
+
+        <GenericSwitch
+          title={t("invoices.isActive")}
+          name="isActive"
+          error={formState?.errors?.isActive}
+          value={formData?.isActive}
+          onChange={(value) =>
+            setFormData({
+              ...formData,
+              isActive: value,
             })
           }
         />
