@@ -53,10 +53,10 @@ model Invoices {
   id        Int      @id @default(autoincrement())
   userId    Int      @map("user_id")
   title     String
-  value     Decimal?
+  value     Decimal
   isInput   Boolean  @map("is_input")
   isActive  Boolean  @map("is_active")
-  dueDay    DateTime @map("due_at")
+  dueDay    Int      @map("due_at")
   createdAt DateTime @default(now()) @map("created_at")
   
   user Users @relation(fields: [userId], references: [id])

@@ -3,10 +3,10 @@ CREATE TABLE "invoices" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
-    "value" DECIMAL,
+    "value" DECIMAL NOT NULL,
     "is_input" BOOLEAN NOT NULL,
     "is_active" BOOLEAN NOT NULL,
-    "due_at" DATETIME NOT NULL,
+    "due_at" INTEGER NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "invoices_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
