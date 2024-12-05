@@ -38,6 +38,13 @@ export default async function Invoices({
     >
       <GenericList
         data={pagination.data}
+        fields={[
+          { key: "id", label: "crud.id" },
+          { key: "title", label: "crud.title" },
+          { key: "value", label: "invoices.value", process: "maskDecimal" },
+          { key: "isInput", label: "invoices.isInput" },
+          { key: "isActive", label: "invoices.isActive" },
+        ]}
         lastPage={pagination.lastPage}
         page={pagination.page}
         editPath="/invoices/edit/[id]"

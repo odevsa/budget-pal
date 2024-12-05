@@ -39,7 +39,7 @@ export default class InvoiceRepository {
     });
 
     return {
-      data,
+      data: data.map((d) => ({ ...d, value: parseFloat(d.value.toString()) })),
       total,
       page,
       totalPerPage: take,

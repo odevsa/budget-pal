@@ -11,22 +11,22 @@ export const getString = (
   data: FormData,
   fields: string
 ): string | undefined => {
-  let value: any = (data.get(fields) as string).trim();
+  let value: any = data.get(fields) as string;
   if (!value) return;
-  return value;
+  return value.trim();
 };
 
 export const getNumber = (
   data: FormData,
   fields: string
 ): number | undefined => {
-  let value: any = (data.get(fields) as string).trim();
+  let value: any = data.get(fields) as string;
   if (isNaN(value) || isNaN(parseFloat(value))) return;
-  return parseFloat(value);
+  return parseFloat(value.trim());
 };
 
 export const getBoolean = (data: FormData, fields: string): boolean => {
-  return !!(data.get(fields) as string).trim();
+  return !!(data.get(fields) as string);
 };
 
 export const generateWhere = (

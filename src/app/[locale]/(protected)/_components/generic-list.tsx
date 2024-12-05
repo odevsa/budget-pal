@@ -33,13 +33,27 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import GenericPagination from "./generic-pagination";
+import { maskDecimal } from "@/core/mask";
+
+interface GenericListField {
+  key: string;
+  label?: string;
+  process?: string;
+}
+
+const process = {
+  maskDecimal,
+};
 
 export default function GenericList({
   data = [],
   page = 1,
   total,
   lastPage = 1,
-  fields = { id: "crud.id", title: "crud.title" },
+  fields = [
+    { key: "id", label: "crud.id" },
+    { key: "title", label: "crud.title" },
+  ],
   editPath,
   actionDelete,
 }: Readonly<{
@@ -47,7 +61,7 @@ export default function GenericList({
   page?: number;
   total?: number;
   lastPage?: number;
-  fields?: object;
+  fields?: GenericListField[];
   editPath?: string;
   actionDelete?(item: any): Promise<boolean>;
 }>) {
@@ -82,8 +96,8 @@ export default function GenericList({
         <Table>
           <TableHeader>
             <TableRow>
-              {Object.values(fields).map((title) => (
-                <TableHead key={title}>{t(title)}</TableHead>
+              {fields.map((field) => (
+                <TableHead key={field.label}>{t(field.label)}</TableHead>
               ))}
               {(editPath || actionDelete) && (
                 <TableHead className="text-right">
@@ -95,9 +109,11 @@ export default function GenericList({
           <TableBody>
             {data.map((item) => (
               <TableRow key={`item-${item.id}`}>
-                {Object.keys(fields).map((key) => (
-                  <TableCell key={`item-${item.id}-key-${key}`}>
-                    {item[key]}
+                {fields.map((field) => (
+                  <TableCell key={`item-${item.id}-key-${field.label}`}>
+                    {field.process
+                      ? process[field.process](item[field.key])
+                      : item[field.key]}
                   </TableCell>
                 ))}
 
