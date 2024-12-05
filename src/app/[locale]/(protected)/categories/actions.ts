@@ -2,6 +2,7 @@
 
 import BackendFacade from "@/backend";
 import { Category, validationCategoryCreate } from "@/core/models/Category";
+import { getNumber, getString } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { z } from "zod";
 
@@ -9,8 +10,8 @@ export async function saveAction(_previousState: any, formData: FormData) {
   const t = await getTranslations();
   const errors: any = {};
   const data = {
-    id: formData.get("id") ? parseInt(formData.get("id") as string) : undefined,
-    title: (formData.get("title") as string).trim(),
+    id: getNumber(formData, "id"),
+    title: getString(formData, "title"),
   };
 
   const validation = z.object(validationCategoryCreate).safeParse(data);

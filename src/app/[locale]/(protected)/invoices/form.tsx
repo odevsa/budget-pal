@@ -1,22 +1,23 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { maskDecimal, maskMonthDay } from "@/core/mask";
 import { Invoice } from "@/core/models/Invoice";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "@/i18n/routing";
 import { WalletIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import GenericForm, { FormActionState } from "../_components/generic-form";
-import GenericPage from "../_components/generic-page";
-import { saveAction } from "./actions";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/routing";
 import GenericInput from "../_components/generic-input";
+import GenericPage from "../_components/generic-page";
 import GenericSwitch from "../_components/generic-switch";
+import { saveAction } from "./actions";
 
 const INITIAL_STATE = {
   title: "",
   value: 0,
+  dueDay: 1,
   isInput: false,
   isActive: true,
 } as Invoice;
@@ -87,10 +88,10 @@ export default function InvoicesForm({
 
         <GenericInput
           title={t("invoices.value")}
-          type="number"
           name="value"
           error={formState?.errors?.value}
-          value={formData?.value}
+          value={formData?.value as number}
+          mask={maskDecimal}
           onChange={(value) =>
             setFormData({
               ...formData,
@@ -101,10 +102,13 @@ export default function InvoicesForm({
 
         <GenericInput
           title={t("invoices.dueDay")}
-          type="number"
           name="dueDay"
+          type="number"
+          min={1}
+          max={31}
           error={formState?.errors?.dueDay}
           value={formData?.dueDay}
+          mask={maskMonthDay}
           onChange={(value) =>
             setFormData({
               ...formData,
@@ -117,8 +121,8 @@ export default function InvoicesForm({
           title={t("invoices.isInput")}
           name="isInput"
           error={formState?.errors?.isInput}
-          value={formData?.isInput}
-          onChange={(value) =>
+          checked={formData?.isInput}
+          onCheckedChange={(value) =>
             setFormData({
               ...formData,
               isInput: value,
@@ -130,8 +134,8 @@ export default function InvoicesForm({
           title={t("invoices.isActive")}
           name="isActive"
           error={formState?.errors?.isActive}
-          value={formData?.isActive}
-          onChange={(value) =>
+          checked={formData?.isActive}
+          onCheckedChange={(value) =>
             setFormData({
               ...formData,
               isActive: value,

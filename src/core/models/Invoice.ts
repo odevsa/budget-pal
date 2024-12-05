@@ -12,7 +12,7 @@ export interface Invoice {
   createdAt?: Date;
 }
 
-export const validationCategoryCreate = {
+export const validationInvoiceCreate = {
   title: z.string().min(3).max(30),
   value: z.number().min(0),
   isInput: z.boolean(),
@@ -20,4 +20,4 @@ export const validationCategoryCreate = {
   dueDay: z.number().min(1).max(31),
 };
 
-export const validationCategoryUpdate = validationCategoryCreate;
+export const validationInvoiceUpdate = validationInvoiceCreate;
