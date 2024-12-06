@@ -24,9 +24,9 @@ const INITIAL_STATE = {
 
 export default function InvoicesForm({
   data = INITIAL_STATE,
-}: {
+}: Readonly<{
   data?: Invoice;
-}) {
+}>) {
   const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
@@ -90,7 +90,7 @@ export default function InvoicesForm({
           title={t("invoices.value")}
           name="value"
           error={formState?.errors?.value}
-          value={formData?.value as number}
+          value={parseFloat(formData?.value.toString()).toFixed(2)}
           mask={maskDecimal}
           onChange={(value) =>
             setFormData({

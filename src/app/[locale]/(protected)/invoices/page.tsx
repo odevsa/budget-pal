@@ -39,11 +39,17 @@ export default async function Invoices({
       <GenericList
         data={pagination.data}
         fields={[
-          { key: "id", label: "crud.id" },
-          { key: "title", label: "crud.title" },
-          { key: "value", label: "invoices.value", process: "maskDecimal" },
-          { key: "isInput", label: "invoices.isInput" },
-          { key: "isActive", label: "invoices.isActive" },
+          { key: "id", position: "left", label: "crud.id" },
+          { key: "title", position: "left", label: "crud.title" },
+          { key: "isInput", label: "invoices.isInput", process: "boolean" },
+          { key: "isActive", label: "invoices.isActive", process: "active" },
+          {
+            key: "value",
+            position: "right",
+            label: "invoices.value",
+            class: "text-nowrap",
+            process: "monetary",
+          },
         ]}
         lastPage={pagination.lastPage}
         page={pagination.page}

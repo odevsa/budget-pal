@@ -4,9 +4,9 @@ import { redirect } from "@/i18n/routing";
 
 export default async function InvoicesNew({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ locale: string; id: string }>;
-}) {
+}>) {
   const { locale, id } = await params;
   const item = await BackendFacade.invoices.byId(parseInt(id));
   if (!item) redirect({ href: "/invoices", locale });

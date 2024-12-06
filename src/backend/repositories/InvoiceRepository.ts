@@ -49,7 +49,8 @@ export default class InvoiceRepository {
 
   public static async byId(id: number): Promise<Invoice | undefined> {
     try {
-      return (await DB.invoices.findUnique({ where: { id } })) as Invoice;
+      const item = (await DB.invoices.findUnique({ where: { id } })) as Invoice;
+      return { ...item, value: parseFloat(item.value.toString()) };
     } catch (e: any) {
       return undefined;
     }

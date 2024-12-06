@@ -34,16 +34,16 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import GenericPagination from "./generic-pagination";
 import { maskDecimal } from "@/core/mask";
+import { cn } from "@/lib/utils";
+import { boolean } from "zod";
 
 interface GenericListField {
   key: string;
+  position?: "left" | "center" | "right";
   label?: string;
   process?: string;
+  class?: string;
 }
-
-const process = {
-  maskDecimal,
-};
 
 export default function GenericList({
   data = [],
@@ -51,8 +51,8 @@ export default function GenericList({
   total,
   lastPage = 1,
   fields = [
-    { key: "id", label: "crud.id" },
-    { key: "title", label: "crud.title" },
+    { key: "id", position: "left", label: "crud.id" },
+    { key: "title", position: "left", label: "crud.title" },
   ],
   editPath,
   actionDelete,
@@ -69,6 +69,13 @@ export default function GenericList({
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const process = {
+    maskDecimal,
+    monetary: (v: number) => "$ " + v.toFixed(2),
+    boolean: (v: boolean) => (v ? t("crud.yes") : t("crud.no")),
+    active: (v: boolean) => (v ? t("crud.active") : t("crud.inactive")),
+  };
 
   const handleDelete = async (item: any) => {
     if (!actionDelete) return;
@@ -97,10 +104,18 @@ export default function GenericList({
           <TableHeader>
             <TableRow>
               {fields.map((field) => (
-                <TableHead key={field.label}>{t(field.label)}</TableHead>
+                <TableHead
+                  key={field.label}
+                  className={cn(
+                    "font-bold",
+                    `text-${field.position ?? "center"}`
+                  )}
+                >
+                  {t(field.label)}
+                </TableHead>
               ))}
               {(editPath || actionDelete) && (
-                <TableHead className="text-right">
+                <TableHead className="text-right font-bold">
                   {t("crud.actions")}
                 </TableHead>
               )}
@@ -109,13 +124,27 @@ export default function GenericList({
           <TableBody>
             {data.map((item) => (
               <TableRow key={`item-${item.id}`}>
-                {fields.map((field) => (
-                  <TableCell key={`item-${item.id}-key-${field.label}`}>
-                    {field.process
-                      ? process[field.process](item[field.key])
-                      : item[field.key]}
-                  </TableCell>
-                ))}
+                {fields.map((field) => {
+                  const processFunction = field.process
+                    ? (process[
+                        field.process as keyof typeof process
+                      ] as Function)
+                    : null;
+
+                  return (
+                    <TableCell
+                      key={`item-${item.id}-key-${field.label}`}
+                      className={cn(
+                        `text-${field.position ?? "center"}`,
+                        field.class
+                      )}
+                    >
+                      {processFunction
+                        ? processFunction(item[field.key])
+                        : item[field.key]}
+                    </TableCell>
+                  );
+                })}
 
                 {(editPath || actionDelete) && (
                   <TableCell className="flex flex-row gap-2 justify-end">
