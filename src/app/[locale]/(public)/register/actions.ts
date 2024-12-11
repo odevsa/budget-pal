@@ -5,7 +5,6 @@ import BackendFacade from "@/backend";
 import { User, validationUserRegister } from "@/core/models/User";
 import { getTranslations } from "next-intl/server";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { z } from "zod";
 
 export async function registerAction(_previousState: any, formData: FormData) {
   const t = await getTranslations();
@@ -16,7 +15,7 @@ export async function registerAction(_previousState: any, formData: FormData) {
     password: formData.get("password") as string,
   };
 
-  const validation = z.object(validationUserRegister).safeParse(data);
+  const validation = validationUserRegister.safeParse(data);
 
   if (!validation.success)
     return {

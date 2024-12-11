@@ -2,7 +2,6 @@ import { auth } from "@/auth";
 import BackendFacade from "@/backend";
 import { Account, validationAccountUpdate } from "@/core/models/Account";
 import { getTranslations } from "next-intl/server";
-import { z } from "zod";
 import {
   responseBadRequest,
   responseNoContent,
@@ -34,7 +33,7 @@ export const PUT = auth(async (request, { params }) => {
   const data = await request.json();
   const dataToEdit = { ...data, id: parseInt(id) } as Account;
 
-  const validation = z.object(validationAccountUpdate).safeParse(dataToEdit);
+  const validation = validationAccountUpdate.safeParse(dataToEdit);
   if (!validation.success)
     return responseBadRequest(validation.error.flatten().fieldErrors);
 

@@ -36,7 +36,8 @@
     "invoices": "Invoices",
     "accounts": "Accounts",
     "categories": "Categories",
-    "settings": "Settings"
+    "settings": "Settings",
+    "report": "Report"
   },
   "crud": {
     "search": "Search...",
@@ -73,5 +74,15 @@
     "isInput": "Receive",
     "isActive": "Active",
     "dueDay": "Due Day"
+  },
+  "transactions": {
+    "description": "Fill correctly the fields bellow",
+    "pay": "Pay",
+    "receive": "Receive",
+    "value": "Value",
+    "transfer": "Transfer"
+  },
+  "reports": {
+    "monthly": "Monthly Report"
   }
 }

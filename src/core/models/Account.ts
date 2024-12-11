@@ -7,8 +7,8 @@ export interface Account {
   createdAt?: Date;
 }
 
-export const validationAccountCreate = {
+export const validationAccountCreate = z.object({
   title: z.string().min(3).max(30),
-};
+});
 
 export const validationAccountUpdate = validationAccountCreate;

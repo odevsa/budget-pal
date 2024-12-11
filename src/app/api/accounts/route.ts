@@ -2,7 +2,6 @@ import { auth } from "@/auth";
 import BackendFacade from "@/backend";
 import { Account, validationAccountCreate } from "@/core/models/Account";
 import { getTranslations } from "next-intl/server";
-import { z } from "zod";
 import {
   responseBadRequest,
   responseOk,
@@ -23,7 +22,7 @@ export const POST = auth(async (request) => {
 
   const t = await getTranslations();
   const data = (await request.json()) as Account;
-  const validation = z.object(validationAccountCreate).safeParse(data);
+  const validation = validationAccountCreate.safeParse(data);
   if (!validation.success)
     return responseBadRequest(validation.error.flatten().fieldErrors);
 

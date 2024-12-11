@@ -4,7 +4,6 @@ import { signIn } from "@/auth";
 import { validationUserLogin } from "@/core/models/User";
 import { getTranslations } from "next-intl/server";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { z } from "zod";
 
 export async function loginAction(_previousState: any, formData: FormData) {
   const t = await getTranslations();
@@ -15,7 +14,7 @@ export async function loginAction(_previousState: any, formData: FormData) {
     redirectTo: formData.get("callback") as string,
   };
 
-  const validation = z.object(validationUserLogin).safeParse(data);
+  const validation = validationUserLogin.safeParse(data);
 
   if (!validation.success)
     return {

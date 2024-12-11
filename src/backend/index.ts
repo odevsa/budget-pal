@@ -20,6 +20,13 @@ import {
   invoiceTotalUseCase,
 } from "./usecases/invoices";
 import {
+  transactionAllUseCase,
+  transactionByIdUseCase,
+  transactionDeleteUseCase,
+  transactionSaveUseCase,
+  transactionTotalUseCase,
+} from "./usecases/transactions";
+import {
   userByEmailUseCase,
   userSaveUseCase,
   userVerifyUseCase,
@@ -54,5 +61,13 @@ export default class BackendFacade {
     all: invoiceAllUseCase,
     byId: invoiceByIdUseCase,
     delete: invoiceDeleteUseCase,
+  };
+
+  static readonly transactions = {
+    save: transactionSaveUseCase,
+    total: transactionTotalUseCase,
+    all: transactionAllUseCase,
+    byId: transactionByIdUseCase,
+    delete: transactionDeleteUseCase,
   };
 }

@@ -4,7 +4,6 @@ import BackendFacade from "@/backend";
 import { Account, validationAccountCreate } from "@/core/models/Account";
 import { getNumber, getString } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
-import { z } from "zod";
 
 export async function saveAction(_previousState: any, formData: FormData) {
   const t = await getTranslations();
@@ -14,7 +13,7 @@ export async function saveAction(_previousState: any, formData: FormData) {
     title: getString(formData, "title"),
   };
 
-  const validation = z.object(validationAccountCreate).safeParse(data);
+  const validation = validationAccountCreate.safeParse(data);
   if (!validation.success)
     return {
       success: false,

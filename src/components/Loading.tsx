@@ -4,11 +4,13 @@ export const Loading = ({
   size = 48,
   visible = false,
   children,
+  className,
   ...props
 }: {
   size?: number;
   visible: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  className?: string;
 }) => {
   return (
     <div className={cn("relative")}>
@@ -31,7 +33,9 @@ export const Loading = ({
           <path d="M21 12a9 9 0 1 1-6.219-8.56" />
         </svg>
       )}
-      <div className={cn(visible ? "opacity-40" : "")}>{children}</div>
+      <div className={cn(visible ? "opacity-40" : "", className)}>
+        {children}
+      </div>
     </div>
   );
 };

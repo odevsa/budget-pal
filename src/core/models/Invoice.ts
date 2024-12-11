@@ -12,12 +12,12 @@ export interface Invoice {
   createdAt?: Date;
 }
 
-export const validationInvoiceCreate = {
+export const validationInvoiceCreate = z.object({
   title: z.string().min(3).max(30),
   value: z.number().min(0),
   isInput: z.boolean(),
   isActive: z.boolean(),
   dueDay: z.number().min(1).max(31),
-};
+});
 
 export const validationInvoiceUpdate = validationInvoiceCreate;

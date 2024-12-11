@@ -92,6 +92,7 @@ export default function InvoicesForm({
           error={formState?.errors?.value}
           value={parseFloat(formData?.value.toString()).toFixed(2)}
           mask={maskDecimal}
+          className="text-right"
           onChange={(value) =>
             setFormData({
               ...formData,

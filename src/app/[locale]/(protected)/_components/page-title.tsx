@@ -10,7 +10,7 @@ export default function PageTitle({
   return (
     <div className="flex flex-row justify-between gap-2 py-2">
       <div className="flex flex-row justify-between items-center gap-2">
-        {icon && icon}
+        {icon}
         {title && <h1 className="text-lg font-bold">{title}</h1>}
       </div>
       {children && (

@@ -1,17 +1,26 @@
 import BackendFacade from "@/backend";
+import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Link } from "@/i18n/routing";
-import { LayoutDashboardIcon, TagIcon, WalletIcon } from "lucide-react";
+  ArrowLeftRightIcon,
+  HandCoinsIcon,
+  LayoutDashboardIcon,
+  ReceiptIcon,
+  TagIcon,
+  WalletIcon,
+} from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import DialogFormTransaction from "../_components/dialog-form-transaction";
+import GenericWidget from "../_components/generic-widget";
 import PageTitle from "../_components/page-title";
+import WidgetTransaction from "../_components/widget-transaction";
+import { Account } from "@/core/models/Account";
 
 export default async function Panel() {
   const t = await getTranslations();
+  const accounts: Account[] = [
+    { id: 1, title: "Conta Poupanća" } as Account,
+    { id: 2, title: "Conta Corrente" } as Account,
+  ];
   const amountAccounts = await BackendFacade.accounts.total();
   const amountCategories = await BackendFacade.categories.total();
 
@@ -20,33 +29,41 @@ export default async function Panel() {
       <PageTitle title={t("menu.dashboard")} icon={<LayoutDashboardIcon />} />
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex flex-row gap-2">
-              <WalletIcon />
-              <span>{t("menu.accounts")}</span>
-            </CardTitle>
-            <CardDescription className="text-right text-white">
-              <span className="text-7xl">
-                <Link href="/accounts">{amountAccounts}</Link>
-              </span>
-            </CardDescription>
-          </CardHeader>
-        </Card>
+        <div className="col-span-full">
+          <WidgetTransaction title="reports.monthly">
+            <DialogFormTransaction accounts={accounts}>
+              <Button variant={"destructive"} size={"xs"}>
+                <ReceiptIcon />
+                {t("transactions.pay")}
+              </Button>
+            </DialogFormTransaction>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex flex-row gap-2">
-              <TagIcon />
-              <span>{t("menu.categories")}</span>
-            </CardTitle>
-            <CardDescription className="text-right text-white">
-              <span className="text-7xl">
-                <Link href="/categories">{amountCategories}</Link>
-              </span>
-            </CardDescription>
-          </CardHeader>
-        </Card>
+            <DialogFormTransaction accounts={accounts}>
+              <Button variant={"success"} size={"xs"}>
+                <HandCoinsIcon />
+                {t("transactions.receive")}
+              </Button>
+            </DialogFormTransaction>
+
+            <DialogFormTransaction accounts={accounts}>
+              <Button variant={"outline"} size={"xs"}>
+                <ArrowLeftRightIcon />
+                {t("transactions.transfer")}
+              </Button>
+            </DialogFormTransaction>
+          </WidgetTransaction>
+        </div>
+
+        {/* <GenericWidget
+          title="menu.accounts"
+          icon={<WalletIcon size={"auto"} />}
+          value={amountAccounts.toLocaleString()}
+        />
+        <GenericWidget
+          title="menu.categories"
+          icon={<TagIcon size={"auto"} />}
+          value={amountCategories.toLocaleString()}
+        /> */}
       </div>
     </div>
   );
