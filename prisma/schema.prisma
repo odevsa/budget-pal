@@ -32,6 +32,8 @@ model Accounts {
   createdAt DateTime @default(now()) @map("created_at")
   
   user Users @relation(fields: [userId], references: [id])
+  inputs Transactions[] @relation("AccountAsInput")
+  outputs Transactions[] @relation("AccountAsOutput")
 
   @@unique([userId, title])
   @@map("accounts")
@@ -63,4 +65,18 @@ model Invoices {
 
   @@unique([userId, title])
   @@map("invoices")
+}
+
+model Transactions {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  inputId   Int?     @map("input_id")
+  outputId  Int?     @map("output_id")
+  value     Decimal
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  input Accounts? @relation("AccountAsInput", fields: [inputId], references: [id])
+  output Accounts? @relation("AccountAsOutput", fields: [outputId], references: [id])
+  
+  @@map("transactions")
 }
