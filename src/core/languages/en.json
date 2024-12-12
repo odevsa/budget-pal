@@ -44,6 +44,7 @@
     "new": "New",
     "id": "#",
     "title": "Title",
+    "description": "Description",
     "active": "Active",
     "inactive": "Inactive",
     "actions": "Actions",
@@ -79,6 +80,8 @@
     "description": "Fill correctly the fields bellow",
     "pay": "Pay",
     "receive": "Receive",
+    "payFrom": "Pay from",
+    "receiveTo": "Receive to",
     "value": "Value",
     "transfer": "Transfer"
   },

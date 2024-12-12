@@ -33,8 +33,8 @@ export async function transactionAllUseCase({
   if (!session?.user?.id) return {} as any;
 
   return await TransactionRepository.all({
-    where: { userId: session?.user.id, ...generateWhere(q, ["title"]) },
-    orderBy: { title: "asc" },
+    where: { userId: session?.user.id, ...generateWhere(q, ["description"]) },
+    orderBy: { createdAt: "desc" },
     page,
   });
 }

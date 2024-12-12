@@ -5,17 +5,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TransactionType } from "@/core/models/Transaction";
 import { ChartPieIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export default async function WidgetTransaction({
   title = "menu.report",
-  variant = TransactionType.Transfer,
   children,
 }: Readonly<{
   title?: string;
-  variant?: TransactionType;
   children?: React.ReactNode;
 }>) {
   const t = await getTranslations();

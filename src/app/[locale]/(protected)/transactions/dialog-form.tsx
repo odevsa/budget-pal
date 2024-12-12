@@ -15,20 +15,25 @@ import {
 import { ArrowLeftRightIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import GenericInput from "./generic-input";
-import GenericSelect, { GenericSelectItem } from "./generic-select";
+import GenericInput from "../_components/generic-input";
+import GenericSelect, {
+  GenericSelectItem,
+} from "../_components/generic-select";
 import { Account } from "@/core/models/Account";
 import { maskDecimal } from "@/core/mask";
+import { TransactionType } from "@/core/models/Transaction";
 
 export interface FormActionState {
   success?: boolean;
   errors?: any;
 }
 
-export default function DialogFormTransaction({
+export default function TransactionDialogForm({
+  variant = TransactionType.Transfer,
   accounts,
   children,
 }: Readonly<{
+  variant?: TransactionType;
   accounts: Account[];
   children?: React.ReactNode;
 }>) {
@@ -70,28 +75,40 @@ export default function DialogFormTransaction({
             </Button>
           )}
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent>
           <DialogHeader>
-            <DialogTitle>{t("transactions.transfer")}</DialogTitle>
-            <DialogDescription>
-              {t("transactions.description")}
-            </DialogDescription>
+            <DialogTitle>{t(`transactions.${variant}`)}</DialogTitle>
           </DialogHeader>
           <Loading visible={loading} className="flex flex-col gap-4">
-            <GenericSelect
-              title={t("transactions.pay")}
-              name="output"
+            <GenericInput
+              title={t("crud.description")}
+              name="description"
               error={undefined}
-              items={items}
-              onChange={(value: any) => console.log(value)}
+              value={""}
+              onChange={(value) => console.log(value)}
             />
-            <GenericSelect
-              title={t("transactions.receive")}
-              name="input"
-              error={undefined}
-              items={items}
-              onChange={(value: any) => console.log(value)}
-            />
+            {[TransactionType.Transfer, TransactionType.Pay].includes(
+              variant
+            ) && (
+              <GenericSelect
+                title={t("transactions.payFrom")}
+                name="output"
+                error={undefined}
+                items={items}
+                onChange={(value: any) => console.log(value)}
+              />
+            )}
+            {[TransactionType.Transfer, TransactionType.Receive].includes(
+              variant
+            ) && (
+              <GenericSelect
+                title={t("transactions.receiveTo")}
+                name="input"
+                error={undefined}
+                items={items}
+                onChange={(value: any) => console.log(value)}
+              />
+            )}
             <GenericInput
               title={t("transactions.value")}
               name="value"

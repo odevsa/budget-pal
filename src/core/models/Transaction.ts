@@ -4,7 +4,8 @@ import { Account } from "./Account";
 
 export interface Transaction {
   id?: number;
-  userId: number;
+  userId?: number;
+  description: string;
   inputId?: number;
   outputId?: number;
   value: Decimal | number;
@@ -15,13 +16,14 @@ export interface Transaction {
 }
 
 export enum TransactionType {
-  Input = "input",
-  Output = "output",
+  Pay = "pay",
+  Receive = "receive",
   Transfer = "transfer",
 }
 
 export const validationTransactionCreate = z
   .object({
+    description: z.string().min(3).max(256),
     value: z.number().min(0),
     inputId: z.number().min(1).optional(),
     outputId: z.number().min(1).optional(),

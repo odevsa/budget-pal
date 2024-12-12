@@ -1,12 +1,65 @@
-import { ArrowLeftRightIcon } from "lucide-react";
-import PageTitle from "../_components/page-title";
+import BackendFacade from "@/backend";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
+import { ArrowLeftRightIcon, PlusIcon, ReceiptIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import GenericList from "../_components/generic-list";
+import GenericPage from "../_components/generic-page";
+import GenericSearch from "../_components/generic-search";
+import { deleteAction } from "./actions";
 
-export default async function Transactions() {
+export default async function Transaction({
+  searchParams,
+}: {
+  readonly searchParams: Promise<{ q: string; page: string }>;
+}) {
   const t = await getTranslations();
+  const { q, page } = await searchParams;
+  const pagination = await BackendFacade.transactions.all({
+    q,
+    page: parseInt(page || "1"),
+  });
+
   return (
-    <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
-      <PageTitle title={t("menu.transactions")} icon={<ArrowLeftRightIcon />} />
-    </div>
+    <GenericPage
+      title={t("menu.transactions")}
+      icon={<ArrowLeftRightIcon />}
+      actions={
+        <>
+          <GenericSearch q={q} />
+
+          <Link href={"/transactions/new"}>
+            <Button variant={"success"}>
+              <PlusIcon /> {t("crud.new")}
+            </Button>
+          </Link>
+        </>
+      }
+    >
+      <GenericList
+        data={pagination.data}
+        fields={[
+          { key: "id", position: "left", label: "crud.id" },
+          { key: "description", position: "left", label: "crud.description" },
+          { key: "inputId", label: "transactions.inputId", process: "boolean" },
+          {
+            key: "outputId",
+            label: "transactions.outputId",
+            process: "active",
+          },
+          {
+            key: "value",
+            position: "right",
+            label: "transactions.value",
+            class: "text-nowrap",
+            process: "monetary",
+          },
+        ]}
+        lastPage={pagination.lastPage}
+        page={pagination.page}
+        editPath="/transactions/edit/[id]"
+        actionDelete={deleteAction}
+      />
+    </GenericPage>
   );
 }
