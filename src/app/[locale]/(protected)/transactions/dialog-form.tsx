@@ -6,27 +6,22 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { maskDecimal } from "@/core/mask";
+import { Account } from "@/core/models/Account";
+import { TransactionType } from "@/core/models/Transaction";
 import { ArrowLeftRightIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import GenericInput from "../_components/generic-input";
 import GenericSelect, {
   GenericSelectItem,
 } from "../_components/generic-select";
-import { Account } from "@/core/models/Account";
-import { maskDecimal } from "@/core/mask";
-import { TransactionType } from "@/core/models/Transaction";
-
-export interface FormActionState {
-  success?: boolean;
-  errors?: any;
-}
+import { saveAction } from "./actions";
 
 export default function TransactionDialogForm({
   variant = TransactionType.Transfer,
@@ -38,14 +33,14 @@ export default function TransactionDialogForm({
   children?: React.ReactNode;
 }>) {
   const t = useTranslations();
-  // const [state, formAction] = useActionState(action, {});
+  const [state, formAction] = useActionState(saveAction, {});
   const [loading, setLoading] = useState<boolean>(false);
   const [items, setItems] = useState<GenericSelectItem[]>([]);
 
-  // useEffect(() => {
-  //   setLoading(false);
-  //   onResponse?.(state);
-  // }, [state]);
+  useEffect(() => {
+    setLoading(false);
+    console.log(state);
+  }, [state]);
 
   useEffect(() => {
     setItems(
@@ -63,7 +58,7 @@ export default function TransactionDialogForm({
   return (
     <Dialog>
       <form
-        // action={formAction}
+        action={formAction}
         onSubmit={handleSubmit}
         className="flex flex-col gap-3"
       >

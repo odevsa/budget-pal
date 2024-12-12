@@ -1,30 +1,37 @@
 "use server";
 
 import BackendFacade from "@/backend";
-import { Invoice, validationInvoiceCreate } from "@/core/models/Invoice";
-import { getBoolean, getNumber, getString } from "@/lib/utils";
+import {
+  Transaction,
+  validationTransactionCreate,
+} from "@/core/models/Transaction";
+import { getNumber, getString } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
+import { FormActionState } from "../_components/generic-form";
 
-export async function saveAction(_previousState: any, formData: FormData) {
+export async function saveAction(
+  _previousState: any,
+  formData: FormData
+): Promise<FormActionState> {
+  console.log("BACKEND", formData);
   const t = await getTranslations();
   const errors: any = {};
   const data = {
     id: getNumber(formData, "id"),
-    title: getString(formData, "title"),
+    description: getString(formData, "description"),
     value: getNumber(formData, "value"),
-    dueDay: getNumber(formData, "dueDay"),
-    isInput: getBoolean(formData, "isInput"),
-    isActive: getBoolean(formData, "isActive"),
+    inputId: getNumber(formData, "inputId"),
+    outputId: getNumber(formData, "outputId"),
   };
 
-  const validation = validationInvoiceCreate.safeParse(data);
+  const validation = validationTransactionCreate.safeParse(data);
   if (!validation.success)
     return {
       success: false,
       errors: validation.error.flatten().fieldErrors,
     };
 
-  const saved = await BackendFacade.invoices.save(data as Invoice);
+  const saved = await BackendFacade.transactions.save(data as Transaction);
 
   if (!saved) errors.message = t("crud.message.saveFailure");
 
@@ -34,8 +41,8 @@ export async function saveAction(_previousState: any, formData: FormData) {
   };
 }
 
-export async function deleteAction(data: Invoice): Promise<boolean> {
+export async function deleteAction(data: Transaction): Promise<boolean> {
   if (!data.id) return false;
 
-  return await BackendFacade.invoices.delete(data.id);
+  return await BackendFacade.transactions.delete(data.id);
 }

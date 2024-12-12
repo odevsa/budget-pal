@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { maskDecimal, maskMonthDay } from "@/core/mask";
+import { maskDecimal } from "@/core/mask";
 import { Transaction } from "@/core/models/Transaction";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "@/i18n/routing";
@@ -11,13 +11,11 @@ import { useEffect, useState } from "react";
 import GenericForm, { FormActionState } from "../_components/generic-form";
 import GenericInput from "../_components/generic-input";
 import GenericPage from "../_components/generic-page";
-import GenericSwitch from "../_components/generic-switch";
 import { saveAction } from "./actions";
 
 const INITIAL_STATE = {
   description: "",
   value: 0,
-  dueDay: 1,
 } as Transaction;
 
 export default function TransactionsForm({

@@ -6,12 +6,15 @@ import {
   HandCoinsIcon,
   LayoutDashboardIcon,
   ReceiptIcon,
+  TagIcon,
+  WalletIcon,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import PageTitle from "../_components/page-title";
 import WidgetTransaction from "../_components/widget-transaction";
 import TransactionDialogForm from "../transactions/dialog-form";
 import { TransactionType } from "@/core/models/Transaction";
+import GenericWidget from "../_components/generic-widget";
 
 export default async function Panel() {
   const t = await getTranslations();
@@ -55,16 +58,16 @@ export default async function Panel() {
           </WidgetTransaction>
         </div>
 
-        {/* <GenericWidget
+        <GenericWidget
           title="menu.accounts"
-          icon={<WalletIcon size={"auto"} />}
+          icon={<WalletIcon size={"100%"} />}
           value={amountAccounts.toLocaleString()}
         />
         <GenericWidget
           title="menu.categories"
-          icon={<TagIcon size={"auto"} />}
+          icon={<TagIcon size={"100%"} />}
           value={amountCategories.toLocaleString()}
-        /> */}
+        />
       </div>
     </div>
   );
