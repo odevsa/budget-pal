@@ -4,10 +4,10 @@ import { Account } from "./Account";
 
 export interface Transaction {
   id?: number;
-  userId?: number;
+  userId: number;
   description: string;
-  inputId?: number;
-  outputId?: number;
+  inputId?: number | null;
+  outputId?: number | null;
   value: Decimal | number;
   createdAt?: Date;
 

@@ -1,30 +1,34 @@
 import {
-  accountAllUseCase,
+  accountPageUseCase,
   accountByIdUseCase,
   accountDeleteUseCase,
   accountSaveUseCase,
   accountTotalUseCase,
+  accountAllUseCase,
 } from "./usecases/account";
 import {
-  categoryAllUseCase,
+  categoryPageUseCase,
   categoryByIdUseCase,
   categoryDeleteUseCase,
   categorySaveUseCase,
   categoryTotalUseCase,
+  categoryAllUseCase,
 } from "./usecases/category";
 import {
-  invoiceAllUseCase,
+  invoicePageUseCase,
   invoiceByIdUseCase,
   invoiceDeleteUseCase,
   invoiceSaveUseCase,
   invoiceTotalUseCase,
+  invoiceAllUseCase,
 } from "./usecases/invoices";
 import {
-  transactionAllUseCase,
+  transactionPageUseCase,
   transactionByIdUseCase,
   transactionDeleteUseCase,
   transactionSaveUseCase,
   transactionTotalUseCase,
+  transactionAllUseCase,
 } from "./usecases/transactions";
 import {
   userByEmailUseCase,
@@ -43,6 +47,7 @@ export default class BackendFacade {
     save: accountSaveUseCase,
     total: accountTotalUseCase,
     all: accountAllUseCase,
+    page: accountPageUseCase,
     byId: accountByIdUseCase,
     delete: accountDeleteUseCase,
   };
@@ -51,6 +56,7 @@ export default class BackendFacade {
     save: categorySaveUseCase,
     total: categoryTotalUseCase,
     all: categoryAllUseCase,
+    page: categoryPageUseCase,
     byId: categoryByIdUseCase,
     delete: categoryDeleteUseCase,
   };
@@ -59,6 +65,7 @@ export default class BackendFacade {
     save: invoiceSaveUseCase,
     total: invoiceTotalUseCase,
     all: invoiceAllUseCase,
+    page: invoicePageUseCase,
     byId: invoiceByIdUseCase,
     delete: invoiceDeleteUseCase,
   };
@@ -67,6 +74,7 @@ export default class BackendFacade {
     save: transactionSaveUseCase,
     total: transactionTotalUseCase,
     all: transactionAllUseCase,
+    page: transactionPageUseCase,
     byId: transactionByIdUseCase,
     delete: transactionDeleteUseCase,
   };

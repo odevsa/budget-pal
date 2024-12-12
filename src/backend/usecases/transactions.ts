@@ -3,7 +3,11 @@
 import { auth } from "@/auth";
 import TransactionRepository from "@/backend/repositories/TransactionRepository";
 import { Transaction } from "@/core/models/Transaction";
-import { Pagination, PaginationParams } from "@/core/models/Pagination";
+import {
+  Pagination,
+  PaginationParams,
+  SearchParams,
+} from "@/core/models/Pagination";
 import { generateWhere } from "@/lib/utils";
 
 export async function transactionSaveUseCase(
@@ -27,12 +31,24 @@ export async function transactionTotalUseCase(): Promise<number> {
 
 export async function transactionAllUseCase({
   q = "",
+}: SearchParams = {}): Promise<Transaction[]> {
+  const session = await auth();
+  if (!session?.user?.id) return {} as any;
+
+  return await TransactionRepository.all({
+    where: { userId: session?.user.id, ...generateWhere(q, ["title"]) },
+    orderBy: { title: "asc" },
+  });
+}
+
+export async function transactionPageUseCase({
+  q = "",
   page = 1,
 }: PaginationParams = {}): Promise<Pagination<Transaction>> {
   const session = await auth();
   if (!session?.user?.id) return {} as any;
 
-  return await TransactionRepository.all({
+  return await TransactionRepository.page({
     where: { userId: session?.user.id, ...generateWhere(q, ["description"]) },
     orderBy: { createdAt: "desc" },
     page,

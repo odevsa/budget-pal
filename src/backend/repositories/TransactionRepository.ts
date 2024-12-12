@@ -26,6 +26,16 @@ export default class TransactionRepository {
   public static async all({
     where = {},
     orderBy = {},
+  }): Promise<Transaction[]> {
+    return await DB.transactions.findMany({
+      where,
+      orderBy,
+    });
+  }
+
+  public static async page({
+    where = {},
+    orderBy = {},
     take = 10,
     page = 1,
   }): Promise<Pagination<Transaction>> {

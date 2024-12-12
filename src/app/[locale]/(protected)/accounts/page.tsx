@@ -15,7 +15,7 @@ export default async function Accounts({
 }) {
   const t = await getTranslations();
   const { q, page } = await searchParams;
-  const pagination = await BackendFacade.accounts.all({
+  const pagination = await BackendFacade.accounts.page({
     q,
     page: parseInt(page || "1"),
   });

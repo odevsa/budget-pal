@@ -15,7 +15,7 @@ export default async function Transaction({
 }) {
   const t = await getTranslations();
   const { q, page } = await searchParams;
-  const pagination = await BackendFacade.transactions.all({
+  const pagination = await BackendFacade.transactions.page({
     q,
     page: parseInt(page || "1"),
   });

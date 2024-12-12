@@ -21,7 +21,14 @@ export default class AccountRepository {
     return await DB.accounts.count();
   }
 
-  public static async all({
+  public static async all({ where = {}, orderBy = {} }): Promise<Account[]> {
+    return await DB.accounts.findMany({
+      where,
+      orderBy,
+    });
+  }
+
+  public static async page({
     where = {},
     orderBy = {},
     take = 10,

@@ -1,5 +1,8 @@
-export interface PaginationParams {
+export interface SearchParams {
   q?: string;
+}
+
+export interface PaginationParams extends SearchParams {
   page?: number;
 }
 

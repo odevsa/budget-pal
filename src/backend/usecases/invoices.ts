@@ -3,7 +3,11 @@
 import { auth } from "@/auth";
 import InvoiceRepository from "@/backend/repositories/InvoiceRepository";
 import { Invoice } from "@/core/models/Invoice";
-import { Pagination, PaginationParams } from "@/core/models/Pagination";
+import {
+  Pagination,
+  PaginationParams,
+  SearchParams,
+} from "@/core/models/Pagination";
 import { generateWhere } from "@/lib/utils";
 
 export async function invoiceSaveUseCase(
@@ -22,14 +26,26 @@ export async function invoiceTotalUseCase(): Promise<number> {
   return await InvoiceRepository.total();
 }
 
-export async function invoiceAllUseCase({
+export async function invoiceAllUseCase({ q = "" }: SearchParams = {}): Promise<
+  Invoice[]
+> {
+  const session = await auth();
+  if (!session?.user?.id) return {} as any;
+
+  return await InvoiceRepository.all({
+    where: { userId: session?.user.id, ...generateWhere(q, ["title"]) },
+    orderBy: { title: "asc" },
+  });
+}
+
+export async function invoicePageUseCase({
   q = "",
   page = 1,
 }: PaginationParams = {}): Promise<Pagination<Invoice>> {
   const session = await auth();
   if (!session?.user?.id) return {} as any;
 
-  return await InvoiceRepository.all({
+  return await InvoiceRepository.page({
     where: { userId: session?.user.id, ...generateWhere(q, ["title"]) },
     orderBy: { title: "asc" },
     page,

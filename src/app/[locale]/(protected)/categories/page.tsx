@@ -15,7 +15,7 @@ export default async function Categories({
 }) {
   const t = await getTranslations();
   const { q, page } = await searchParams;
-  const pagination = await BackendFacade.categories.all({
+  const pagination = await BackendFacade.categories.page({
     q,
     page: parseInt(page || "1"),
   });

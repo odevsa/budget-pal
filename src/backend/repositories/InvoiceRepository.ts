@@ -21,7 +21,14 @@ export default class InvoiceRepository {
     return await DB.invoices.count();
   }
 
-  public static async all({
+  public static async all({ where = {}, orderBy = {} }): Promise<Invoice[]> {
+    return await DB.invoices.findMany({
+      where,
+      orderBy,
+    });
+  }
+
+  public static async page({
     where = {},
     orderBy = {},
     take = 10,

@@ -3,7 +3,11 @@
 import { auth } from "@/auth";
 import CategoryRepository from "@/backend/repositories/CategoryRepository";
 import { Category } from "@/core/models/Category";
-import { Pagination, PaginationParams } from "@/core/models/Pagination";
+import {
+  Pagination,
+  PaginationParams,
+  SearchParams,
+} from "@/core/models/Pagination";
 import { generateWhere } from "@/lib/utils";
 
 export async function categorySaveUseCase(
@@ -24,12 +28,24 @@ export async function categoryTotalUseCase(): Promise<number> {
 
 export async function categoryAllUseCase({
   q = "",
+}: SearchParams = {}): Promise<Category[]> {
+  const session = await auth();
+  if (!session?.user?.id) return {} as any;
+
+  return await CategoryRepository.all({
+    where: { userId: session?.user.id, ...generateWhere(q, ["title"]) },
+    orderBy: { title: "asc" },
+  });
+}
+
+export async function categoryPageUseCase({
+  q = "",
   page = 1,
 }: PaginationParams = {}): Promise<Pagination<Category>> {
   const session = await auth();
   if (!session?.user?.id) return {} as any;
 
-  return await CategoryRepository.all({
+  return await CategoryRepository.page({
     where: { userId: session?.user.id, ...generateWhere(q, ["title"]) },
     orderBy: { title: "asc" },
     page,

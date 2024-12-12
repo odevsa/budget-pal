@@ -21,7 +21,14 @@ export default class CategoryRepository {
     return await DB.categories.count();
   }
 
-  public static async all({
+  public static async all({ where = {}, orderBy = {} }): Promise<Category[]> {
+    return await DB.categories.findMany({
+      where,
+      orderBy,
+    });
+  }
+
+  public static async page({
     where = {},
     orderBy = {},
     take = 10,

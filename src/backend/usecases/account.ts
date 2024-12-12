@@ -3,7 +3,11 @@
 import { auth } from "@/auth";
 import AccountRepository from "@/backend/repositories/AccountRepository";
 import { Account } from "@/core/models/Account";
-import { Pagination, PaginationParams } from "@/core/models/Pagination";
+import {
+  Pagination,
+  PaginationParams,
+  SearchParams,
+} from "@/core/models/Pagination";
 import { generateWhere } from "@/lib/utils";
 
 export async function accountSaveUseCase(
@@ -22,14 +26,26 @@ export async function accountTotalUseCase(): Promise<number> {
   return await AccountRepository.total();
 }
 
-export async function accountAllUseCase({
+export async function accountAllUseCase({ q = "" }: SearchParams = {}): Promise<
+  Account[]
+> {
+  const session = await auth();
+  if (!session?.user?.id) return {} as any;
+
+  return await AccountRepository.all({
+    where: { userId: session?.user.id, ...generateWhere(q, ["title"]) },
+    orderBy: { title: "asc" },
+  });
+}
+
+export async function accountPageUseCase({
   q = "",
   page = 1,
 }: PaginationParams = {}): Promise<Pagination<Account>> {
   const session = await auth();
   if (!session?.user?.id) return {} as any;
 
-  return await AccountRepository.all({
+  return await AccountRepository.page({
     where: { userId: session?.user.id, ...generateWhere(q, ["title"]) },
     orderBy: { title: "asc" },
     page,

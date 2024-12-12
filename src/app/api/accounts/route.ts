@@ -12,7 +12,7 @@ import {
 export const GET = auth(async (request) => {
   if (!request.auth) return responseUnauthenticated();
 
-  const page = await BackendFacade.accounts.all();
+  const page = await BackendFacade.accounts.page();
 
   return responseOkPage(page);
 });

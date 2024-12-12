@@ -15,11 +15,8 @@ import { TransactionType } from "@/core/models/Transaction";
 
 export default async function Panel() {
   const t = await getTranslations();
-  const accounts: Account[] = [
-    { id: 1, title: "Conta Poupanća" } as Account,
-    { id: 2, title: "Conta Corrente" } as Account,
-  ];
-  const amountAccounts = await BackendFacade.accounts.total();
+  const accounts = await BackendFacade.accounts.all();
+  const amountAccounts = accounts.length;
   const amountCategories = await BackendFacade.categories.total();
 
   return (

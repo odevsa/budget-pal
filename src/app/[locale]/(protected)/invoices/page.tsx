@@ -15,7 +15,7 @@ export default async function Invoices({
 }) {
   const t = await getTranslations();
   const { q, page } = await searchParams;
-  const pagination = await BackendFacade.invoices.all({
+  const pagination = await BackendFacade.invoices.page({
     q,
     page: parseInt(page || "1"),
   });
