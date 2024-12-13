@@ -11,28 +11,28 @@ datasource db {
 }
 
 model Users {
-  id          Int      @id @default(autoincrement())
-  email       String   @unique
-  password    String?
-  name        String
-  image       String?
-  createdAt   DateTime @default(now()) @map("created_at")
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String?
+  name      String
+  image     String?
+  createdAt DateTime @default(now()) @map("created_at")
 
-  accounts Accounts[]
+  accounts   Accounts[]
   categories Categories[]
-  invoices Invoices[]
+  invoices   Invoices[]
 
   @@map("users")
 }
 
 model Accounts {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  title       String
-  createdAt   DateTime @default(now()) @map("created_at")
-  
-  user Users @relation(fields: [userId], references: [id])
-  inputs Transactions[] @relation("AccountAsInput")
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  title     String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user    Users          @relation(fields: [userId], references: [id])
+  inputs  Transactions[] @relation("AccountAsInput")
   outputs Transactions[] @relation("AccountAsOutput")
 
   @@unique([userId, title])
@@ -40,11 +40,11 @@ model Accounts {
 }
 
 model Categories {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  title       String
-  createdAt   DateTime @default(now()) @map("created_at")
-  
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  title     String
+  createdAt DateTime @default(now()) @map("created_at")
+
   user Users @relation(fields: [userId], references: [id])
 
   @@unique([userId, title])
@@ -52,15 +52,15 @@ model Categories {
 }
 
 model Invoices {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  title       String
-  value       Decimal
-  isInput     Boolean  @map("is_input")
-  isActive    Boolean  @map("is_active")
-  dueDay      Int      @map("due_at")
-  createdAt   DateTime @default(now()) @map("created_at")
-  
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  title     String
+  value     Decimal
+  isInput   Boolean  @map("is_input")
+  isActive  Boolean  @map("is_active")
+  dueDay    Int      @map("due_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
   user Users @relation(fields: [userId], references: [id])
 
   @@unique([userId, title])
@@ -68,16 +68,17 @@ model Invoices {
 }
 
 model Transactions {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  description String
-  inputId     Int?     @map("input_id")
-  outputId    Int?     @map("output_id")
-  value       Decimal
-  createdAt   DateTime @default(now()) @map("created_at")
-  
-  input Accounts? @relation("AccountAsInput", fields: [inputId], references: [id])
+  id           Int      @id @default(autoincrement())
+  userId       Int      @map("user_id")
+  description  String
+  transactedAt DateTime @map("transacted_at")
+  inputId      Int?     @map("input_id")
+  outputId     Int?     @map("output_id")
+  value        Decimal
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  input  Accounts? @relation("AccountAsInput", fields: [inputId], references: [id])
   output Accounts? @relation("AccountAsOutput", fields: [outputId], references: [id])
-  
+
   @@map("transactions")
 }

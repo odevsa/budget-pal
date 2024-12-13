@@ -2,6 +2,8 @@
 CREATE TABLE "transactions" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER NOT NULL,
+    "description" TEXT NOT NULL,
+    "transacted_at" DATETIME NOT NULL,
     "input_id" INTEGER,
     "output_id" INTEGER,
     "value" DECIMAL NOT NULL,

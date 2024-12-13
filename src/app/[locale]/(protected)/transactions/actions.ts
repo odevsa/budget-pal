@@ -5,7 +5,7 @@ import {
   Transaction,
   validationTransactionCreate,
 } from "@/core/models/Transaction";
-import { getNumber, getString } from "@/lib/utils";
+import { getDate, getNumber, getString } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { FormActionState } from "../_components/generic-form";
 
@@ -13,12 +13,12 @@ export async function saveAction(
   _previousState: any,
   formData: FormData
 ): Promise<FormActionState> {
-  console.log("BACKEND", formData);
   const t = await getTranslations();
   const errors: any = {};
   const data = {
     id: getNumber(formData, "id"),
     description: getString(formData, "description"),
+    transactedAt: getDate(formData, "transactedAt"),
     value: getNumber(formData, "value"),
     inputId: getNumber(formData, "inputId"),
     outputId: getNumber(formData, "outputId"),
@@ -28,7 +28,7 @@ export async function saveAction(
   if (!validation.success)
     return {
       success: false,
-      errors: validation.error.flatten().fieldErrors,
+      errors: { ...errors, ...validation.error.flatten().fieldErrors },
     };
 
   const saved = await BackendFacade.transactions.save(data as Transaction);

@@ -1,6 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { boolean } from "zod";
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
@@ -12,6 +11,14 @@ export const getString = (
   fields: string
 ): string | undefined => {
   let value: any = data.get(fields) as string;
+  if (!value) return;
+  return value.trim();
+};
+
+export const getDate = (data: FormData, fields: string): string | undefined => {
+  let value: any = data.get(fields) as string;
+  console.log(data);
+  console.log(fields, value);
   if (!value) return;
   return value.trim();
 };

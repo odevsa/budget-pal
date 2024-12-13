@@ -1,7 +1,7 @@
 import BackendFacade from "@/backend";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
-import { ArrowLeftRightIcon, PlusIcon, ReceiptIcon } from "lucide-react";
+import { ArrowLeftRightIcon, PlusIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import GenericList from "../_components/generic-list";
 import GenericPage from "../_components/generic-page";
@@ -41,11 +41,13 @@ export default async function Transaction({
         fields={[
           { key: "id", position: "left", label: "crud.id" },
           { key: "description", position: "left", label: "crud.description" },
-          { key: "inputId", label: "transactions.inputId", process: "boolean" },
           {
             key: "outputId",
-            label: "transactions.outputId",
-            process: "active",
+            label: "transactions.payFrom",
+          },
+          {
+            key: "inputId",
+            label: "transactions.receiveTo",
           },
           {
             key: "value",

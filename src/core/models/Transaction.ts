@@ -6,6 +6,7 @@ export interface Transaction {
   id?: number;
   userId: number;
   description: string;
+  transactedAt: Date;
   inputId?: number | null;
   outputId?: number | null;
   value: Decimal | number;
@@ -24,13 +25,26 @@ export enum TransactionType {
 export const validationTransactionCreate = z
   .object({
     description: z.string().min(3).max(256),
+    transactedAt: z.date(),
     value: z.number().min(0),
     inputId: z.number().min(1).optional(),
     outputId: z.number().min(1).optional(),
   })
-  .refine((data) => data.inputId !== undefined || data.outputId !== undefined, {
+  .refine((data) => !!data.inputId || !!data.outputId, {
     message: "transaction.message.selectAccount",
-    path: ["inputId", "outputId"],
+    path: ["outputId"],
+  })
+  .refine((data) => !!data.inputId || !!data.outputId, {
+    message: "transaction.message.selectAccount",
+    path: ["inputId"],
+  })
+  .refine((data) => data.inputId != data.outputId, {
+    message: "transaction.message.selectDifferentAccount",
+    path: ["outputId"],
+  })
+  .refine((data) => data.inputId != data.outputId, {
+    message: "transaction.message.selectDifferentAccount",
+    path: ["inputId"],
   });
 
 export const validationTransactionUpdate = validationTransactionCreate;

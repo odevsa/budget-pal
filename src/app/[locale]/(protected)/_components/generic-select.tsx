@@ -28,7 +28,7 @@ export interface GenericSelectProps extends React.ComponentProps<"select"> {
 const GenericSelect = ({
   title,
   name,
-  placeholder = "Select a item",
+  placeholder = "Select a item...",
   value,
   items,
   error,
@@ -36,9 +36,10 @@ const GenericSelect = ({
   onChange,
 }: GenericSelectProps) => {
   const [internalValue, setInternalValue] = useState<any>(value);
-  const handleChange = (value: any) => {
-    setInternalValue(value);
-    onChange?.(value);
+
+  const handleChange = (newValue: any) => {
+    setInternalValue(newValue);
+    onChange?.(newValue);
   };
 
   useEffect(() => {
@@ -56,7 +57,10 @@ const GenericSelect = ({
           <SelectGroup>
             {items.length > 0 ? (
               items.map((item) => (
-                <SelectItem key={`${name}-${item.value}`} value={item.value}>
+                <SelectItem
+                  key={`${name}-${item.value}`}
+                  value={item.value.toString()}
+                >
                   {item.label}
                 </SelectItem>
               ))

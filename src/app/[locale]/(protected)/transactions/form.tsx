@@ -12,15 +12,25 @@ import GenericForm, { FormActionState } from "../_components/generic-form";
 import GenericInput from "../_components/generic-input";
 import GenericPage from "../_components/generic-page";
 import { saveAction } from "./actions";
+import { Account } from "@/core/models/Account";
+import GenericSelect, {
+  GenericSelectItem,
+} from "../_components/generic-select";
+import GenericDatePicker from "../_components/generic-date-picker";
 
 const INITIAL_STATE = {
   description: "",
+  transactedAt: new Date(),
   value: 0,
+  inputId: undefined,
+  outputId: undefined,
 } as Transaction;
 
 export default function TransactionsForm({
+  accounts,
   data = INITIAL_STATE,
 }: Readonly<{
+  accounts: Account[];
   data?: Transaction;
 }>) {
   const t = useTranslations();
@@ -28,6 +38,16 @@ export default function TransactionsForm({
   const { toast } = useToast();
   const [formState, setFormState] = useState<FormActionState>();
   const [formData, setFormData] = useState<Transaction>(data);
+  const [items, setItems] = useState<GenericSelectItem[]>([]);
+
+  useEffect(() => {
+    setItems(
+      accounts.map(
+        (account) =>
+          ({ label: account.title, value: account.id } as GenericSelectItem)
+      )
+    );
+  }, [accounts]);
 
   useEffect(() => {
     setFormData(data);
@@ -69,11 +89,12 @@ export default function TransactionsForm({
         onCancel={backToList}
       >
         {data.id && <Input name="id" value={data.id} type="hidden" />}
+
         <GenericInput
           title={t("crud.description")}
           name="description"
           error={formState?.errors?.description}
-          value={formData?.description}
+          value={formData.description}
           onChange={(value) =>
             setFormData({
               ...formData,
@@ -81,7 +102,44 @@ export default function TransactionsForm({
             })
           }
         />
-
+        <GenericDatePicker
+          title={t("transactions.transactedAt")}
+          name="transactedAt"
+          error={formState?.errors?.transactedAt}
+          value={formData.transactedAt}
+          onChange={(value) => {
+            setFormData({
+              ...formData,
+              transactedAt: value,
+            });
+          }}
+        />
+        <GenericSelect
+          title={t("transactions.payFrom")}
+          name="outputId"
+          error={formState?.errors?.outputId}
+          items={items}
+          value={formData.outputId?.toString()}
+          onChange={(value) => {
+            setFormData({
+              ...formData,
+              outputId: parseInt(value),
+            });
+          }}
+        />
+        <GenericSelect
+          title={t("transactions.receiveTo")}
+          name="inputId"
+          error={formState?.errors?.inputId}
+          items={items}
+          value={formData.inputId?.toString()}
+          onChange={(value) =>
+            setFormData({
+              ...formData,
+              inputId: parseInt(value),
+            })
+          }
+        />
         <GenericInput
           title={t("transactions.value")}
           name="value"
