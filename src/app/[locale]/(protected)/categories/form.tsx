@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Category } from "@/core/models/Category";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "@/i18n/routing";
-import { WalletIcon } from "lucide-react";
+import { TagIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import GenericForm, { FormActionState } from "../_components/generic-form";
@@ -19,7 +19,7 @@ const INITIAL_STATE = {
 export default function CategoriesForm({
   data = INITIAL_STATE,
 }: {
-  data?: Category;
+  readonly data?: Category;
 }) {
   const t = useTranslations();
   const router = useRouter();
@@ -59,19 +59,19 @@ export default function CategoriesForm({
   };
 
   return (
-    <GenericPage title={t("menu.categories")} icon={<WalletIcon />}>
+    <GenericPage title={t("menu.categories")} icon={<TagIcon />}>
       <GenericForm
         title={!formData?.id ? t("crud.create") : t("crud.edit")}
         action={saveAction}
         onResponse={handleResponse}
         onCancel={backToList}
       >
-        {data.id && <Input name="id" value={data.id} type="hidden" />}
+        {formData.id && <Input name="id" value={formData.id} type="hidden" />}
 
         <GenericInput
           title={t("crud.title")}
           name="title"
-          error={formState?.errors?.title}
+          errors={formState?.errors?.title}
           value={formData?.title}
           onChange={(value) =>
             setFormData({

@@ -2,17 +2,31 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import GenericFieldErrors from "./generic-field-errors";
 
 export interface GenericInputProps extends React.ComponentProps<"input"> {
-  error?: string;
+  errors?: string[];
   mask?(value: any): any;
+  align?: "left" | "center" | "right";
   onChange?(value: any): any;
 }
 
 const GenericInput = React.forwardRef<HTMLInputElement, GenericInputProps>(
   (
-    { type = "text", title, name, value = "", error, mask, onChange, ...props },
+    {
+      type = "text",
+      title,
+      name,
+      value = "",
+      className,
+      errors,
+      mask,
+      align,
+      onChange,
+      ...props
+    },
     ref
   ) => {
     const [internalValue, setInternalValue] = useState(value);
@@ -27,7 +41,7 @@ const GenericInput = React.forwardRef<HTMLInputElement, GenericInputProps>(
     }, [value]);
 
     return (
-      <div className="flex flex-col space-y-1.5">
+      <div className={cn("flex flex-col space-y-1.5", className)}>
         <Label htmlFor={`input-${name}`}>{title}</Label>
         <Input
           ref={ref}
@@ -37,10 +51,9 @@ const GenericInput = React.forwardRef<HTMLInputElement, GenericInputProps>(
           name={name}
           value={internalValue}
           onChange={handleChange}
+          className={cn(align ? `text-${align}` : "")}
         />
-        {error && (
-          <span className="text-destructive font-bold text-xs">{error}</span>
-        )}
+        <GenericFieldErrors errors={errors} />
       </div>
     );
   }

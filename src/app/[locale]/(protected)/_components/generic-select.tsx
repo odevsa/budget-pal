@@ -9,8 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { SelectGroup } from "@radix-ui/react-select";
 import React, { useEffect, useState } from "react";
+import GenericFieldErrors from "./generic-field-errors";
 
 export interface GenericSelectItem {
   value: any;
@@ -20,7 +22,7 @@ export interface GenericSelectItem {
 export interface GenericSelectProps extends React.ComponentProps<"select"> {
   items: GenericSelectItem[];
   placeholder?: string;
-  error?: string;
+  errors?: string[];
   mask?(value: any): any;
   onChange?(value: any): any;
 }
@@ -31,9 +33,10 @@ const GenericSelect = ({
   placeholder = "Select a item...",
   value,
   items,
-  error,
+  errors,
   mask,
   onChange,
+  className,
 }: GenericSelectProps) => {
   const [internalValue, setInternalValue] = useState<any>(value);
 
@@ -47,7 +50,7 @@ const GenericSelect = ({
   }, [value]);
 
   return (
-    <div className="flex flex-col space-y-1.5">
+    <div className={cn("flex flex-col space-y-1.5", className)}>
       <Label htmlFor={`input-${name}`}>{title}</Label>
       <Select name={name} value={internalValue} onValueChange={handleChange}>
         <SelectTrigger>
@@ -70,9 +73,7 @@ const GenericSelect = ({
           </SelectGroup>
         </SelectContent>
       </Select>
-      {error && (
-        <span className="text-destructive font-bold text-xs">{error}</span>
-      )}
+      <GenericFieldErrors errors={errors} />
     </div>
   );
 };

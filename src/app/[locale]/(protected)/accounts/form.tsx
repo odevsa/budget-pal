@@ -20,7 +20,7 @@ const INITIAL_STATE = {
 export default function AccountsForm({
   data = INITIAL_STATE,
 }: {
-  data?: Account;
+  readonly data?: Account;
 }) {
   const t = useTranslations();
   const router = useRouter();
@@ -67,12 +67,12 @@ export default function AccountsForm({
         onResponse={handleResponse}
         onCancel={backToList}
       >
-        {data.id && <Input name="id" value={data.id} type="hidden" />}
+        {formData.id && <Input name="id" value={formData.id} type="hidden" />}
 
         <GenericInput
           title={t("crud.title")}
           name="title"
-          error={formState?.errors?.title}
+          errors={formState?.errors?.title}
           value={formData?.title}
           onChange={(value) =>
             setFormData({

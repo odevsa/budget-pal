@@ -81,10 +81,14 @@
     "transactedAt": "Transacted at",
     "pay": "Pay",
     "receive": "Receive",
-    "payFrom": "Pay from",
-    "receiveTo": "Receive to",
+    "paidFrom": "Paid from",
+    "receivedIn": "Received in",
     "value": "Value",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "message": {
+      "selectAccount": "Select at least one account",
+      "selectDifferentAccount": "Accounts must be differents"
+    }
   },
   "reports": {
     "monthly": "Monthly Report"

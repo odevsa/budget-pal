@@ -26,25 +26,31 @@ export const validationTransactionCreate = z
   .object({
     description: z.string().min(3).max(256),
     transactedAt: z.date(),
-    value: z.number().min(0),
+    value: z.number().min(0.01),
     inputId: z.number().min(1).optional(),
     outputId: z.number().min(1).optional(),
   })
   .refine((data) => !!data.inputId || !!data.outputId, {
-    message: "transaction.message.selectAccount",
+    message: "transactions.message.selectAccount",
     path: ["outputId"],
   })
   .refine((data) => !!data.inputId || !!data.outputId, {
-    message: "transaction.message.selectAccount",
+    message: "transactions.message.selectAccount",
     path: ["inputId"],
   })
-  .refine((data) => data.inputId != data.outputId, {
-    message: "transaction.message.selectDifferentAccount",
-    path: ["outputId"],
-  })
-  .refine((data) => data.inputId != data.outputId, {
-    message: "transaction.message.selectDifferentAccount",
-    path: ["inputId"],
-  });
+  .refine(
+    (data) => (data.inputId || data.outputId) && data.inputId != data.outputId,
+    {
+      message: "transactions.message.selectDifferentAccount",
+      path: ["outputId"],
+    }
+  )
+  .refine(
+    (data) => (data.inputId || data.outputId) && data.inputId != data.outputId,
+    {
+      message: "transactions.message.selectDifferentAccount",
+      path: ["inputId"],
+    }
+  );
 
 export const validationTransactionUpdate = validationTransactionCreate;

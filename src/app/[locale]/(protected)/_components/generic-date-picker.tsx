@@ -2,26 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { TimePickerInput } from "@/components/ui/time-picker-input";
-import { cn, wait } from "@/lib/utils";
-import { SelectGroup } from "@radix-ui/react-select";
+import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarCheckIcon, CalendarIcon, ClockIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import GenericFieldErrors from "./generic-field-errors";
 
 export interface GenericDatePickerItem {
   value: any;
@@ -29,13 +22,12 @@ export interface GenericDatePickerItem {
 }
 
 export interface GenericDatePickerProps {
-  // extends React.ComponentProps<"select"> {
   title: string;
   name: string;
   placeholder?: string;
   value?: Date;
-  error?: string;
-  mask?(value: any): any;
+  className?: string;
+  errors?: string[];
   onChange?(value: any): any;
 }
 
@@ -44,8 +36,8 @@ const GenericDatePicker = ({
   name,
   placeholder = "Pick a date...",
   value,
-  error,
-  mask,
+  className,
+  errors,
   onChange,
 }: GenericDatePickerProps) => {
   const minuteRef = React.useRef<HTMLInputElement>(null);
@@ -85,8 +77,11 @@ const GenericDatePicker = ({
   };
 
   return (
-    <div className="flex flex-col space-y-1.5">
+    <div className={cn("flex flex-col space-y-1.5", className)}>
       <Label htmlFor={`input-${name}`}>{title}</Label>
+      {internalValue && (
+        <Input name={name} type="hidden" value={internalValue?.toISOString()} />
+      )}
       <Popover onOpenChange={handleClose}>
         <PopoverTrigger asChild>
           <Button
@@ -121,7 +116,6 @@ const GenericDatePicker = ({
               {format(new Date(), "PPP")}
             </p>
           </Button>
-
           <Calendar
             mode="single"
             selected={internalValue}
@@ -155,9 +149,7 @@ const GenericDatePicker = ({
           </div>
         </PopoverContent>
       </Popover>
-      {error && (
-        <span className="text-destructive font-bold text-xs">{error}</span>
-      )}
+      <GenericFieldErrors errors={errors} />
     </div>
   );
 };

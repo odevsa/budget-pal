@@ -43,11 +43,11 @@ export default async function Transaction({
           { key: "description", position: "left", label: "crud.description" },
           {
             key: "outputId",
-            label: "transactions.payFrom",
+            label: "transactions.paidFrom",
           },
           {
             key: "inputId",
-            label: "transactions.receiveTo",
+            label: "transactions.receivedIn",
           },
           {
             key: "value",

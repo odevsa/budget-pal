@@ -1,27 +1,21 @@
 "use client";
 
-import { Loading } from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogFooter,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { maskDecimal } from "@/core/mask";
 import { Account } from "@/core/models/Account";
-import { TransactionType } from "@/core/models/Transaction";
-import { ArrowLeftRightIcon } from "lucide-react";
+import { Transaction, TransactionType } from "@/core/models/Transaction";
+import { ArrowLeftRightIcon, HandCoinsIcon, ReceiptIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useActionState, useEffect, useState } from "react";
-import GenericInput from "../_components/generic-input";
-import GenericSelect, {
-  GenericSelectItem,
-} from "../_components/generic-select";
-import { saveAction } from "./actions";
+import TransactionsFormContent from "./form-content";
+import StorageFacade from "@/core/storage";
+import { useState } from "react";
 
 export default function TransactionDialogForm({
   variant = TransactionType.Transfer,
@@ -33,97 +27,71 @@ export default function TransactionDialogForm({
   children?: React.ReactNode;
 }>) {
   const t = useTranslations();
-  const [state, formAction] = useActionState(saveAction, {});
-  const [loading, setLoading] = useState<boolean>(false);
-  const [items, setItems] = useState<GenericSelectItem[]>([]);
+  const [opened, setOpened] = useState<boolean>();
 
-  useEffect(() => {
-    setLoading(false);
-    console.log(state);
-  }, [state]);
+  const getIcon = (variant: TransactionType) => {
+    switch (variant) {
+      case TransactionType.Pay:
+        return <ReceiptIcon />;
+      case TransactionType.Receive:
+        return <HandCoinsIcon />;
+      default:
+        return <ArrowLeftRightIcon />;
+    }
+  };
 
-  useEffect(() => {
-    setItems(
-      accounts.map(
-        (account) =>
-          ({ label: account.title, value: account.id } as GenericSelectItem)
-      )
-    );
-  }, [accounts]);
+  const getLastFields = (variant: TransactionType): Transaction | undefined => {
+    switch (variant) {
+      case TransactionType.Pay:
+        return StorageFacade.transactions.getPay();
+      case TransactionType.Receive:
+        return StorageFacade.transactions.getReceive();
+      default:
+        return StorageFacade.transactions.getTransfer();
+    }
+  };
 
-  const handleSubmit = () => {
-    setLoading(true);
+  const handleSuccess = (data: Transaction) => {
+    switch (variant) {
+      case TransactionType.Pay:
+        StorageFacade.transactions.setPay(data);
+        break;
+      case TransactionType.Receive:
+        StorageFacade.transactions.setReceive(data);
+        break;
+      default:
+        StorageFacade.transactions.setTransfer(data);
+        break;
+    }
+
+    setOpened(false);
   };
 
   return (
-    <Dialog>
-      <form
-        action={formAction}
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-3"
-      >
-        <DialogTrigger asChild>
-          {children ?? (
-            <Button variant={"outline"} size={"xs"}>
-              <ArrowLeftRightIcon />
-              {t("transactions.transfer")}
-            </Button>
-          )}
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t(`transactions.${variant}`)}</DialogTitle>
-          </DialogHeader>
-          <Loading visible={loading} className="flex flex-col gap-4">
-            <GenericInput
-              title={t("crud.description")}
-              name="description"
-              error={undefined}
-              value={""}
-              onChange={(value) => console.log(value)}
-            />
-            {[TransactionType.Transfer, TransactionType.Pay].includes(
-              variant
-            ) && (
-              <GenericSelect
-                title={t("transactions.payFrom")}
-                name="output"
-                error={undefined}
-                items={items}
-                onChange={(value: any) => console.log(value)}
-              />
-            )}
-            {[TransactionType.Transfer, TransactionType.Receive].includes(
-              variant
-            ) && (
-              <GenericSelect
-                title={t("transactions.receiveTo")}
-                name="input"
-                error={undefined}
-                items={items}
-                onChange={(value: any) => console.log(value)}
-              />
-            )}
-            <GenericInput
-              title={t("transactions.value")}
-              name="value"
-              error={undefined}
-              value={""}
-              mask={maskDecimal}
-              className="text-right"
-              onChange={(value) => console.log(value)}
-            />
-          </Loading>
-          <DialogFooter className="gap-2">
-            <DialogClose asChild>
-              <Button type="button" variant="outline">
-                {t("crud.cancel")}
-              </Button>
-            </DialogClose>
-            <Button type="submit">{t("crud.save")}</Button>
-          </DialogFooter>
-        </DialogContent>
-      </form>
+    <Dialog open={opened} onOpenChange={setOpened}>
+      <DialogTrigger asChild>
+        {children ?? (
+          <Button variant={"outline"} size={"xs"}>
+            <ArrowLeftRightIcon />
+            {t("transactions.transfer")}
+          </Button>
+        )}
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="flex flex-row gap-2 items-center">
+            {getIcon(variant)}
+            {t(`transactions.${variant}`)}
+          </DialogTitle>
+          <DialogDescription>{t("transactions.description")}</DialogDescription>
+        </DialogHeader>
+        <TransactionsFormContent
+          data={getLastFields(variant)}
+          variant={variant}
+          accounts={accounts}
+          onSuccess={handleSuccess}
+        />
+      </DialogContent>
     </Dialog>
   );
 }

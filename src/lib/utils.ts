@@ -15,12 +15,15 @@ export const getString = (
   return value.trim();
 };
 
-export const getDate = (data: FormData, fields: string): string | undefined => {
+export const getDate = (data: FormData, fields: string): Date | undefined => {
   let value: any = data.get(fields) as string;
-  console.log(data);
-  console.log(fields, value);
   if (!value) return;
-  return value.trim();
+
+  try {
+    return new Date(value);
+  } catch (error) {
+    return;
+  }
 };
 
 export const getNumber = (

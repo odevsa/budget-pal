@@ -5,7 +5,7 @@ import { maskDecimal, maskMonthDay } from "@/core/mask";
 import { Invoice } from "@/core/models/Invoice";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "@/i18n/routing";
-import { WalletIcon } from "lucide-react";
+import { ReceiptIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import GenericForm, { FormActionState } from "../_components/generic-form";
@@ -25,7 +25,7 @@ const INITIAL_STATE = {
 export default function InvoicesForm({
   data = INITIAL_STATE,
 }: Readonly<{
-  data?: Invoice;
+  readonly data?: Invoice;
 }>) {
   const t = useTranslations();
   const router = useRouter();
@@ -65,18 +65,18 @@ export default function InvoicesForm({
   };
 
   return (
-    <GenericPage title={t("menu.invoices")} icon={<WalletIcon />}>
+    <GenericPage title={t("menu.invoices")} icon={<ReceiptIcon />}>
       <GenericForm
         title={!formData?.id ? t("crud.create") : t("crud.edit")}
         action={saveAction}
         onResponse={handleResponse}
         onCancel={backToList}
       >
-        {data.id && <Input name="id" value={data.id} type="hidden" />}
+        {formData.id && <Input name="id" value={formData.id} type="hidden" />}
         <GenericInput
           title={t("crud.title")}
           name="title"
-          error={formState?.errors?.title}
+          errors={formState?.errors?.title}
           value={formData?.title}
           onChange={(value) =>
             setFormData({
@@ -89,10 +89,10 @@ export default function InvoicesForm({
         <GenericInput
           title={t("invoices.value")}
           name="value"
-          error={formState?.errors?.value}
+          errors={formState?.errors?.value}
           value={parseFloat(formData?.value.toString()).toFixed(2)}
           mask={maskDecimal}
-          className="text-right"
+          align="right"
           onChange={(value) =>
             setFormData({
               ...formData,
@@ -107,7 +107,7 @@ export default function InvoicesForm({
           type="number"
           min={1}
           max={31}
-          error={formState?.errors?.dueDay}
+          errors={formState?.errors?.dueDay}
           value={formData?.dueDay}
           mask={maskMonthDay}
           onChange={(value) =>
@@ -121,7 +121,7 @@ export default function InvoicesForm({
         <GenericSwitch
           title={t("invoices.isInput")}
           name="isInput"
-          error={formState?.errors?.isInput}
+          errors={formState?.errors?.isInput}
           checked={formData?.isInput}
           onCheckedChange={(value) =>
             setFormData({
@@ -134,7 +134,7 @@ export default function InvoicesForm({
         <GenericSwitch
           title={t("invoices.isActive")}
           name="isActive"
-          error={formState?.errors?.isActive}
+          errors={formState?.errors?.isActive}
           checked={formData?.isActive}
           onCheckedChange={(value) =>
             setFormData({
