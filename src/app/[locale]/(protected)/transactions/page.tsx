@@ -42,6 +42,10 @@ export default async function Transaction({
           { key: "id", position: "left", label: "crud.id" },
           { key: "description", position: "left", label: "crud.description" },
           {
+            key: "categoryId",
+            label: "transactions.category",
+          },
+          {
             key: "outputId",
             label: "transactions.paidFrom",
           },

@@ -20,6 +20,7 @@ export async function saveAction(
     description: getString(formData, "description"),
     transactedAt: getDate(formData, "transactedAt"),
     value: getNumber(formData, "value"),
+    categoryId: getNumber(formData, "categoryId"),
     inputId: getNumber(formData, "inputId"),
     outputId: getNumber(formData, "outputId"),
   };

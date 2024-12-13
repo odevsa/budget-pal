@@ -7,6 +7,7 @@ export interface Transaction {
   userId: number;
   description: string;
   transactedAt: Date;
+  categoryId?: number | null;
   inputId?: number | null;
   outputId?: number | null;
   value: Decimal | number;
@@ -27,6 +28,7 @@ export const validationTransactionCreate = z
     description: z.string().min(3).max(256),
     transactedAt: z.date(),
     value: z.number().min(0.01),
+    categoryId: z.number(),
     inputId: z.number().min(1).optional(),
     outputId: z.number().min(1).optional(),
   })

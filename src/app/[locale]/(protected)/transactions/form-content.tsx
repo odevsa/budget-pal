@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { maskDecimal } from "@/core/mask";
 import { Account } from "@/core/models/Account";
+import { Category } from "@/core/models/Category";
 import { Transaction, TransactionType } from "@/core/models/Transaction";
 import { useToast } from "@/hooks/use-toast";
 import { SaveIcon, SkipBackIcon } from "lucide-react";
@@ -21,6 +22,7 @@ import { saveAction } from "./actions";
 const INITIAL_STATE = {
   description: "",
   value: 0,
+  categoryId: undefined,
   inputId: undefined,
   outputId: undefined,
 } as Transaction;
@@ -28,19 +30,24 @@ const INITIAL_STATE = {
 export default function TransactionsFormContent({
   variant = TransactionType.Transfer,
   accounts,
+  categories,
   data,
   onCancel,
   onSuccess,
 }: Readonly<{
   variant?: TransactionType;
   accounts: Account[];
+  categories: Category[];
   data?: Transaction;
   onCancel?(): void;
   onSuccess?(data: Transaction): void;
 }>) {
   const t = useTranslations();
   const { toast } = useToast();
-  const [items, setItems] = useState<GenericSelectItem[]>([]);
+  const [accountItems, setAccountItems] = useState<GenericSelectItem[]>([]);
+  const [categoriesItems, setCategoriesItems] = useState<GenericSelectItem[]>(
+    []
+  );
   const [formData, setFormData] = useState<Transaction>({
     ...INITIAL_STATE,
     ...data,
@@ -54,10 +61,19 @@ export default function TransactionsFormContent({
   }, [state]);
 
   useEffect(() => {
-    setItems(
+    setAccountItems(
       accounts.map(
         (account) =>
           ({ label: account.title, value: account.id } as GenericSelectItem)
+      )
+    );
+  }, [accounts]);
+
+  useEffect(() => {
+    setCategoriesItems(
+      categories.map(
+        (category) =>
+          ({ label: category.title, value: category.id } as GenericSelectItem)
       )
     );
   }, [accounts]);
@@ -112,6 +128,18 @@ export default function TransactionsFormContent({
           onChange={(value) => setFormData({ ...formData, description: value })}
         />
 
+        <GenericSelect
+          className="grow basis-1"
+          title={t("transactions.category")}
+          name="categoryId"
+          errors={state?.errors?.categoryId}
+          items={categoriesItems}
+          value={formData.categoryId?.toString()}
+          onChange={(value: any) =>
+            setFormData({ ...formData, categoryId: value })
+          }
+        />
+
         <div className="flex flex-row gap-2">
           {[TransactionType.Transfer, TransactionType.Pay].includes(
             variant
@@ -121,7 +149,7 @@ export default function TransactionsFormContent({
               title={t("transactions.paidFrom")}
               name="outputId"
               errors={state?.errors?.outputId}
-              items={items}
+              items={accountItems}
               value={formData.outputId?.toString()}
               onChange={(value: any) =>
                 setFormData({ ...formData, outputId: value })
@@ -136,7 +164,7 @@ export default function TransactionsFormContent({
               title={t("transactions.receivedIn")}
               name="inputId"
               errors={state?.errors?.inputId}
-              items={items}
+              items={accountItems}
               value={formData.inputId?.toString()}
               onChange={(value: any) =>
                 setFormData({ ...formData, inputId: value })

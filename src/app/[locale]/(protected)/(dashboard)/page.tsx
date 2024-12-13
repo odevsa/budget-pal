@@ -19,6 +19,7 @@ import GenericWidget from "../_components/generic-widget";
 export default async function Panel() {
   const t = await getTranslations();
   const accounts = await BackendFacade.accounts.all();
+  const categories = await BackendFacade.categories.all();
   const amountAccounts = accounts.length;
   const amountCategories = await BackendFacade.categories.total();
 
@@ -32,6 +33,7 @@ export default async function Panel() {
             <TransactionDialogForm
               variant={TransactionType.Pay}
               accounts={accounts}
+              categories={categories}
             >
               <Button variant={"destructive"} size={"xs"}>
                 <ReceiptIcon />
@@ -42,6 +44,7 @@ export default async function Panel() {
             <TransactionDialogForm
               variant={TransactionType.Receive}
               accounts={accounts}
+              categories={categories}
             >
               <Button variant={"success"} size={"xs"}>
                 <HandCoinsIcon />
@@ -49,7 +52,7 @@ export default async function Panel() {
               </Button>
             </TransactionDialogForm>
 
-            <TransactionDialogForm accounts={accounts}>
+            <TransactionDialogForm accounts={accounts} categories={categories}>
               <Button variant={"outline"} size={"xs"}>
                 <ArrowLeftRightIcon />
                 {t("transactions.transfer")}

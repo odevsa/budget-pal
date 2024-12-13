@@ -78,6 +78,7 @@
   },
   "transactions": {
     "description": "Fill correctly the fields bellow",
+    "category": "Category",
     "transactedAt": "Transacted at",
     "pay": "Pay",
     "receive": "Receive",

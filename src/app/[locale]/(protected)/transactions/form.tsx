@@ -9,12 +9,15 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import GenericPage from "../_components/generic-page";
 import TransactionsFormContent from "./form-content";
+import { Category } from "@/core/models/Category";
 
 export default function TransactionsForm({
   accounts,
+  categories,
   data,
 }: Readonly<{
   accounts: Account[];
+  categories: Category[];
   data?: Transaction;
 }>) {
   const t = useTranslations();
@@ -43,6 +46,7 @@ export default function TransactionsForm({
           <TransactionsFormContent
             data={internalData}
             accounts={accounts}
+            categories={categories}
             onCancel={backToList}
             onSuccess={backToList}
           />

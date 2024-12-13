@@ -12,6 +12,9 @@ export default async function TransactionsNew({
   if (!item) redirect({ href: "/transactions", locale });
 
   const accounts = await BackendFacade.accounts.all();
+  const categories = await BackendFacade.categories.all();
 
-  return <TransactionsForm data={item} accounts={accounts} />;
+  return (
+    <TransactionsForm data={item} accounts={accounts} categories={categories} />
+  );
 }

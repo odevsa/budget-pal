@@ -16,14 +16,17 @@ import { useTranslations } from "next-intl";
 import TransactionsFormContent from "./form-content";
 import StorageFacade from "@/core/storage";
 import { useState } from "react";
+import { Category } from "@/core/models/Category";
 
 export default function TransactionDialogForm({
   variant = TransactionType.Transfer,
   accounts,
+  categories,
   children,
 }: Readonly<{
   variant?: TransactionType;
   accounts: Account[];
+  categories: Category[];
   children?: React.ReactNode;
 }>) {
   const t = useTranslations();
@@ -89,6 +92,7 @@ export default function TransactionDialogForm({
           data={getLastFields(variant)}
           variant={variant}
           accounts={accounts}
+          categories={categories}
           onSuccess={handleSuccess}
         />
       </DialogContent>

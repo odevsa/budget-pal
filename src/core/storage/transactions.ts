@@ -4,10 +4,11 @@ import { Transaction } from "../models/Transaction";
 export function transactionSetTransfer({
   inputId,
   outputId,
+  categoryId,
 }: Partial<Transaction>) {
   localStorage.setItem(
     Storage.TRANSACTION_LAST_TRANSFER,
-    JSON.stringify({ inputId, outputId })
+    JSON.stringify({ inputId, outputId, categoryId })
   );
 }
 
@@ -17,10 +18,13 @@ export function transactionGetTransfer(): Transaction | undefined {
   if (data) return JSON.parse(data) as Transaction;
 }
 
-export function transactionSetPay({ outputId }: Partial<Transaction>) {
+export function transactionSetPay({
+  outputId,
+  categoryId,
+}: Partial<Transaction>) {
   localStorage.setItem(
     Storage.TRANSACTION_LAST_PAY,
-    JSON.stringify({ outputId })
+    JSON.stringify({ outputId, categoryId })
   );
 }
 
@@ -30,10 +34,13 @@ export function transactionGetPay(): Transaction | undefined {
   if (data) return JSON.parse(data) as Transaction;
 }
 
-export function transactionSetReceive({ inputId }: Partial<Transaction>) {
+export function transactionSetReceive({
+  inputId,
+  categoryId,
+}: Partial<Transaction>) {
   localStorage.setItem(
     Storage.TRANSACTION_LAST_RECEIVE,
-    JSON.stringify({ inputId })
+    JSON.stringify({ inputId, categoryId })
   );
 }
 
