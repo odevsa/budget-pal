@@ -20,13 +20,13 @@
     "message": {
       "loginDescription": "Choisissez une méthode de connexion",
       "loginSuccess": "Redirection vers le tableau de bord",
-      "loginFailure": "E-mail ou mot de passe invalide !",
+      "loginFailure": "E-mail ou mot de passe invalide !",
       "registerDescription": "Remplissez les champs pour créer un compte",
       "registerSuccess": "Redirection vers le tableau de bord",
       "registerUserAlreadyRegistered": "Utilisateur déjà enregistré",
-      "registerCanNotLogin": "Impossible de vous connecter, réessayez !",
-      "registerFailure": "Impossible de créer l'utilisateur !",
-      "noAccount": "Vous n'avez pas de compte ?"
+      "registerCanNotLogin": "Impossible de se connecter, veuillez réessayer !",
+      "registerFailure": "Impossible de créer l'utilisateur !",
+      "noAccount": "Vous n'avez pas de compte ?"
     }
   },
   "menu": {
@@ -36,14 +36,20 @@
     "invoices": "Factures",
     "accounts": "Comptes",
     "categories": "Catégories",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "report": "Rapport"
   },
   "crud": {
     "search": "Rechercher...",
     "new": "Nouveau",
     "id": "#",
     "title": "Titre",
+    "description": "Description",
+    "active": "Actif",
+    "inactive": "Inactif",
     "actions": "Actions",
+    "yes": "Oui",
+    "no": "Non",
     "create": "Créer",
     "edit": "Modifier",
     "delete": "Supprimer",
@@ -53,12 +59,12 @@
     "next": "Suivant",
     "previous": "Précédent",
     "deleteConfirmation": "Confirmation de suppression",
-    "deleteMessage": "Cette action est irréversible. Cela supprimera définitivement \"{title}\".",
+    "deleteMessage": "Cette action ne peut pas être annulée. Cela supprimera définitivement \"{title}\".",
     "message": {
-      "saveSuccess": "Enregistré avec succès !",
-      "saveFailure": "Impossible d'enregistrer !",
-      "deleteSuccess": "Supprimé avec succès !",
-      "deleteFailure": "Impossible de supprimer !"
+      "saveSuccess": "Enregistré avec succès !",
+      "saveFailure": "Échec de l'enregistrement !",
+      "deleteSuccess": "Supprimé avec succès !",
+      "deleteFailure": "Échec de la suppression !"
     }
   },
   "dashboard": {},
@@ -69,5 +75,23 @@
     "isInput": "Recevoir",
     "isActive": "Actif",
     "dueDay": "Jour d'échéance"
+  },
+  "transactions": {
+    "description": "Remplissez correctement les champs ci-dessous",
+    "category": "Catégorie",
+    "transactedAt": "Transaction effectuée le",
+    "pay": "Payer",
+    "receive": "Recevoir",
+    "paidFrom": "Payé de",
+    "receivedIn": "Reçu dans",
+    "value": "Valeur",
+    "transfer": "Transférer",
+    "message": {
+      "selectAccount": "Sélectionnez au moins un compte",
+      "selectDifferentAccount": "Les comptes doivent être différents"
+    }
+  },
+  "reports": {
+    "monthly": "Rapport mensuel"
   }
 }

@@ -9,41 +9,47 @@
     "login": "Iniciar sesión",
     "register": "Registrarse",
     "name": "Nombre",
-    "namePlaceholder": "Tu nombre",
+    "namePlaceholder": "Su nombre",
     "email": "Correo electrónico",
-    "emailPlaceholder": "Tu correo electrónico",
+    "emailPlaceholder": "Su correo electrónico",
     "password": "Contraseña",
-    "passwordPlaceholder": "Tu contraseña",
+    "passwordPlaceholder": "Su contraseña",
     "signIn": "Iniciar sesión",
     "signInGoogle": "Iniciar sesión con Google",
     "signOut": "Cerrar sesión",
     "message": {
-      "loginDescription": "Elige un método para iniciar sesión",
-      "loginSuccess": "Redirigiendo al panel",
+      "loginDescription": "Elija un método de inicio de sesión",
+      "loginSuccess": "Redirigiendo al panel de control",
       "loginFailure": "¡Correo electrónico o contraseña inválidos!",
-      "registerDescription": "Completa los campos para crear una cuenta",
-      "registerSuccess": "Redirigiendo al panel",
+      "registerDescription": "Complete los campos para crear una cuenta",
+      "registerSuccess": "Redirigiendo al panel de control",
       "registerUserAlreadyRegistered": "Usuario ya registrado",
-      "registerCanNotLogin": "¡No se pudo iniciar sesión, intenta de nuevo!",
+      "registerCanNotLogin": "No se pudo iniciar sesión, ¡inténtelo de nuevo!",
       "registerFailure": "¡No se pudo crear el usuario!",
-      "noAccount": "¿No tienes una cuenta?"
+      "noAccount": "¿No tiene una cuenta?"
     }
   },
   "menu": {
-    "dashboard": "Panel",
+    "dashboard": "Panel de control",
     "transactions": "Transacciones",
     "budgets": "Presupuestos",
     "invoices": "Facturas",
     "accounts": "Cuentas",
     "categories": "Categorías",
-    "settings": "Configuración"
+    "settings": "Configuración",
+    "report": "Informe"
   },
   "crud": {
     "search": "Buscar...",
     "new": "Nuevo",
     "id": "#",
     "title": "Título",
+    "description": "Descripción",
+    "active": "Activo",
+    "inactive": "Inactivo",
     "actions": "Acciones",
+    "yes": "Sí",
+    "no": "No",
     "create": "Crear",
     "edit": "Editar",
     "delete": "Eliminar",
@@ -68,6 +74,24 @@
     "value": "Valor",
     "isInput": "Recibir",
     "isActive": "Activo",
-    "dueDay": "Día de Vencimiento"
+    "dueDay": "Día de vencimiento"
+  },
+  "transactions": {
+    "description": "Complete correctamente los campos a continuación",
+    "category": "Categoría",
+    "transactedAt": "Transaccionado en",
+    "pay": "Pagar",
+    "receive": "Recibir",
+    "paidFrom": "Pagado desde",
+    "receivedIn": "Recibido en",
+    "value": "Valor",
+    "transfer": "Transferir",
+    "message": {
+      "selectAccount": "Seleccione al menos una cuenta",
+      "selectDifferentAccount": "Las cuentas deben ser diferentes"
+    }
+  },
+  "reports": {
+    "monthly": "Informe mensual"
   }
 }

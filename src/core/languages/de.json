@@ -23,10 +23,10 @@
       "loginFailure": "Ungültige E-Mail oder Passwort!",
       "registerDescription": "Füllen Sie die Felder aus, um ein Konto zu erstellen",
       "registerSuccess": "Weiterleitung zum Dashboard",
-      "registerUserAlreadyRegistered": "Benutzer ist bereits registriert",
-      "registerCanNotLogin": "Anmeldung nicht möglich, bitte erneut versuchen!",
+      "registerUserAlreadyRegistered": "Benutzer bereits registriert",
+      "registerCanNotLogin": "Anmeldung nicht möglich, bitte versuchen Sie es erneut!",
       "registerFailure": "Benutzer konnte nicht erstellt werden!",
-      "noAccount": "Noch kein Konto?"
+      "noAccount": "Haben Sie kein Konto?"
     }
   },
   "menu": {
@@ -36,23 +36,29 @@
     "invoices": "Rechnungen",
     "accounts": "Konten",
     "categories": "Kategorien",
-    "settings": "Einstellungen"
+    "settings": "Einstellungen",
+    "report": "Bericht"
   },
   "crud": {
     "search": "Suchen...",
     "new": "Neu",
     "id": "#",
     "title": "Titel",
+    "description": "Beschreibung",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
     "actions": "Aktionen",
+    "yes": "Ja",
+    "no": "Nein",
     "create": "Erstellen",
     "edit": "Bearbeiten",
     "delete": "Löschen",
     "cancel": "Abbrechen",
-    "continue": "Fortfahren",
+    "continue": "Fortsetzen",
     "save": "Speichern",
     "next": "Weiter",
     "previous": "Zurück",
-    "deleteConfirmation": "Löschbestätigung",
+    "deleteConfirmation": "Bestätigung der Löschung",
     "deleteMessage": "Diese Aktion kann nicht rückgängig gemacht werden. Dies wird \"{title}\" dauerhaft löschen.",
     "message": {
       "saveSuccess": "Erfolgreich gespeichert!",
@@ -65,9 +71,27 @@
   "accounts": {},
   "categories": {},
   "invoices": {
-    "value": "Wert",
-    "isInput": "Erhalten",
+    "value": "Betrag",
+    "isInput": "Empfangen",
     "isActive": "Aktiv",
-    "dueDay": "Fälligkeitsdatum"
+    "dueDay": "Fälligkeitstag"
+  },
+  "transactions": {
+    "description": "Füllen Sie die Felder unten korrekt aus",
+    "category": "Kategorie",
+    "transactedAt": "Transaktionsdatum",
+    "pay": "Bezahlen",
+    "receive": "Empfangen",
+    "paidFrom": "Bezahlt von",
+    "receivedIn": "Erhalten in",
+    "value": "Betrag",
+    "transfer": "Übertragen",
+    "message": {
+      "selectAccount": "Wählen Sie mindestens ein Konto aus",
+      "selectDifferentAccount": "Die Konten müssen unterschiedlich sein"
+    }
+  },
+  "reports": {
+    "monthly": "Monatsbericht"
   }
 }

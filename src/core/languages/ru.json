@@ -2,31 +2,31 @@
   "geral": {
     "version": "Версия",
     "lightMode": "Светлый режим",
-    "darkMode": "Тёмный режим",
+    "darkMode": "Темный режим",
     "settings": "Настройки"
   },
   "auth": {
     "login": "Войти",
-    "register": "Регистрация",
+    "register": "Зарегистрироваться",
     "name": "Имя",
     "namePlaceholder": "Ваше имя",
     "email": "Электронная почта",
-    "emailPlaceholder": "Ваш e-mail",
+    "emailPlaceholder": "Ваш адрес электронной почты",
     "password": "Пароль",
     "passwordPlaceholder": "Ваш пароль",
     "signIn": "Войти",
     "signInGoogle": "Войти через Google",
     "signOut": "Выйти",
     "message": {
-      "loginDescription": "Выберите способ входа",
+      "loginDescription": "Выберите метод входа",
       "loginSuccess": "Перенаправление на панель управления",
-      "loginFailure": "Неверный e-mail или пароль!",
-      "registerDescription": "Заполните поля для создания аккаунта",
+      "loginFailure": "Неверный адрес электронной почты или пароль!",
+      "registerDescription": "Заполните поля, чтобы создать учетную запись",
       "registerSuccess": "Перенаправление на панель управления",
       "registerUserAlreadyRegistered": "Пользователь уже зарегистрирован",
       "registerCanNotLogin": "Не удалось войти, попробуйте снова!",
       "registerFailure": "Не удалось создать пользователя!",
-      "noAccount": "Нет аккаунта?"
+      "noAccount": "У вас нет учетной записи?"
     }
   },
   "menu": {
@@ -36,14 +36,20 @@
     "invoices": "Счета",
     "accounts": "Аккаунты",
     "categories": "Категории",
-    "settings": "Настройки"
+    "settings": "Настройки",
+    "report": "Отчет"
   },
   "crud": {
     "search": "Поиск...",
     "new": "Новый",
     "id": "#",
-    "title": "Название",
+    "title": "Заголовок",
+    "description": "Описание",
+    "active": "Активный",
+    "inactive": "Неактивный",
     "actions": "Действия",
+    "yes": "Да",
+    "no": "Нет",
     "create": "Создать",
     "edit": "Редактировать",
     "delete": "Удалить",
@@ -68,6 +74,24 @@
     "value": "Значение",
     "isInput": "Получить",
     "isActive": "Активный",
-    "dueDay": "Срок оплаты"
+    "dueDay": "День оплаты"
+  },
+  "transactions": {
+    "description": "Правильно заполните поля ниже",
+    "category": "Категория",
+    "transactedAt": "Транзакция проведена",
+    "pay": "Оплатить",
+    "receive": "Получить",
+    "paidFrom": "Оплачено от",
+    "receivedIn": "Получено в",
+    "value": "Значение",
+    "transfer": "Перевод",
+    "message": {
+      "selectAccount": "Выберите хотя бы один аккаунт",
+      "selectDifferentAccount": "Аккаунты должны быть разными"
+    }
+  },
+  "reports": {
+    "monthly": "Ежемесячный отчет"
   }
 }

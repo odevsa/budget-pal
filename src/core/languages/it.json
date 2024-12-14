@@ -6,7 +6,7 @@
     "settings": "Impostazioni"
   },
   "auth": {
-    "login": "Accedi",
+    "login": "Accesso",
     "register": "Registrati",
     "name": "Nome",
     "namePlaceholder": "Il tuo nome",
@@ -16,34 +16,40 @@
     "passwordPlaceholder": "La tua password",
     "signIn": "Accedi",
     "signInGoogle": "Accedi con Google",
-    "signOut": "Esci",
+    "signOut": "Disconnetti",
     "message": {
       "loginDescription": "Scegli un metodo di accesso",
-      "loginSuccess": "Reindirizzamento al pannello",
+      "loginSuccess": "Reindirizzamento al pannello di controllo",
       "loginFailure": "E-mail o password non validi!",
       "registerDescription": "Compila i campi per creare un account",
-      "registerSuccess": "Reindirizzamento al pannello",
+      "registerSuccess": "Reindirizzamento al pannello di controllo",
       "registerUserAlreadyRegistered": "Utente già registrato",
-      "registerCanNotLogin": "Impossibile accedere, prova di nuovo!",
+      "registerCanNotLogin": "Impossibile accedere, riprova!",
       "registerFailure": "Impossibile creare l'utente!",
       "noAccount": "Non hai un account?"
     }
   },
   "menu": {
-    "dashboard": "Pannello",
+    "dashboard": "Pannello di controllo",
     "transactions": "Transazioni",
     "budgets": "Budget",
     "invoices": "Fatture",
     "accounts": "Conti",
     "categories": "Categorie",
-    "settings": "Impostazioni"
+    "settings": "Impostazioni",
+    "report": "Rapporto"
   },
   "crud": {
     "search": "Cerca...",
     "new": "Nuovo",
     "id": "#",
     "title": "Titolo",
+    "description": "Descrizione",
+    "active": "Attivo",
+    "inactive": "Inattivo",
     "actions": "Azioni",
+    "yes": "Sì",
+    "no": "No",
     "create": "Crea",
     "edit": "Modifica",
     "delete": "Elimina",
@@ -53,7 +59,7 @@
     "next": "Successivo",
     "previous": "Precedente",
     "deleteConfirmation": "Conferma eliminazione",
-    "deleteMessage": "Questa azione non può essere annullata. Questo eliminerà permanentemente \"{title}\".",
+    "deleteMessage": "Questa azione non può essere annullata. Ciò eliminerà definitivamente \"{title}\".",
     "message": {
       "saveSuccess": "Salvato con successo!",
       "saveFailure": "Impossibile salvare!",
@@ -68,6 +74,24 @@
     "value": "Valore",
     "isInput": "Ricevere",
     "isActive": "Attivo",
-    "dueDay": "Giorno di Scadenza"
+    "dueDay": "Giorno di scadenza"
+  },
+  "transactions": {
+    "description": "Compila correttamente i campi seguenti",
+    "category": "Categoria",
+    "transactedAt": "Transazione effettuata il",
+    "pay": "Paga",
+    "receive": "Ricevi",
+    "paidFrom": "Pagato da",
+    "receivedIn": "Ricevuto in",
+    "value": "Valore",
+    "transfer": "Trasferire",
+    "message": {
+      "selectAccount": "Seleziona almeno un conto",
+      "selectDifferentAccount": "I conti devono essere diversi"
+    }
+  },
+  "reports": {
+    "monthly": "Rapporto mensile"
   }
 }

@@ -9,41 +9,47 @@
     "login": "Inloggen",
     "register": "Registreren",
     "name": "Naam",
-    "namePlaceholder": "Uw naam",
+    "namePlaceholder": "Je naam",
     "email": "E-mail",
-    "emailPlaceholder": "Uw e-mail",
+    "emailPlaceholder": "Je e-mail",
     "password": "Wachtwoord",
-    "passwordPlaceholder": "Uw wachtwoord",
+    "passwordPlaceholder": "Je wachtwoord",
     "signIn": "Inloggen",
     "signInGoogle": "Inloggen met Google",
     "signOut": "Uitloggen",
     "message": {
       "loginDescription": "Kies een inlogmethode",
-      "loginSuccess": "Doorverwijzen naar dashboard",
+      "loginSuccess": "Doorverwijzen naar het dashboard",
       "loginFailure": "Ongeldig e-mailadres of wachtwoord!",
       "registerDescription": "Vul de velden in om een account aan te maken",
-      "registerSuccess": "Doorverwijzen naar dashboard",
+      "registerSuccess": "Doorverwijzen naar het dashboard",
       "registerUserAlreadyRegistered": "Gebruiker is al geregistreerd",
-      "registerCanNotLogin": "Kan niet inloggen, probeer opnieuw!",
-      "registerFailure": "Kan gebruiker niet aanmaken!",
-      "noAccount": "Heeft u nog geen account?"
+      "registerCanNotLogin": "Kan niet inloggen, probeer het opnieuw!",
+      "registerFailure": "Kan de gebruiker niet aanmaken!",
+      "noAccount": "Heb je geen account?"
     }
   },
   "menu": {
     "dashboard": "Dashboard",
     "transactions": "Transacties",
     "budgets": "Budgetten",
-    "invoices": "Rekeningen",
-    "accounts": "Rekeningen",
+    "invoices": "Facturen",
+    "accounts": "Accounts",
     "categories": "Categorieën",
-    "settings": "Instellingen"
+    "settings": "Instellingen",
+    "report": "Rapport"
   },
   "crud": {
     "search": "Zoeken...",
     "new": "Nieuw",
     "id": "#",
     "title": "Titel",
+    "description": "Beschrijving",
+    "active": "Actief",
+    "inactive": "Inactief",
     "actions": "Acties",
+    "yes": "Ja",
+    "no": "Nee",
     "create": "Aanmaken",
     "edit": "Bewerken",
     "delete": "Verwijderen",
@@ -52,13 +58,13 @@
     "save": "Opslaan",
     "next": "Volgende",
     "previous": "Vorige",
-    "deleteConfirmation": "Bevestiging verwijderen",
-    "deleteMessage": "Deze actie kan niet ongedaan worden gemaakt. Dit verwijdert \"{title}\" permanent.",
+    "deleteConfirmation": "Verwijderbevestiging",
+    "deleteMessage": "Deze actie kan niet ongedaan worden gemaakt. Dit zal \"{title}\" permanent verwijderen.",
     "message": {
       "saveSuccess": "Succesvol opgeslagen!",
-      "saveFailure": "Opslaan mislukt!",
+      "saveFailure": "Kon niet opslaan!",
       "deleteSuccess": "Succesvol verwijderd!",
-      "deleteFailure": "Verwijderen mislukt!"
+      "deleteFailure": "Kon niet verwijderen!"
     }
   },
   "dashboard": {},
@@ -69,5 +75,23 @@
     "isInput": "Ontvangen",
     "isActive": "Actief",
     "dueDay": "Vervaldag"
+  },
+  "transactions": {
+    "description": "Vul de onderstaande velden correct in",
+    "category": "Categorie",
+    "transactedAt": "Transactie uitgevoerd op",
+    "pay": "Betalen",
+    "receive": "Ontvangen",
+    "paidFrom": "Betaald van",
+    "receivedIn": "Ontvangen in",
+    "value": "Waarde",
+    "transfer": "Overdragen",
+    "message": {
+      "selectAccount": "Selecteer ten minste één account",
+      "selectDifferentAccount": "De accounts moeten verschillend zijn"
+    }
+  },
+  "reports": {
+    "monthly": "Maandelijks rapport"
   }
 }

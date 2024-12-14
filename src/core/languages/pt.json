@@ -36,14 +36,20 @@
     "invoices": "Faturas",
     "accounts": "Contas",
     "categories": "Categorias",
-    "settings": "Configurações"
+    "settings": "Configurações",
+    "report": "Report"
   },
   "crud": {
     "search": "Buscar...",
     "new": "Novo",
     "id": "#",
     "title": "Título",
+    "description": "Descrição",
+    "active": "Ativo",
+    "inactive": "Inativo",
     "actions": "Ações",
+    "yes": "Yes",
+    "no": "No",
     "create": "Criar",
     "edit": "Editar",
     "delete": "Excluir",
@@ -69,5 +75,23 @@
     "isInput": "Receber",
     "isActive": "Ativo",
     "dueDay": "Dia de Vencimento"
+  },
+  "transactions": {
+    "description": "Preencha corretamente os campos abaixo",
+    "category": "Categoria",
+    "transactedAt": "Transacionado em",
+    "pay": "Pagar",
+    "receive": "Receber",
+    "paidFrom": "Pago de",
+    "receivedIn": "Recebido em",
+    "value": "Valor",
+    "transfer": "Transferir",
+    "message": {
+      "selectAccount": "Selecione pelo menos uma conta",
+      "selectDifferentAccount": "As contas devem ser diferentes"
+    }
+  },
+  "reports": {
+    "monthly": "Relatório Mensal"
   }
 }
