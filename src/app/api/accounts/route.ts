@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import BackendFacade from "@/backend";
 import { Account, validationAccountCreate } from "@/core/models/Account";
 import { getTranslations } from "next-intl/server";
+import { NextRequest } from "next/server";
 import {
   responseBadRequest,
   responseOk,
@@ -9,16 +10,18 @@ import {
   responseUnauthenticated,
 } from "../response";
 
-export const GET = auth(async (request) => {
-  if (!request.auth) return responseUnauthenticated();
+export async function GET(_request: NextRequest) {
+  const session = await auth();
+  if (!session) return responseUnauthenticated();
 
   const page = await BackendFacade.accounts.page();
 
   return responseOkPage(page);
-});
+}
 
-export const POST = auth(async (request) => {
-  if (!request.auth) return responseUnauthenticated();
+export async function POST(request: NextRequest) {
+  const session = await auth();
+  if (!session) return responseUnauthenticated();
 
   const t = await getTranslations();
   const data = (await request.json()) as Account;
@@ -34,4 +37,4 @@ export const POST = auth(async (request) => {
     });
 
   return responseOk(saved);
-});
+}

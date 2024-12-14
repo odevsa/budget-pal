@@ -1,4 +1,8 @@
 import { z } from "zod";
+import { Account } from "./Account";
+import { Category } from "./Category";
+import { Invoice } from "./Invoice";
+import { Transaction } from "./Transaction";
 
 export interface User {
   id?: number;
@@ -7,6 +11,11 @@ export interface User {
   name: string;
   image?: string;
   createdAt?: Date;
+
+  accounts?: Account[];
+  categories?: Category[];
+  invoices?: Invoice[];
+  transactions?: Transaction[];
 }
 
 export const validationUserLogin = z.object({

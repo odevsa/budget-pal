@@ -21,7 +21,7 @@ export async function categorySaveUseCase(
 
 export async function categoryTotalUseCase(): Promise<number> {
   const session = await auth();
-  if (!session?.user?.id) return {} as any;
+  if (!session?.user?.id) return 0;
 
   return await CategoryRepository.total();
 }

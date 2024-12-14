@@ -1,6 +1,5 @@
 import BackendFacade from "@/backend";
 import { Button } from "@/components/ui/button";
-import { Account } from "@/core/models/Account";
 import {
   ArrowLeftRightIcon,
   HandCoinsIcon,
@@ -20,8 +19,8 @@ export default async function Panel() {
   const t = await getTranslations();
   const accounts = await BackendFacade.accounts.all();
   const categories = await BackendFacade.categories.all();
-  const amountAccounts = accounts.length;
-  const amountCategories = await BackendFacade.categories.total();
+  const amountAccounts = accounts.length ?? 0;
+  const amountCategories = categories.length ?? 0;
 
   return (
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
@@ -64,12 +63,12 @@ export default async function Panel() {
         <GenericWidget
           title="menu.accounts"
           icon={<WalletIcon size={"100%"} />}
-          value={amountAccounts.toLocaleString()}
+          value={amountAccounts.toString()}
         />
         <GenericWidget
           title="menu.categories"
           icon={<TagIcon size={"100%"} />}
-          value={amountCategories.toLocaleString()}
+          value={amountCategories.toString()}
         />
       </div>
     </div>

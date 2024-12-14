@@ -76,7 +76,7 @@ export default function TransactionsFormContent({
           ({ label: category.title, value: category.id } as GenericSelectItem)
       )
     );
-  }, [accounts]);
+  }, [categories]);
 
   useEffect(() => {
     setFormData({ ...INITIAL_STATE, ...data });

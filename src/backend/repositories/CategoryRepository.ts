@@ -1,18 +1,19 @@
 import { Category } from "@/core/models/Category";
 import { Pagination } from "@/core/models/Pagination";
 import DB from "@/lib/db";
+import { Prisma } from "@prisma/client";
 
 export default class CategoryRepository {
   public static async save(data: Category): Promise<Category | undefined> {
     try {
       const response = await DB.categories.upsert({
         where: { id: data.id ?? 0 },
-        update: data,
-        create: data,
+        create: data as Prisma.CategoriesCreateInput,
+        update: data as Prisma.CategoriesUpdateInput,
       });
 
       return response as Category;
-    } catch (e: any) {
+    } catch {
       return undefined;
     }
   }
@@ -57,7 +58,7 @@ export default class CategoryRepository {
   public static async byId(id: number): Promise<Category | undefined> {
     try {
       return (await DB.categories.findUnique({ where: { id } })) as Category;
-    } catch (e: any) {
+    } catch {
       return undefined;
     }
   }
@@ -66,7 +67,7 @@ export default class CategoryRepository {
     try {
       await DB.categories.delete({ where: { id } });
       return true;
-    } catch (e: any) {
+    } catch {
       return false;
     }
   }

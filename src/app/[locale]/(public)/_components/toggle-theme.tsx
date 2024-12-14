@@ -3,12 +3,7 @@
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
-export function ToggleTheme(
-  props: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >
-) {
+export function ToggleTheme() {
   const { setTheme } = useTheme();
 
   return (

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
+import Image from "next/image";
 import React from "react";
 
 const variants = cva("", {
@@ -41,10 +42,12 @@ const Logo = React.forwardRef<HTMLDivElement, LogoProps>(
         )}
         {...props}
       >
-        <img
+        <Image
           src="/images/logo.svg"
-          alt={process.env.NEXT_PUBLIC_APP_NAME}
-          className={cn(variants({ className, size }))}
+          className={cn("w-auto h-auto", variants({ className, size }))}
+          width={0}
+          height={0}
+          alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
         />
         {variant != "icon" && (
           <div

@@ -24,7 +24,7 @@ export async function transactionSaveUseCase(
 
 export async function transactionTotalUseCase(): Promise<number> {
   const session = await auth();
-  if (!session?.user?.id) return {} as any;
+  if (!session?.user?.id) return 0;
 
   return await TransactionRepository.total();
 }

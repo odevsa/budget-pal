@@ -7,7 +7,7 @@ export default async function PublicLayout({
   params,
   children,
 }: Readonly<{
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
   children: React.ReactNode;
 }>) {
   const locale = (await params).locale;

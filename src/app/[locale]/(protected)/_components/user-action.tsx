@@ -7,10 +7,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
-import { ToggleTheme } from "./toggle-theme";
 import { Link } from "@/i18n/routing";
+import { LogOutIcon, SettingsIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { ToggleTheme } from "./toggle-theme";
 
 export default async function UserAction() {
   const t = await getTranslations();
@@ -21,7 +21,7 @@ export default async function UserAction() {
       <DropdownMenu>
         <DropdownMenuTrigger className="block bg-white bg-opacity-20 shadow-md w-10 h-10 rounded-full p-[3px]">
           <img
-            className=" rounded-full"
+            className="rounded-full"
             src={session?.user?.image ?? "/images/avatar.svg"}
             alt="Avatar"
           />

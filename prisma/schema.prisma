@@ -18,9 +18,10 @@ model Users {
   image     String?
   createdAt DateTime @default(now()) @map("created_at")
 
-  accounts   Accounts[]
-  categories Categories[]
-  invoices   Invoices[]
+  accounts     Accounts[]
+  categories   Categories[]
+  invoices     Invoices[]
+  transactions Transactions[]
 
   @@map("users")
 }
@@ -46,7 +47,7 @@ model Categories {
   createdAt DateTime @default(now()) @map("created_at")
 
   user         Users          @relation(fields: [userId], references: [id])
-  Transactions Transactions[]
+  transactions Transactions[]
 
   @@unique([userId, title])
   @@map("categories")
@@ -79,9 +80,10 @@ model Transactions {
   value        Decimal
   createdAt    DateTime @default(now()) @map("created_at")
 
-  category Categories? @relation(fields: [categoryId], references: [id])
-  input    Accounts?   @relation("AccountAsInput", fields: [inputId], references: [id])
-  output   Accounts?   @relation("AccountAsOutput", fields: [outputId], references: [id])
+  user     Users      @relation(fields: [userId], references: [id])
+  category Categories @relation(fields: [categoryId], references: [id])
+  input    Accounts?  @relation("AccountAsInput", fields: [inputId], references: [id])
+  output   Accounts?  @relation("AccountAsOutput", fields: [outputId], references: [id])
 
   @@map("transactions")
 }

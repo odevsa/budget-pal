@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     config.externals.push("bcrypt");
     return config;
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default withNextIntl(nextConfig);

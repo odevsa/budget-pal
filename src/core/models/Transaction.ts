@@ -1,6 +1,8 @@
 import { Decimal } from "@prisma/client/runtime/library";
 import { z } from "zod";
 import { Account } from "./Account";
+import { User } from "./User";
+import { Category } from "./Category";
 
 export interface Transaction {
   id?: number;
@@ -13,6 +15,8 @@ export interface Transaction {
   value: Decimal | number;
   createdAt?: Date;
 
+  user?: User;
+  category?: Category;
   input?: Account;
   output?: Account;
 }

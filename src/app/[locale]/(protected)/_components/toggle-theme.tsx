@@ -4,12 +4,7 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
-export function ToggleTheme(
-  props: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  >
-) {
+export function ToggleTheme() {
   const t = useTranslations();
   const { setTheme } = useTheme();
 

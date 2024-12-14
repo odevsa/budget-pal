@@ -1,6 +1,7 @@
-import { Transaction } from "@/core/models/Transaction";
 import { Pagination } from "@/core/models/Pagination";
+import { Transaction } from "@/core/models/Transaction";
 import DB from "@/lib/db";
+import { Prisma } from "@prisma/client";
 
 export default class TransactionRepository {
   public static async save(
@@ -9,12 +10,12 @@ export default class TransactionRepository {
     try {
       const response = await DB.transactions.upsert({
         where: { id: data.id ?? 0 },
-        update: { ...data, input: undefined, output: undefined },
-        create: { ...data, input: undefined, output: undefined },
+        create: data as Prisma.TransactionsCreateInput,
+        update: data as Prisma.TransactionsUpdateInput,
       });
 
       return response as Transaction;
-    } catch (e: any) {
+    } catch {
       return undefined;
     }
   }
@@ -70,7 +71,7 @@ export default class TransactionRepository {
         where: { id },
       })) as Transaction;
       return { ...item, value: parseFloat(item.value.toString()) };
-    } catch (e: any) {
+    } catch {
       return undefined;
     }
   }
@@ -79,7 +80,7 @@ export default class TransactionRepository {
     try {
       await DB.transactions.delete({ where: { id } });
       return true;
-    } catch (e: any) {
+    } catch {
       return false;
     }
   }

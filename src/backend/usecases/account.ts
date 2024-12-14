@@ -21,7 +21,7 @@ export async function accountSaveUseCase(
 
 export async function accountTotalUseCase(): Promise<number> {
   const session = await auth();
-  if (!session?.user?.id) return {} as any;
+  if (!session?.user?.id) return 0;
 
   return await AccountRepository.total();
 }

@@ -1,18 +1,19 @@
 import { Invoice } from "@/core/models/Invoice";
 import { Pagination } from "@/core/models/Pagination";
 import DB from "@/lib/db";
+import { Prisma } from "@prisma/client";
 
 export default class InvoiceRepository {
   public static async save(data: Invoice): Promise<Invoice | undefined> {
     try {
       const response = await DB.invoices.upsert({
         where: { id: data.id ?? 0 },
-        update: data,
-        create: data,
+        create: data as Prisma.InvoicesCreateInput,
+        update: data as Prisma.InvoicesUpdateInput,
       });
 
       return response as Invoice;
-    } catch (e: any) {
+    } catch {
       return undefined;
     }
   }
@@ -58,7 +59,7 @@ export default class InvoiceRepository {
     try {
       const item = (await DB.invoices.findUnique({ where: { id } })) as Invoice;
       return { ...item, value: parseFloat(item.value.toString()) };
-    } catch (e: any) {
+    } catch {
       return undefined;
     }
   }
@@ -67,7 +68,7 @@ export default class InvoiceRepository {
     try {
       await DB.invoices.delete({ where: { id } });
       return true;
-    } catch (e: any) {
+    } catch {
       return false;
     }
   }

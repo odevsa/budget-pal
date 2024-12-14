@@ -10,18 +10,18 @@ export const getString = (
   data: FormData,
   fields: string
 ): string | undefined => {
-  let value: any = data.get(fields) as string;
+  const value: any = data.get(fields) as string;
   if (!value) return;
   return value.trim();
 };
 
 export const getDate = (data: FormData, fields: string): Date | undefined => {
-  let value: any = data.get(fields) as string;
+  const value: any = data.get(fields) as string;
   if (!value) return;
 
   try {
     return new Date(value);
-  } catch (error) {
+  } catch {
     return;
   }
 };
@@ -30,7 +30,7 @@ export const getNumber = (
   data: FormData,
   fields: string
 ): number | undefined => {
-  let value: any = data.get(fields) as string;
+  const value: any = data.get(fields) as string;
   if (isNaN(value) || isNaN(parseFloat(value))) return;
   return parseFloat(value.trim());
 };

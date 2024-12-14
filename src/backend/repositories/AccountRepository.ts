@@ -1,18 +1,19 @@
 import { Account } from "@/core/models/Account";
 import { Pagination } from "@/core/models/Pagination";
 import DB from "@/lib/db";
+import { Prisma } from "@prisma/client";
 
 export default class AccountRepository {
   public static async save(data: Account): Promise<Account | undefined> {
     try {
       const response = await DB.accounts.upsert({
         where: { id: data.id ?? 0 },
-        update: data,
-        create: data,
+        create: data as Prisma.AccountsCreateInput,
+        update: data as Prisma.AccountsUpdateInput,
       });
 
       return response as Account;
-    } catch (e: any) {
+    } catch {
       return undefined;
     }
   }
@@ -57,7 +58,7 @@ export default class AccountRepository {
   public static async byId(id: number): Promise<Account | undefined> {
     try {
       return (await DB.accounts.findUnique({ where: { id } })) as Account;
-    } catch (e: any) {
+    } catch {
       return undefined;
     }
   }
@@ -66,7 +67,7 @@ export default class AccountRepository {
     try {
       await DB.accounts.delete({ where: { id } });
       return true;
-    } catch (e: any) {
+    } catch {
       return false;
     }
   }

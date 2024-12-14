@@ -35,7 +35,6 @@ import { useState } from "react";
 import GenericPagination from "./generic-pagination";
 import { maskDecimal } from "@/core/mask";
 import { cn } from "@/lib/utils";
-import { boolean } from "zod";
 
 interface GenericListField {
   key: string;

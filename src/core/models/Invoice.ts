@@ -1,5 +1,6 @@
 import { Decimal } from "@prisma/client/runtime/library";
 import { z } from "zod";
+import { User } from "./User";
 
 export interface Invoice {
   id?: number;
@@ -10,6 +11,8 @@ export interface Invoice {
   isActive: boolean;
   dueDay: number;
   createdAt?: Date;
+
+  user?: User;
 }
 
 export const validationInvoiceCreate = z.object({

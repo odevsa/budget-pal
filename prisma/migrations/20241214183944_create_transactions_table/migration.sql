@@ -9,6 +9,7 @@ CREATE TABLE "transactions" (
     "output_id" INTEGER,
     "value" DECIMAL NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "transactions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "transactions_caterogy_id_fkey" FOREIGN KEY ("caterogy_id") REFERENCES "categories" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "transactions_input_id_fkey" FOREIGN KEY ("input_id") REFERENCES "accounts" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT "transactions_output_id_fkey" FOREIGN KEY ("output_id") REFERENCES "accounts" ("id") ON DELETE SET NULL ON UPDATE CASCADE

@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import BackendFacade from "@/backend";
 import { Account, validationAccountUpdate } from "@/core/models/Account";
 import { getTranslations } from "next-intl/server";
+import { NextRequest } from "next/server";
 import {
   responseBadRequest,
   responseNoContent,
@@ -10,8 +11,16 @@ import {
   responseUnauthenticated,
 } from "../../response";
 
-export const GET = auth(async (request, { params }) => {
-  if (!request.auth) return responseUnauthenticated();
+interface RouteDefaultParams {
+  params: Promise<{ id: string }>;
+}
+
+export async function GET(
+  _request: NextRequest,
+  { params }: RouteDefaultParams
+) {
+  const session = await auth();
+  if (!session) return responseUnauthenticated();
 
   const { id } = (await params) as { id: string };
   if (!id) return responseBadRequest({ message: "ID is required" });
@@ -21,12 +30,16 @@ export const GET = auth(async (request, { params }) => {
   if (!item) return responseNotFound();
 
   return responseOk(item);
-});
+}
 
-export const PUT = auth(async (request, { params }) => {
+export async function PUT(
+  request: NextRequest,
+  { params }: RouteDefaultParams
+) {
+  const session = await auth();
+  if (!session) return responseUnauthenticated();
+
   const t = await getTranslations();
-  if (!request.auth) return responseUnauthenticated();
-
   const { id } = (await params) as { id: string };
   if (!id) return responseBadRequest({ message: "ID is required" });
 
@@ -46,10 +59,14 @@ export const PUT = auth(async (request, { params }) => {
     });
 
   return responseOk(saved);
-});
+}
 
-export const DELETE = auth(async (request, { params }) => {
-  if (!request.auth) return responseUnauthenticated();
+export async function DELETE(
+  _request: NextRequest,
+  { params }: RouteDefaultParams
+) {
+  const session = await auth();
+  if (!session) return responseUnauthenticated();
 
   const { id } = (await params) as { id: string };
   if (!id) return responseBadRequest({ message: "ID is required" });
@@ -59,4 +76,4 @@ export const DELETE = auth(async (request, { params }) => {
   if (!deleted) return responseNotFound();
 
   return responseNoContent();
-});
+}

@@ -22,8 +22,8 @@ export const config = {
 const matchPath = (patterns: string[], pathname: string) =>
   patterns.some((pattern) => new RegExp(pattern).test(pathname));
 
-export const withI18n: MiddlewareFactory = (next) => {
-  return async (request: NextRequest, _next: NextFetchEvent) => {
+export const withI18n: MiddlewareFactory = () => {
+  return async (request: NextRequest) => {
     return createMiddleware(routing)(request);
   };
 };
