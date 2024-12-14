@@ -73,13 +73,13 @@ model Transactions {
   userId       Int      @map("user_id")
   description  String
   transactedAt DateTime @map("transacted_at")
-  categoryId   Int?     @map("caterogy_id")
+  categoryId   Int      @map("caterogy_id")
   inputId      Int?     @map("input_id")
   outputId     Int?     @map("output_id")
   value        Decimal
   createdAt    DateTime @default(now()) @map("created_at")
 
-  category Categories? @relation(fields: [inputId], references: [id])
+  category Categories? @relation(fields: [categoryId], references: [id])
   input    Accounts?   @relation("AccountAsInput", fields: [inputId], references: [id])
   output   Accounts?   @relation("AccountAsOutput", fields: [outputId], references: [id])
 

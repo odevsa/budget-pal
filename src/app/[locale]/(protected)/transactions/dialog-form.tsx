@@ -15,7 +15,7 @@ import { ArrowLeftRightIcon, HandCoinsIcon, ReceiptIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import TransactionsFormContent from "./form-content";
 import StorageFacade from "@/core/storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Category } from "@/core/models/Category";
 
 export default function TransactionDialogForm({
@@ -31,6 +31,11 @@ export default function TransactionDialogForm({
 }>) {
   const t = useTranslations();
   const [opened, setOpened] = useState<boolean>();
+  const [isAbleToLoadStorage, setIsAbleToLoadStorage] = useState<boolean>();
+
+  useEffect(() => {
+    setIsAbleToLoadStorage(true);
+  }, []);
 
   const getIcon = (variant: TransactionType) => {
     switch (variant) {
@@ -44,6 +49,8 @@ export default function TransactionDialogForm({
   };
 
   const getLastFields = (variant: TransactionType): Transaction | undefined => {
+    if (!isAbleToLoadStorage) return;
+
     switch (variant) {
       case TransactionType.Pay:
         return StorageFacade.transactions.getPay();
