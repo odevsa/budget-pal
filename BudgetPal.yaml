@@ -1,0 +1,44 @@
+name: beautiful_georgia
+services:
+  budget-pal:
+    cpu_shares: 90
+    command: []
+    container_name: budget-pal
+    deploy:
+      resources:
+        limits:
+          memory: 11871M
+    environment:
+      - AUTH_GOOGLE_ID=your-google-id
+      - AUTH_GOOGLE_SECRET=your-google-secret
+      - AUTH_SECRET=your-super-secret-hash
+      - AUTH_TRUST_HOST=http://localhost:3099
+    hostname: budget-pal
+    image: odevsa/budget-pal:latest
+    labels:
+      icon: https://raw.githubusercontent.com/odevsa/budget-pal/refs/heads/main/icon.svg
+    ports:
+      - target: 3099
+        published: "3099"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/budget-pal/data
+        target: /app/data
+    devices: []
+    cap_add: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://raw.githubusercontent.com/odevsa/budget-pal/refs/heads/main/icon.svg
+  index: /
+  is_uncontrolled: false
+  port_map: "3099"
+  scheme: http
+  store_app_id: beautiful_georgia
+  title:
+    custom: BudgetPal
