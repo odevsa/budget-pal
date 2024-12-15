@@ -14,10 +14,9 @@ COPY . .
 COPY ./sample.env ./.env
 
 RUN npx prisma generate
-RUN npx prisma db push
 
 RUN npm run build
 
 EXPOSE 3099
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "docker"]

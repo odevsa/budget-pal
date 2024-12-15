@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3099",
+    "start": "next start",
+    "docker": "npx prisma db push && next start -p 3099",
     "lint": "next lint"
   },
   "dependencies": {

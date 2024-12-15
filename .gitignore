@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# docker
+/data/
+
 # production
 /build
 
