@@ -1,7 +1,6 @@
 services:
   budget-pal:
-    # build: .
-    image: budget-pal
+    build: .
     container_name: budget-pal
     ports:
       - "3099:3099"
