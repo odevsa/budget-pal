@@ -1,4 +1,4 @@
-name: beautiful_georgia
+name: budget-pal
 services:
   budget-pal:
     cpu_shares: 90
