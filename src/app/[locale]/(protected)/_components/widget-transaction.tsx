@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { ChartPieIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { MonthlySummary } from "./monthly-summary";
 
 export default async function WidgetTransaction({
   title = "menu.report",
@@ -24,7 +25,15 @@ export default async function WidgetTransaction({
           <span>{t(title)}</span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="text-right text-white">Relatório</CardContent>
+      <CardContent className="text-right text-white">
+        <MonthlySummary
+          data={[
+            { day: "11", previous: 3, current: 10 },
+            { day: "12", previous: 18, current: 16 },
+            { day: "13", previous: 19, current: 20 },
+          ]}
+        />
+      </CardContent>
       {children && (
         <CardFooter className="flex flex-row justify-end gap-2">
           {children}
