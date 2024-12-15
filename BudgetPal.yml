@@ -1,0 +1,14 @@
+services:
+  budget-pal:
+    image: odevsa/budget-pal
+    container_name: budget-pal
+    ports:
+      - "3099:3099"
+    environment:
+      - AUTH_TRUST_HOST=http://localhost:3099
+      - AUTH_SECRET=your-super-secret-hash
+      - AUTH_GOOGLE_ID=your-google-id
+      - AUTH_GOOGLE_SECRET=your-google-secret
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
