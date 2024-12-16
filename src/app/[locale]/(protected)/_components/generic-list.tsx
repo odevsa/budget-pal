@@ -69,11 +69,26 @@ export default function GenericList({
   const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
 
+  const booleanBox = (
+    v: boolean,
+    labelTrue: string = "crud.yes",
+    labelFalse: string = "crud.no"
+  ) =>
+    v ? (
+      <span className="bg-success text-xs px-1 py-1 rounded">
+        {t(labelTrue)}
+      </span>
+    ) : (
+      <span className="bg-destructive text-xs px-1 py-1 rounded">
+        {t(labelFalse)}
+      </span>
+    );
+
   const process = {
     maskDecimal,
     monetary: (v: number) => "$ " + v.toFixed(2),
-    boolean: (v: boolean) => (v ? t("crud.yes") : t("crud.no")),
-    active: (v: boolean) => (v ? t("crud.active") : t("crud.inactive")),
+    active: (v: boolean) => booleanBox(v, "crud.active", "crud.inactive"),
+    boolean: (v: boolean) => booleanBox(v),
   };
 
   const handleDelete = async (item: any) => {
@@ -147,7 +162,7 @@ export default function GenericList({
 
                 {(editPath || actionDelete) && (
                   <TableCell className="flex flex-row gap-2 justify-end">
-                    {editPath && (
+                    {!item.hideAction && editPath && (
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Link
@@ -162,7 +177,7 @@ export default function GenericList({
                         <TooltipContent>{t("crud.edit")}</TooltipContent>
                       </Tooltip>
                     )}
-                    {actionDelete && (
+                    {!item.hideAction && actionDelete && (
                       <Tooltip>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>

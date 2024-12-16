@@ -63,7 +63,8 @@ model Invoices {
   dueDay    Int      @map("due_at")
   createdAt DateTime @default(now()) @map("created_at")
 
-  user Users @relation(fields: [userId], references: [id])
+  user               Users                @relation(fields: [userId], references: [id])
+  invoiceTransaction InvoiceTransaction[]
 
   @@unique([userId, title])
   @@map("invoices")
@@ -80,10 +81,24 @@ model Transactions {
   value        Decimal
   createdAt    DateTime @default(now()) @map("created_at")
 
-  user     Users      @relation(fields: [userId], references: [id])
-  category Categories @relation(fields: [categoryId], references: [id])
-  input    Accounts?  @relation("AccountAsInput", fields: [inputId], references: [id])
-  output   Accounts?  @relation("AccountAsOutput", fields: [outputId], references: [id])
+  user               Users                @relation(fields: [userId], references: [id])
+  category           Categories           @relation(fields: [categoryId], references: [id])
+  input              Accounts?            @relation("AccountAsInput", fields: [inputId], references: [id])
+  output             Accounts?            @relation("AccountAsOutput", fields: [outputId], references: [id])
+  invoiceTransaction InvoiceTransaction[]
 
   @@map("transactions")
+}
+
+model InvoiceTransaction {
+  invoiceId     Int      @map("invoice_id")
+  transactionId Int      @map("transaction_id")
+  assignedAt    DateTime @default(now()) @map("assigned_at")
+  assignedBy    Int      @map("assigned_by")
+
+  invoice     Invoices     @relation(fields: [invoiceId], references: [id])
+  transaction Transactions @relation(fields: [transactionId], references: [id])
+
+  @@id([invoiceId, transactionId])
+  @@map("invoice_transaction")
 }

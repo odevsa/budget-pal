@@ -1,9 +1,11 @@
+import { Invoice } from "@/core/models/Invoice";
 import {
   TransactionMonthlySummary,
-  TransactionMonthlySummaryParams,
+  ReportMonthlyParams,
 } from "@/core/models/Report";
 import DB from "@/lib/db";
 import { Prisma } from "@prisma/client";
+import { endOfMonth } from "date-fns";
 
 interface TransactionPayload {
   transactedAt: Date;
@@ -17,7 +19,7 @@ export default class ReportRepository {
     userId,
     month,
     year,
-  }: TransactionMonthlySummaryParams): Promise<TransactionPayload[]> {
+  }: ReportMonthlyParams): Promise<TransactionPayload[]> {
     const startOfMonth = new Date(year, month - 1, 1);
     const endOfMonth = new Date(year, month, 0);
 
@@ -42,7 +44,7 @@ export default class ReportRepository {
     userId,
     month,
     year,
-  }: TransactionMonthlySummaryParams): Promise<TransactionMonthlySummary[]> {
+  }: ReportMonthlyParams): Promise<TransactionMonthlySummary[]> {
     const currentMonthTransactions = await this.byMonth({
       userId,
       month,
@@ -99,5 +101,54 @@ export default class ReportRepository {
     }
 
     return dailySummary;
+  }
+
+  public static async reportMonthlyInvoices({
+    userId,
+    month,
+    year,
+  }: ReportMonthlyParams): Promise<Invoice[]> {
+    try {
+      const startDate = new Date(year, month - 1);
+      const endDate = endOfMonth(startDate);
+      const invoices = await DB.invoices.findMany({
+        where: {
+          userId: userId,
+          isActive: true,
+        },
+        include: {
+          invoiceTransaction: {
+            include: {
+              transaction: true,
+            },
+          },
+        },
+      });
+
+      const result = invoices.map((invoice) => ({
+        id: invoice.id,
+        userId: invoice.userId,
+        title: invoice.title,
+        value: parseFloat(invoice.value.toString()),
+        isInput: invoice.isInput,
+        isActive: invoice.isActive,
+        dueDay: invoice.dueDay,
+        createdAt: invoice.createdAt,
+        transactions: invoice.invoiceTransaction
+          .map((item) => ({
+            ...item.transaction,
+            value: parseFloat(item.transaction.value.toString()),
+          }))
+          .filter(
+            (transaction) =>
+              transaction.transactedAt >= startDate &&
+              transaction.transactedAt <= endDate
+          ),
+      }));
+
+      return result;
+    } catch (e) {
+      return [];
+    }
   }
 }

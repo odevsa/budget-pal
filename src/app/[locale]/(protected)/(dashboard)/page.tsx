@@ -1,5 +1,6 @@
 import BackendFacade from "@/backend";
 import { Button } from "@/components/ui/button";
+import { TransactionType } from "@/core/models/Transaction";
 import {
   ArrowLeftRightIcon,
   HandCoinsIcon,
@@ -9,22 +10,30 @@ import {
   WalletIcon,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import GenericWidget from "../_components/generic-widget";
 import PageTitle from "../_components/page-title";
+import WidgetInvoice from "../_components/widget-invoice";
 import WidgetTransaction from "../_components/widget-transaction";
 import TransactionDialogForm from "../transactions/dialog-form";
-import { TransactionType } from "@/core/models/Transaction";
-import GenericWidget from "../_components/generic-widget";
 
 export default async function Panel() {
   const now = new Date();
   const t = await getTranslations();
   const accounts = await BackendFacade.accounts.all();
   const categories = await BackendFacade.categories.all();
-  const amountAccounts = accounts.length ?? 0;
-  const amountCategories = categories.length ?? 0;
   const monthlySummary = await BackendFacade.reports.monthlySummary(
     now.getMonth() + 1,
     now.getFullYear()
+  );
+  const monthlyInvoices = await BackendFacade.reports.monthlyInvoices(
+    now.getMonth() + 1,
+    now.getFullYear()
+  );
+  const monthlyInvoicesToPay = monthlyInvoices.filter(
+    (invoice) => !invoice.isInput
+  );
+  const monthlyInvoicesToReceive = monthlyInvoices.filter(
+    (invoice) => invoice.isInput
   );
 
   return (
@@ -65,16 +74,23 @@ export default async function Panel() {
           </WidgetTransaction>
         </div>
 
-        <GenericWidget
-          title="menu.accounts"
-          icon={<WalletIcon size={"100%"} />}
-          value={amountAccounts.toString()}
-        />
-        <GenericWidget
-          title="menu.categories"
-          icon={<TagIcon size={"100%"} />}
-          value={amountCategories.toString()}
-        />
+        {monthlyInvoicesToPay.length > 0 && (
+          <div className="col-span-full">
+            <WidgetInvoice
+              type={TransactionType.Pay}
+              data={monthlyInvoicesToPay}
+            />
+          </div>
+        )}
+
+        {monthlyInvoicesToReceive.length > 0 && (
+          <div className="col-span-full">
+            <WidgetInvoice
+              type={TransactionType.Receive}
+              data={monthlyInvoicesToReceive}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -74,7 +74,9 @@
     "value": "Value",
     "isInput": "Receive",
     "isActive": "Active",
-    "dueDay": "Due Day"
+    "dueDay": "Due Day",
+    "paid": "Paid",
+    "received": "Received"
   },
   "transactions": {
     "description": "Fill correctly the fields bellow",
