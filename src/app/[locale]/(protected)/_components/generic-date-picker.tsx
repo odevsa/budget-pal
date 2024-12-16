@@ -29,7 +29,7 @@ export interface GenericDatePickerProps {
   className?: string;
   errors?: string[];
   onChange?(value: any): any;
-  buttonToday: boolean;
+  buttonToday?: boolean;
 }
 
 const GenericDatePicker = ({
