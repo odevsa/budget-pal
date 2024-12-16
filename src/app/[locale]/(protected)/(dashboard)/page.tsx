@@ -16,11 +16,16 @@ import { TransactionType } from "@/core/models/Transaction";
 import GenericWidget from "../_components/generic-widget";
 
 export default async function Panel() {
+  const now = new Date();
   const t = await getTranslations();
   const accounts = await BackendFacade.accounts.all();
   const categories = await BackendFacade.categories.all();
   const amountAccounts = accounts.length ?? 0;
   const amountCategories = categories.length ?? 0;
+  const monthlySummary = await BackendFacade.reports.monthlySummary(
+    now.getMonth() + 1,
+    now.getFullYear()
+  );
 
   return (
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
@@ -28,7 +33,7 @@ export default async function Panel() {
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
         <div className="col-span-full">
-          <WidgetTransaction title="reports.monthly">
+          <WidgetTransaction title="reports.monthly" data={monthlySummary}>
             <TransactionDialogForm
               variant={TransactionType.Pay}
               accounts={accounts}

@@ -8,25 +8,24 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { TransactionMonthlySummary } from "@/core/models/Report";
 
 const chartConfig = {
   current: {
     label: "Current",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--chart-1))",
   },
   previous: {
     label: "Previous",
-    color: "hsl(var(--chart-3))",
+    color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;
 
-interface MonthlySummaryItem {
-  day: string;
-  current: number;
-  previous: number;
-}
-
-export function MonthlySummary({ data }: { data: MonthlySummaryItem[] }) {
+export function MonthlySummary({
+  data,
+}: {
+  data: TransactionMonthlySummary[];
+}) {
   return (
     <div>
       <ChartContainer config={chartConfig}>
@@ -37,7 +36,6 @@ export function MonthlySummary({ data }: { data: MonthlySummaryItem[] }) {
             tickLine={false}
             axisLine={false}
             tickMargin={8}
-            tickFormatter={(value) => value.slice(0, 3)}
           />
           <ChartTooltip
             cursor={false}

@@ -1,34 +1,35 @@
 import {
-  accountPageUseCase,
+  accountAllUseCase,
   accountByIdUseCase,
   accountDeleteUseCase,
+  accountPageUseCase,
   accountSaveUseCase,
   accountTotalUseCase,
-  accountAllUseCase,
 } from "./usecases/account";
 import {
-  categoryPageUseCase,
+  categoryAllUseCase,
   categoryByIdUseCase,
   categoryDeleteUseCase,
+  categoryPageUseCase,
   categorySaveUseCase,
   categoryTotalUseCase,
-  categoryAllUseCase,
 } from "./usecases/category";
 import {
-  invoicePageUseCase,
+  invoiceAllUseCase,
   invoiceByIdUseCase,
   invoiceDeleteUseCase,
+  invoicePageUseCase,
   invoiceSaveUseCase,
   invoiceTotalUseCase,
-  invoiceAllUseCase,
 } from "./usecases/invoices";
+import { reportMonthlySummaryUseCase } from "./usecases/reports";
 import {
-  transactionPageUseCase,
+  transactionAllUseCase,
   transactionByIdUseCase,
   transactionDeleteUseCase,
+  transactionPageUseCase,
   transactionSaveUseCase,
   transactionTotalUseCase,
-  transactionAllUseCase,
 } from "./usecases/transactions";
 import {
   userByEmailUseCase,
@@ -77,5 +78,9 @@ export default class BackendFacade {
     page: transactionPageUseCase,
     byId: transactionByIdUseCase,
     delete: transactionDeleteUseCase,
+  };
+
+  static readonly reports = {
+    monthlySummary: reportMonthlySummaryUseCase,
   };
 }
