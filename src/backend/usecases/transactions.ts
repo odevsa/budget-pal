@@ -3,15 +3,11 @@
 import { auth } from "@/auth";
 import TransactionRepository from "@/backend/repositories/TransactionRepository";
 import {
-  Transaction,
-  TransactionMonthlySummary,
-  TransactionMonthlySummaryParams,
-} from "@/core/models/Transaction";
-import {
   Pagination,
   PaginationParams,
   SearchParams,
 } from "@/core/models/Pagination";
+import { Transaction } from "@/core/models/Transaction";
 import { generateWhere } from "@/lib/utils";
 
 export async function transactionSaveUseCase(
