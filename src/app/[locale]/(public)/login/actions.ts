@@ -3,7 +3,7 @@
 import { signIn } from "@/auth";
 import { validationUserLogin } from "@/core/models/User";
 import { getTranslations } from "next-intl/server";
-import { isRedirectError } from "next/dist/client/components/redirect";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export async function loginAction(_previousState: any, formData: FormData) {
   const t = await getTranslations();

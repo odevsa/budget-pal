@@ -4,7 +4,7 @@ import { signIn } from "@/auth";
 import BackendFacade from "@/backend";
 import { User, validationUserRegister } from "@/core/models/User";
 import { getTranslations } from "next-intl/server";
-import { isRedirectError } from "next/dist/client/components/redirect";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export async function registerAction(_previousState: any, formData: FormData) {
   const t = await getTranslations();
