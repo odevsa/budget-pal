@@ -17,6 +17,7 @@ import TransactionsFormContent from "./form-content";
 import StorageFacade from "@/core/storage";
 import { useEffect, useState } from "react";
 import { Category } from "@/core/models/Category";
+import { useRouter } from "@/i18n/routing";
 
 export default function TransactionDialogForm({
   variant = TransactionType.Transfer,
@@ -30,6 +31,7 @@ export default function TransactionDialogForm({
   children?: React.ReactNode;
 }>) {
   const t = useTranslations();
+  const router = useRouter();
   const [opened, setOpened] = useState<boolean>();
   const [isAbleToLoadStorage, setIsAbleToLoadStorage] = useState<boolean>();
 
@@ -75,6 +77,7 @@ export default function TransactionDialogForm({
     }
 
     setOpened(false);
+    router.replace("/");
   };
 
   return (

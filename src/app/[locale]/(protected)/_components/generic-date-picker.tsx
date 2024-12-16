@@ -29,6 +29,7 @@ export interface GenericDatePickerProps {
   className?: string;
   errors?: string[];
   onChange?(value: any): any;
+  buttonToday: boolean;
 }
 
 const GenericDatePicker = ({
@@ -39,6 +40,7 @@ const GenericDatePicker = ({
   className,
   errors,
   onChange,
+  buttonToday,
 }: GenericDatePickerProps) => {
   const minuteRef = React.useRef<HTMLInputElement>(null);
   const hourRef = React.useRef<HTMLInputElement>(null);
@@ -100,22 +102,24 @@ const GenericDatePicker = ({
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
-          <Button
-            className="w-full"
-            variant={"ghost"}
-            onClick={() => {
-              const chosenDate = new Date();
-              setInternalValue(chosenDate);
-            }}
-          >
-            <div className="flex">
-              <CalendarCheckIcon className="h-5 w-5 mr-2" />
-              Today
-            </div>
-            <p className="text-sm text-muted-foreground font-normal">
-              {format(new Date(), "PPP")}
-            </p>
-          </Button>
+          {buttonToday && (
+            <Button
+              className="w-full"
+              variant={"ghost"}
+              onClick={() => {
+                const chosenDate = new Date();
+                setInternalValue(chosenDate);
+              }}
+            >
+              <div className="flex">
+                <CalendarCheckIcon className="h-5 w-5 mr-2" />
+                Today
+              </div>
+              <p className="text-sm text-muted-foreground font-normal">
+                {format(new Date(), "PPP")}
+              </p>
+            </Button>
+          )}
           <Calendar
             mode="single"
             selected={internalValue}

@@ -31,7 +31,7 @@ export default async function Panel() {
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
       <PageTitle title={t("menu.dashboard")} icon={<LayoutDashboardIcon />} />
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
         <div className="col-span-full">
           <WidgetTransaction title="reports.monthly" data={monthlySummary}>
             <TransactionDialogForm

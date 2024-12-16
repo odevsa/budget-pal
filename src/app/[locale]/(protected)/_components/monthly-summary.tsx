@@ -29,7 +29,10 @@ export function MonthlySummary({
   return (
     <div>
       <ChartContainer config={chartConfig}>
-        <AreaChart accessibilityLayer data={data}>
+        <AreaChart
+          accessibilityLayer
+          data={data.map((d) => ({ ...d, day: d.day.toString() }))}
+        >
           <CartesianGrid vertical={false} />
           <XAxis
             dataKey="day"
@@ -37,10 +40,7 @@ export function MonthlySummary({
             axisLine={false}
             tickMargin={8}
           />
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent indicator="dot" hideLabel />}
-          />
+          <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
           <defs>
             <linearGradient id="fillCurrent" x1="0" y1="0" x2="0" y2="1">
               <stop
