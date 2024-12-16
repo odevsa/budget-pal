@@ -35,7 +35,7 @@ export default async function PanelLayout({
     { title: "menu.invoices", path: "/invoices", icon: <ReceiptIcon /> },
     { title: "menu.accounts", path: "/accounts", icon: <WalletIcon /> },
     { title: "menu.categories", path: "/categories", icon: <TagIcon /> },
-    { title: "menu.settings", path: "/settings", icon: <SettingsIcon /> },
+    // { title: "menu.settings", path: "/settings", icon: <SettingsIcon /> },
   ];
 
   return (

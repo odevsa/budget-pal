@@ -9,8 +9,9 @@ import { useEffect, useState } from "react";
 interface NavBarItem {
   title: string;
   path: string;
-  icon?: JSX.Element;
+  icon?: React.ReactNode;
 }
+
 export default function NavBar({
   menu,
 }: Readonly<{
