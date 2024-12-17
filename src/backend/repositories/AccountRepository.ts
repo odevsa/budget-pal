@@ -32,7 +32,7 @@ export default class AccountRepository {
   public static async page({
     where = {},
     orderBy = {},
-    take = 10,
+    take = 15,
     page = 1,
   }): Promise<Pagination<Account>> {
     const data = await DB.accounts.findMany({

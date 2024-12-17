@@ -16,8 +16,8 @@ const GenericSwitch = React.forwardRef<
   GenericSwitchProps
 >(({ title, name, errors = [], ...props }, ref) => {
   return (
-    <div className="flex flex-col space-y-1.5">
-      <Label htmlFor={`input-${name}`}>{title}</Label>
+    <div className="flex flex-col gap-1">
+      {title && <Label htmlFor={`input-${name}`}>{title}</Label>}
       <Switch {...props} ref={ref} id={`input-${name}`} name={name} />
       <GenericFieldErrors errors={errors} />
     </div>

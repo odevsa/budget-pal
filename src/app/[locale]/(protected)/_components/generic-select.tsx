@@ -50,8 +50,8 @@ const GenericSelect = ({
   }, [value]);
 
   return (
-    <div className={cn("flex flex-col space-y-1.5", className)}>
-      <Label htmlFor={`input-${name}`}>{title}</Label>
+    <div className={cn("flex flex-col gap-1", className)}>
+      {title && <Label htmlFor={`input-${name}`}>{title}</Label>}
       <Select name={name} value={internalValue} onValueChange={handleChange}>
         <SelectTrigger>
           <SelectValue placeholder={placeholder} />

@@ -4,6 +4,10 @@ export interface ReportMonthlyParams {
   year: number;
 }
 
+export interface ReportTransactionMonthlyParams extends ReportMonthlyParams {
+  accountId?: number;
+}
+
 export interface TransactionMonthlySummary {
   day: number;
   current: number;

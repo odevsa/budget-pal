@@ -32,7 +32,7 @@ export default class CategoryRepository {
   public static async page({
     where = {},
     orderBy = {},
-    take = 10,
+    take = 15,
     page = 1,
   }): Promise<Pagination<Category>> {
     const data = await DB.categories.findMany({

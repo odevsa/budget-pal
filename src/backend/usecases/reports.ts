@@ -7,12 +7,14 @@ import { Invoice } from "@/core/models/Invoice";
 
 export async function reportMonthlySummaryUseCase(
   month: number,
-  year: number
+  year: number,
+  accountId?: number
 ): Promise<TransactionMonthlySummary[]> {
   const session = await auth();
   if (!session?.user?.id) return [];
 
   return await ReportRepository.reportMonthlySummary({
+    accountId,
     month,
     year,
     userId: session.user.id,

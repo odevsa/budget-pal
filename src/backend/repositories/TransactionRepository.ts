@@ -37,7 +37,7 @@ export default class TransactionRepository {
   public static async page({
     where = {},
     orderBy = {},
-    take = 10,
+    take = 15,
     page = 1,
   }): Promise<Pagination<Transaction>> {
     const data = await DB.transactions.findMany({

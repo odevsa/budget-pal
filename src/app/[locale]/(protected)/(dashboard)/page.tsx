@@ -6,24 +6,27 @@ import {
   HandCoinsIcon,
   LayoutDashboardIcon,
   ReceiptIcon,
-  TagIcon,
-  WalletIcon,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import GenericWidget from "../_components/generic-widget";
 import PageTitle from "../_components/page-title";
 import WidgetInvoice from "../_components/widget-invoice";
 import WidgetTransaction from "../_components/widget-transaction";
 import TransactionDialogForm from "../transactions/dialog-form";
 
-export default async function Panel() {
+export default async function Panel({
+  searchParams,
+}: {
+  readonly searchParams: Promise<{ account: string }>;
+}) {
+  const { account } = await searchParams;
   const now = new Date();
   const t = await getTranslations();
   const accounts = await BackendFacade.accounts.all();
   const categories = await BackendFacade.categories.all();
   const monthlySummary = await BackendFacade.reports.monthlySummary(
     now.getMonth() + 1,
-    now.getFullYear()
+    now.getFullYear(),
+    account != "0" ? parseInt(account) : undefined
   );
   const monthlyInvoices = await BackendFacade.reports.monthlyInvoices(
     now.getMonth() + 1,
@@ -35,14 +38,18 @@ export default async function Panel() {
   const monthlyInvoicesToReceive = monthlyInvoices.filter(
     (invoice) => invoice.isInput
   );
-
   return (
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
       <PageTitle title={t("menu.dashboard")} icon={<LayoutDashboardIcon />} />
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
         <div className="col-span-full">
-          <WidgetTransaction title="reports.monthly" data={monthlySummary}>
+          <WidgetTransaction
+            title="reports.monthly"
+            data={monthlySummary}
+            account={parseInt(account ?? "0")}
+            accounts={accounts}
+          >
             <TransactionDialogForm
               variant={TransactionType.Pay}
               accounts={accounts}

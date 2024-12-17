@@ -32,7 +32,7 @@ export default class InvoiceRepository {
   public static async page({
     where = {},
     orderBy = {},
-    take = 10,
+    take = 15,
     page = 1,
   }): Promise<Pagination<Invoice>> {
     const data = await DB.invoices.findMany({

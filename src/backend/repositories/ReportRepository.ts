@@ -2,6 +2,7 @@ import { Invoice } from "@/core/models/Invoice";
 import {
   TransactionMonthlySummary,
   ReportMonthlyParams,
+  ReportTransactionMonthlyParams,
 } from "@/core/models/Report";
 import DB from "@/lib/db";
 import { Prisma } from "@prisma/client";
@@ -17,14 +18,18 @@ interface TransactionPayload {
 export default class ReportRepository {
   public static async byMonth({
     userId,
+    accountId,
     month,
     year,
-  }: ReportMonthlyParams): Promise<TransactionPayload[]> {
+  }: ReportTransactionMonthlyParams): Promise<TransactionPayload[]> {
     const startOfMonth = new Date(year, month - 1, 1);
     const endOfMonth = new Date(year, month, 0);
 
     return await DB.transactions.findMany({
       where: {
+        OR: accountId
+          ? [{ inputId: accountId }, { outputId: accountId }]
+          : undefined,
         userId: userId,
         transactedAt: {
           gte: startOfMonth,
@@ -42,17 +47,20 @@ export default class ReportRepository {
 
   public static async reportMonthlySummary({
     userId,
+    accountId,
     month,
     year,
-  }: ReportMonthlyParams): Promise<TransactionMonthlySummary[]> {
+  }: ReportTransactionMonthlyParams): Promise<TransactionMonthlySummary[]> {
     const currentMonthTransactions = await this.byMonth({
       userId,
+      accountId,
       month,
       year,
     });
 
     const previousMonthTransactions = await this.byMonth({
       userId,
+      accountId,
       month: month - 1,
       year,
     });

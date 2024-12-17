@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -5,27 +7,55 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Account } from "@/core/models/Account";
 import { TransactionMonthlySummary } from "@/core/models/Report";
+import { useRouter } from "@/i18n/routing";
 import { ChartPieIcon } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
+import GenericSelect from "./generic-select";
 import { MonthlySummary } from "./monthly-summary";
 
-export default async function WidgetTransaction({
+export default function WidgetTransaction({
   title = "menu.report",
   data,
+  account,
+  accounts,
   children,
 }: Readonly<{
   title?: string;
   data: TransactionMonthlySummary[];
+  account?: number;
+  accounts?: Account[];
   children?: React.ReactNode;
 }>) {
-  const t = await getTranslations();
+  const t = useTranslations();
+  const router = useRouter();
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex flex-row gap-2">
-          <ChartPieIcon />
-          <span>{t(title)}</span>
+        <CardTitle className="flex flex-row gap-2 justify-between items-center">
+          <div className="flex flex-row gap-2">
+            <ChartPieIcon />
+            <span>{t(title)}</span>
+          </div>
+          {accounts && (
+            <div className="-my-3">
+              <GenericSelect
+                value={(account ?? 0)?.toString()}
+                items={[
+                  { label: "Todas as contas", value: "0" },
+                  ...accounts.map((item) => ({
+                    label: item.title,
+                    value: item.id,
+                  })),
+                ]}
+                onChange={(value) => {
+                  router.replace(`/?account=${value}`);
+                }}
+              />
+            </div>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="text-right text-white">

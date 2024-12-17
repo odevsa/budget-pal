@@ -74,7 +74,9 @@
     "value": "Valor",
     "isInput": "Receber",
     "isActive": "Ativo",
-    "dueDay": "Dia de Vencimento"
+    "dueDay": "Dia de Vencimento",
+    "paid": "Pago",
+    "received": "Recebido"
   },
   "transactions": {
     "description": "Preencha corretamente os campos abaixo",

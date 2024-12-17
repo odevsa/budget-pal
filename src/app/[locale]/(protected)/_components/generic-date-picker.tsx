@@ -79,8 +79,8 @@ const GenericDatePicker = ({
   };
 
   return (
-    <div className={cn("flex flex-col space-y-1.5", className)}>
-      <Label htmlFor={`input-${name}`}>{title}</Label>
+    <div className={cn("flex flex-col gap-1", className)}>
+      {title && <Label htmlFor={`input-${name}`}>{title}</Label>}
       {internalValue && (
         <Input name={name} type="hidden" value={internalValue?.toISOString()} />
       )}
