@@ -65,50 +65,55 @@ export default class ReportRepository {
       year,
     });
 
-    const endOfCurrentMonth = new Date(year, month, 0);
-    const startOfPreviousMonth = new Date(year, month - 2, 1);
-    const daysInCurrentMonth = endOfCurrentMonth.getDate();
-    const dailySummary: TransactionMonthlySummary[] = [];
+    const accumulatorByDay = (
+      list: TransactionPayload[],
+      day: number,
+      accountId?: number
+    ): number =>
+      list
+        .filter((item) => day == item.transactedAt.getDate())
+        .reduce((accumulator: number, payload: TransactionPayload) => {
+          if (day != payload.transactedAt.getDate()) return accumulator;
 
-    for (let day = 1; day <= daysInCurrentMonth; day++) {
-      const currentDay = new Date(year, month - 1, day);
-      const currentDayTransactions = currentMonthTransactions.filter(
-        (t) => t.transactedAt.getDate() === currentDay.getDate()
+          let conditionPlus: boolean = !!payload.inputId && !payload.outputId;
+          let conditionMinus: boolean = !payload.inputId && !!payload.outputId;
+          if (accountId) {
+            conditionPlus = payload.inputId == accountId;
+            conditionMinus = payload.outputId == accountId;
+          }
+
+          const value = conditionPlus
+            ? payload.value.toNumber()
+            : conditionMinus
+            ? -payload.value.toNumber()
+            : 0;
+
+          return accumulator + value;
+        }, 0);
+
+    const data: TransactionMonthlySummary[] = [];
+    const lastDay = new Date(year, month, 0).getDate();
+    let currentAccumulator = 0;
+    let previousAccumulator = 0;
+    for (let day = 1; day <= lastDay; day++) {
+      currentAccumulator += accumulatorByDay(
+        currentMonthTransactions,
+        day,
+        accountId
       );
-      const previousDayTransactions = previousMonthTransactions.filter(
-        (t) =>
-          t.transactedAt.getDate() === day &&
-          t.transactedAt.getMonth() === startOfPreviousMonth.getMonth()
+      previousAccumulator += accumulatorByDay(
+        previousMonthTransactions,
+        day,
+        accountId
       );
-      const currentTotal = currentDayTransactions.reduce((sum, t) => {
-        if (t.inputId && t.outputId) return sum; // Transfer between accounts, ignore
-        return (
-          sum +
-          (t.inputId ? t.value.toNumber() : 0) -
-          (t.outputId ? t.value.toNumber() : 0)
-        );
-      }, 0);
-      const previousTotal = previousDayTransactions.reduce((sum, t) => {
-        if (t.inputId && t.outputId) return sum; // Transfer between accounts, ignore
-        return (
-          sum +
-          (t.inputId ? t.value.toNumber() : 0) -
-          (t.outputId ? t.value.toNumber() : 0)
-        );
-      }, 0);
-      const lastSummary = dailySummary[dailySummary.length - 1] || {
-        current: 0,
-        previous: 0,
+      const item: TransactionMonthlySummary = {
+        day,
+        current: currentAccumulator,
+        previous: previousAccumulator,
       };
-
-      dailySummary.push({
-        day: day,
-        current: lastSummary.current + currentTotal,
-        previous: lastSummary.previous + previousTotal,
-      });
+      data.push(item);
     }
-
-    return dailySummary;
+    return data;
   }
 
   public static async reportMonthlyInvoices({
