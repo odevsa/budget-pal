@@ -1,8 +1,9 @@
+import { Prisma } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import { z } from "zod";
 import { Account } from "./Account";
-import { User } from "./User";
 import { Category } from "./Category";
+import { User } from "./User";
 
 export interface Transaction {
   id?: number;
@@ -19,6 +20,13 @@ export interface Transaction {
   category?: Category;
   input?: Account;
   output?: Account;
+}
+
+export interface TransactionPayload {
+  transactedAt: Date;
+  inputId: number | null;
+  outputId: number | null;
+  value: Prisma.Decimal;
 }
 
 export enum TransactionType {
