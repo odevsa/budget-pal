@@ -22,20 +22,27 @@ export default class InvoiceRepository {
     return await DB.invoices.count();
   }
 
-  public static async all({ where = {}, orderBy = {} }): Promise<Invoice[]> {
+  public static async all({
+    include = {},
+    where = {},
+    orderBy = {},
+  }): Promise<Invoice[]> {
     return await DB.invoices.findMany({
+      include,
       where,
       orderBy,
     });
   }
 
   public static async page({
+    include = {},
     where = {},
     orderBy = {},
     take = 15,
     page = 1,
   }): Promise<Pagination<Invoice>> {
     const data = await DB.invoices.findMany({
+      include,
       where,
       orderBy,
       take,

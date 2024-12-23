@@ -26,15 +26,15 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { maskCurrency, maskDecimal } from "@/core/mask";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "@/i18n/routing";
+import { cn, evalProperty } from "@/lib/utils";
 import { EditIcon, TrashIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import GenericPagination from "./generic-pagination";
-import { maskDecimal } from "@/core/mask";
-import { cn } from "@/lib/utils";
 
 interface GenericListField {
   key: string;
@@ -64,6 +64,7 @@ export default function GenericList({
   editPath?: string;
   actionDelete?(item: any): Promise<boolean>;
 }>) {
+  const locale = useLocale();
   const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
@@ -86,7 +87,7 @@ export default function GenericList({
 
   const process = {
     maskDecimal,
-    monetary: (v: number) => "$ " + v.toFixed(2),
+    monetary: (v: number) => "$ " + maskCurrency(v, locale),
     active: (v: boolean) => booleanBox(v, "crud.active", "crud.inactive"),
     boolean: (v: boolean) => booleanBox(v),
   };
@@ -112,16 +113,16 @@ export default function GenericList({
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Loading visible={loading}>
+    <Loading visible={loading}>
+      <div className="flex flex-col gap-4">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="!bg-transparent">
               {fields.map((field) => (
                 <TableHead
                   key={field.label}
                   className={cn(
-                    "font-bold",
+                    "font-bold text-foreground",
                     `text-${field.position ?? "center"}`
                   )}
                 >
@@ -129,7 +130,7 @@ export default function GenericList({
                 </TableHead>
               ))}
               {(editPath || actionDelete) && (
-                <TableHead className="text-right font-bold">
+                <TableHead className="text-right font-bold text-foreground">
                   {t("crud.actions")}
                 </TableHead>
               )}
@@ -137,7 +138,10 @@ export default function GenericList({
           </TableHeader>
           <TableBody>
             {data.map((item) => (
-              <TableRow key={`item-${item.id}`}>
+              <TableRow
+                key={`item-${item.id}`}
+                className="odd:bg-gray-500 odd:bg-opacity-10 dark:odd:bg-opacity-20"
+              >
                 {fields.map((field) => {
                   const processFunction = field.process
                     ? (process[
@@ -154,63 +158,67 @@ export default function GenericList({
                       )}
                     >
                       {processFunction
-                        ? processFunction(item[field.key])
-                        : item[field.key]}
+                        ? processFunction(evalProperty(item, field.key))
+                        : evalProperty(item, field.key)}
                     </TableCell>
                   );
                 })}
 
                 {(editPath || actionDelete) && (
-                  <TableCell className="flex flex-row gap-2 justify-end">
-                    {!item.hideAction && editPath && (
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Link
-                            href={editPath.replace("[id]", item.id)}
-                            passHref
-                          >
-                            <Button variant={"warning"} size={"xs"}>
-                              <EditIcon />
-                            </Button>
-                          </Link>
-                        </TooltipTrigger>
-                        <TooltipContent>{t("crud.edit")}</TooltipContent>
-                      </Tooltip>
-                    )}
-                    {!item.hideAction && actionDelete && (
-                      <Tooltip>
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <TooltipTrigger asChild>
-                              <Button variant={"destructive"} size={"xs"}>
-                                <TrashIcon />
+                  <TableCell>
+                    <div className="flex flex-row gap-2 justify-end my-auto">
+                      {!item.hideAction && editPath && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Link
+                              href={editPath.replace("[id]", item.id)}
+                              passHref
+                            >
+                              <Button variant={"warning"} size={"xs"}>
+                                <EditIcon />
                               </Button>
-                            </TooltipTrigger>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>
-                                {t("crud.deleteConfirmation")}
-                              </AlertDialogTitle>
-                              <AlertDialogDescription>
-                                {t("crud.deleteMessage", { title: item.title })}
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>
-                                {t("crud.cancel")}
-                              </AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => handleDelete(item)}
-                              >
-                                {t("crud.continue")}
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                        <TooltipContent>{t("crud.delete")}</TooltipContent>
-                      </Tooltip>
-                    )}
+                            </Link>
+                          </TooltipTrigger>
+                          <TooltipContent>{t("crud.edit")}</TooltipContent>
+                        </Tooltip>
+                      )}
+                      {!item.hideAction && actionDelete && (
+                        <Tooltip>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <TooltipTrigger asChild>
+                                <Button variant={"destructive"} size={"xs"}>
+                                  <TrashIcon />
+                                </Button>
+                              </TooltipTrigger>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  {t("crud.deleteConfirmation")}
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  {t("crud.deleteMessage", {
+                                    title: item.title,
+                                  })}
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>
+                                  {t("crud.cancel")}
+                                </AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => handleDelete(item)}
+                                >
+                                  {t("crud.continue")}
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                          <TooltipContent>{t("crud.delete")}</TooltipContent>
+                        </Tooltip>
+                      )}
+                    </div>
                   </TableCell>
                 )}
               </TableRow>
@@ -218,7 +226,7 @@ export default function GenericList({
           </TableBody>
         </Table>
         <GenericPagination page={page} total={total} lastPage={lastPage} />
-      </Loading>
-    </div>
+      </div>
+    </Loading>
   );
 }

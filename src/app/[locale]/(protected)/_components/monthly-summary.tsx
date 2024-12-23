@@ -24,7 +24,7 @@ const chartConfig = {
 export function MonthlySummary({
   data,
 }: {
-  data: TransactionMonthlySummary[];
+  readonly data: TransactionMonthlySummary[];
 }) {
   return (
     <div>

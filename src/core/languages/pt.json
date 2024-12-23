@@ -48,8 +48,8 @@
     "active": "Ativo",
     "inactive": "Inativo",
     "actions": "Ações",
-    "yes": "Yes",
-    "no": "No",
+    "yes": "Sim",
+    "no": "Não",
     "create": "Criar",
     "edit": "Editar",
     "delete": "Excluir",
@@ -68,7 +68,9 @@
     }
   },
   "dashboard": {},
-  "accounts": {},
+  "accounts": {
+    "balance": "Saldo"
+  },
   "categories": {},
   "invoices": {
     "value": "Valor",

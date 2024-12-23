@@ -11,6 +11,8 @@ export interface Account {
   user?: User;
   inputs?: Transaction[];
   outputs?: Transaction[];
+
+  balance?: number;
 }
 
 export const validationAccountCreate = z.object({

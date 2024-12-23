@@ -11,7 +11,6 @@ import { Account } from "@/core/models/Account";
 import { TransactionMonthlySummary } from "@/core/models/Report";
 import { useRouter } from "@/i18n/routing";
 import { ChartPieIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
 import GenericSelect from "./generic-select";
 import { MonthlySummary } from "./monthly-summary";
 
@@ -28,7 +27,6 @@ export default function WidgetTransaction({
   accounts?: Account[];
   children?: React.ReactNode;
 }>) {
-  const t = useTranslations();
   const router = useRouter();
 
   return (
@@ -37,7 +35,7 @@ export default function WidgetTransaction({
         <CardTitle className="flex flex-row gap-2 justify-between items-center">
           <div className="flex flex-row gap-2">
             <ChartPieIcon />
-            <span>{t(title)}</span>
+            <span>{title}</span>
           </div>
           {accounts && (
             <div className="-my-3">

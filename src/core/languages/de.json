@@ -26,7 +26,7 @@
       "registerUserAlreadyRegistered": "Benutzer bereits registriert",
       "registerCanNotLogin": "Anmeldung nicht möglich, bitte versuchen Sie es erneut!",
       "registerFailure": "Benutzer konnte nicht erstellt werden!",
-      "noAccount": "Haben Sie kein Konto?"
+      "noAccount": "Noch kein Konto?"
     }
   },
   "menu": {
@@ -58,37 +58,41 @@
     "save": "Speichern",
     "next": "Weiter",
     "previous": "Zurück",
-    "deleteConfirmation": "Bestätigung der Löschung",
+    "deleteConfirmation": "Löschbestätigung",
     "deleteMessage": "Diese Aktion kann nicht rückgängig gemacht werden. Dies wird \"{title}\" dauerhaft löschen.",
     "message": {
       "saveSuccess": "Erfolgreich gespeichert!",
-      "saveFailure": "Speichern fehlgeschlagen!",
+      "saveFailure": "Speichern war nicht möglich!",
       "deleteSuccess": "Erfolgreich gelöscht!",
-      "deleteFailure": "Löschen fehlgeschlagen!"
+      "deleteFailure": "Löschen war nicht möglich!"
     }
   },
   "dashboard": {},
-  "accounts": {},
+  "accounts": {
+    "balance": "Kontostand"
+  },
   "categories": {},
   "invoices": {
     "value": "Betrag",
-    "isInput": "Empfangen",
+    "isInput": "Erhalten",
     "isActive": "Aktiv",
-    "dueDay": "Fälligkeitstag"
+    "dueDay": "Fälligkeitsdatum",
+    "paid": "Bezahlt",
+    "received": "Empfangen"
   },
   "transactions": {
     "description": "Füllen Sie die Felder unten korrekt aus",
     "category": "Kategorie",
     "transactedAt": "Transaktionsdatum",
     "pay": "Bezahlen",
-    "receive": "Empfangen",
+    "receive": "Erhalten",
     "paidFrom": "Bezahlt von",
     "receivedIn": "Erhalten in",
     "value": "Betrag",
-    "transfer": "Übertragen",
+    "transfer": "Überweisen",
     "message": {
       "selectAccount": "Wählen Sie mindestens ein Konto aus",
-      "selectDifferentAccount": "Die Konten müssen unterschiedlich sein"
+      "selectDifferentAccount": "Konten müssen unterschiedlich sein"
     }
   },
   "reports": {

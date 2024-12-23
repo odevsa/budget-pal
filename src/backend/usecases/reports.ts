@@ -1,9 +1,11 @@
 "use server";
 
 import { auth } from "@/auth";
+import { Account } from "@/core/models/Account";
 import { Invoice } from "@/core/models/Invoice";
 import { TransactionMonthlySummary } from "@/core/models/Report";
 import { TransactionPayload } from "@/core/models/Transaction";
+import AccountRepository from "../repositories/AccountRepository";
 import ReportRepository from "../repositories/ReportRepository";
 
 export async function reportMonthlySummaryUseCase(
@@ -47,11 +49,8 @@ export async function reportMonthlySummaryUseCase(
           conditionMinus = payload.outputId == accountId;
         }
 
-        const value = conditionPlus
-          ? payload.value.toNumber()
-          : conditionMinus
-          ? -payload.value.toNumber()
-          : 0;
+        const valueWhenMinus = conditionMinus ? -payload.value.toNumber() : 0;
+        const value = conditionPlus ? payload.value.toNumber() : valueWhenMinus;
 
         return accumulator + value;
       }, 0);
@@ -78,6 +77,43 @@ export async function reportMonthlySummaryUseCase(
     };
     data.push(item);
   }
+  return data;
+}
+
+export async function reportBalanceUseCase(): Promise<Account[]> {
+  const onlyVaue = {
+    select: {
+      value: true,
+    },
+  };
+
+  const accounts = await AccountRepository.all({
+    include: {
+      inputs: onlyVaue,
+      outputs: onlyVaue,
+    },
+    orderBy: { title: "asc" },
+  });
+
+  const data = accounts.map((account) => {
+    const totalInputs =
+      account.inputs?.reduce(
+        (sum, transaction) => sum + parseFloat(transaction.value.toString()),
+        0
+      ) ?? 0;
+
+    const totalOutputs =
+      account.outputs?.reduce(
+        (sum, transaction) => sum + parseFloat(transaction.value.toString()),
+        0
+      ) ?? 0;
+
+    return {
+      ...account,
+      balance: totalInputs - totalOutputs,
+    };
+  });
+
   return data;
 }
 

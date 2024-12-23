@@ -68,7 +68,9 @@
     }
   },
   "dashboard": {},
-  "accounts": {},
+  "accounts": {
+    "balance": "Balance"
+  },
   "categories": {},
   "invoices": {
     "value": "Value",

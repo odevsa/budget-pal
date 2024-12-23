@@ -1,13 +1,16 @@
 import BackendFacade from "@/backend";
 import { Button } from "@/components/ui/button";
+import { maskCurrency } from "@/core/mask";
 import { TransactionType } from "@/core/models/Transaction";
 import {
   ArrowLeftRightIcon,
   HandCoinsIcon,
   LayoutDashboardIcon,
   ReceiptIcon,
+  WalletIcon,
 } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import GenericWidget from "../_components/generic-widget";
 import PageTitle from "../_components/page-title";
 import WidgetInvoice from "../_components/widget-invoice";
 import WidgetTransaction from "../_components/widget-transaction";
@@ -20,6 +23,7 @@ export default async function Panel({
 }) {
   const { account } = await searchParams;
   const now = new Date();
+  const locale = await getLocale();
   const t = await getTranslations();
   const accounts = await BackendFacade.accounts.all();
   const categories = await BackendFacade.categories.all();
@@ -38,14 +42,16 @@ export default async function Panel({
   const monthlyInvoicesToReceive = monthlyInvoices.filter(
     (invoice) => invoice.isInput
   );
+  const balances = await BackendFacade.reports.balance();
+
   return (
     <div className="flex flex-col flex-grow w-full gap-3 px-3 py-2">
       <PageTitle title={t("menu.dashboard")} icon={<LayoutDashboardIcon />} />
 
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-2">
         <div className="col-span-full">
           <WidgetTransaction
-            title="reports.monthly"
+            title={t("reports.monthly")}
             data={monthlySummary}
             account={parseInt(account ?? "0")}
             accounts={accounts}
@@ -80,6 +86,16 @@ export default async function Panel({
             </TransactionDialogForm>
           </WidgetTransaction>
         </div>
+
+        {balances.map((account) => (
+          <GenericWidget
+            key={`account${account.id}`}
+            title={t("accounts.balance")}
+            description={account.title}
+            value={`$ ${maskCurrency(account.balance, locale)}`}
+            icon={<WalletIcon size="auto" />}
+          />
+        ))}
 
         {monthlyInvoicesToPay.length > 0 && (
           <div className="col-span-full">

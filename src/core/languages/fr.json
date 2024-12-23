@@ -1,12 +1,12 @@
 {
   "geral": {
     "version": "Version",
-    "lightMode": "Mode Clair",
-    "darkMode": "Mode Sombre",
+    "lightMode": "Mode clair",
+    "darkMode": "Mode sombre",
     "settings": "Paramètres"
   },
   "auth": {
-    "login": "Connexion",
+    "login": "Se connecter",
     "register": "S'inscrire",
     "name": "Nom",
     "namePlaceholder": "Votre nom",
@@ -24,7 +24,7 @@
       "registerDescription": "Remplissez les champs pour créer un compte",
       "registerSuccess": "Redirection vers le tableau de bord",
       "registerUserAlreadyRegistered": "Utilisateur déjà enregistré",
-      "registerCanNotLogin": "Impossible de se connecter, veuillez réessayer !",
+      "registerCanNotLogin": "Impossible de vous connecter, essayez de vous reconnecter !",
       "registerFailure": "Impossible de créer l'utilisateur !",
       "noAccount": "Vous n'avez pas de compte ?"
     }
@@ -62,29 +62,33 @@
     "deleteMessage": "Cette action ne peut pas être annulée. Cela supprimera définitivement \"{title}\".",
     "message": {
       "saveSuccess": "Enregistré avec succès !",
-      "saveFailure": "Échec de l'enregistrement !",
+      "saveFailure": "Impossible d'enregistrer !",
       "deleteSuccess": "Supprimé avec succès !",
-      "deleteFailure": "Échec de la suppression !"
+      "deleteFailure": "Impossible de supprimer !"
     }
   },
   "dashboard": {},
-  "accounts": {},
+  "accounts": {
+    "balance": "Solde"
+  },
   "categories": {},
   "invoices": {
-    "value": "Valeur",
+    "value": "Montant",
     "isInput": "Recevoir",
     "isActive": "Actif",
-    "dueDay": "Jour d'échéance"
+    "dueDay": "Jour d'échéance",
+    "paid": "Payé",
+    "received": "Reçu"
   },
   "transactions": {
     "description": "Remplissez correctement les champs ci-dessous",
     "category": "Catégorie",
-    "transactedAt": "Transaction effectuée le",
+    "transactedAt": "Transféré le",
     "pay": "Payer",
     "receive": "Recevoir",
-    "paidFrom": "Payé de",
+    "paidFrom": "Payé depuis",
     "receivedIn": "Reçu dans",
-    "value": "Valeur",
+    "value": "Montant",
     "transfer": "Transférer",
     "message": {
       "selectAccount": "Sélectionnez au moins un compte",

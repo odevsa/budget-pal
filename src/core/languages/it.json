@@ -1,12 +1,12 @@
 {
   "geral": {
     "version": "Versione",
-    "lightMode": "Modalità Chiara",
-    "darkMode": "Modalità Scura",
+    "lightMode": "Modalità chiara",
+    "darkMode": "Modalità scura",
     "settings": "Impostazioni"
   },
   "auth": {
-    "login": "Accesso",
+    "login": "Accedi",
     "register": "Registrati",
     "name": "Nome",
     "namePlaceholder": "Il tuo nome",
@@ -16,7 +16,7 @@
     "passwordPlaceholder": "La tua password",
     "signIn": "Accedi",
     "signInGoogle": "Accedi con Google",
-    "signOut": "Disconnetti",
+    "signOut": "Esci",
     "message": {
       "loginDescription": "Scegli un metodo di accesso",
       "loginSuccess": "Reindirizzamento al pannello di controllo",
@@ -24,8 +24,8 @@
       "registerDescription": "Compila i campi per creare un account",
       "registerSuccess": "Reindirizzamento al pannello di controllo",
       "registerUserAlreadyRegistered": "Utente già registrato",
-      "registerCanNotLogin": "Impossibile accedere, riprova!",
-      "registerFailure": "Impossibile creare l'utente!",
+      "registerCanNotLogin": "Impossibile accedere, prova a fare il login di nuovo!",
+      "registerFailure": "Non è stato possibile creare l'utente!",
       "noAccount": "Non hai un account?"
     }
   },
@@ -56,28 +56,32 @@
     "cancel": "Annulla",
     "continue": "Continua",
     "save": "Salva",
-    "next": "Successivo",
-    "previous": "Precedente",
+    "next": "Avanti",
+    "previous": "Indietro",
     "deleteConfirmation": "Conferma eliminazione",
-    "deleteMessage": "Questa azione non può essere annullata. Ciò eliminerà definitivamente \"{title}\".",
+    "deleteMessage": "Questa azione non può essere annullata. Questo eliminerà permanentemente \"{title}\".",
     "message": {
       "saveSuccess": "Salvato con successo!",
-      "saveFailure": "Impossibile salvare!",
+      "saveFailure": "Non è stato possibile salvare!",
       "deleteSuccess": "Eliminato con successo!",
-      "deleteFailure": "Impossibile eliminare!"
+      "deleteFailure": "Non è stato possibile eliminare!"
     }
   },
   "dashboard": {},
-  "accounts": {},
+  "accounts": {
+    "balance": "Saldo"
+  },
   "categories": {},
   "invoices": {
     "value": "Valore",
     "isInput": "Ricevere",
     "isActive": "Attivo",
-    "dueDay": "Giorno di scadenza"
+    "dueDay": "Giorno di scadenza",
+    "paid": "Pagato",
+    "received": "Ricevuto"
   },
   "transactions": {
-    "description": "Compila correttamente i campi seguenti",
+    "description": "Compila correttamente i campi sottostanti",
     "category": "Categoria",
     "transactedAt": "Transazione effettuata il",
     "pay": "Paga",
@@ -85,7 +89,7 @@
     "paidFrom": "Pagato da",
     "receivedIn": "Ricevuto in",
     "value": "Valore",
-    "transfer": "Trasferire",
+    "transfer": "Trasferisci",
     "message": {
       "selectAccount": "Seleziona almeno un conto",
       "selectDifferentAccount": "I conti devono essere diversi"

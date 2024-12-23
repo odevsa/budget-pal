@@ -25,22 +25,22 @@ export default class TransactionRepository {
   }
 
   public static async all({
+    include = {},
     where = {},
     orderBy = {},
   }): Promise<Transaction[]> {
-    return await DB.transactions.findMany({
-      where,
-      orderBy,
-    });
+    return await DB.transactions.findMany({ include, where, orderBy });
   }
 
   public static async page({
+    include = {},
     where = {},
     orderBy = {},
     take = 15,
     page = 1,
   }): Promise<Pagination<Transaction>> {
     const data = await DB.transactions.findMany({
+      include,
       where,
       orderBy,
       take,

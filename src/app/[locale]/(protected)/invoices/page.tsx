@@ -39,7 +39,6 @@ export default async function Invoices({
       <GenericList
         data={pagination.data}
         fields={[
-          { key: "id", position: "left", label: "crud.id" },
           { key: "title", position: "left", label: "crud.title" },
           { key: "isInput", label: "invoices.isInput", process: "boolean" },
           { key: "isActive", label: "invoices.isActive", process: "active" },

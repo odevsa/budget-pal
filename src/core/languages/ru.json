@@ -2,7 +2,7 @@
   "geral": {
     "version": "Версия",
     "lightMode": "Светлый режим",
-    "darkMode": "Темный режим",
+    "darkMode": "Тёмный режим",
     "settings": "Настройки"
   },
   "auth": {
@@ -11,7 +11,7 @@
     "name": "Имя",
     "namePlaceholder": "Ваше имя",
     "email": "Электронная почта",
-    "emailPlaceholder": "Ваш адрес электронной почты",
+    "emailPlaceholder": "Ваш e-mail",
     "password": "Пароль",
     "passwordPlaceholder": "Ваш пароль",
     "signIn": "Войти",
@@ -20,13 +20,13 @@
     "message": {
       "loginDescription": "Выберите метод входа",
       "loginSuccess": "Перенаправление на панель управления",
-      "loginFailure": "Неверный адрес электронной почты или пароль!",
-      "registerDescription": "Заполните поля, чтобы создать учетную запись",
+      "loginFailure": "Неверный e-mail или пароль!",
+      "registerDescription": "Заполните поля для создания аккаунта",
       "registerSuccess": "Перенаправление на панель управления",
       "registerUserAlreadyRegistered": "Пользователь уже зарегистрирован",
       "registerCanNotLogin": "Не удалось войти, попробуйте снова!",
       "registerFailure": "Не удалось создать пользователя!",
-      "noAccount": "У вас нет учетной записи?"
+      "noAccount": "У вас нет аккаунта?"
     }
   },
   "menu": {
@@ -34,10 +34,10 @@
     "transactions": "Транзакции",
     "budgets": "Бюджеты",
     "invoices": "Счета",
-    "accounts": "Аккаунты",
+    "accounts": "Счета",
     "categories": "Категории",
     "settings": "Настройки",
-    "report": "Отчет"
+    "report": "Отчёт"
   },
   "crud": {
     "search": "Поиск...",
@@ -45,21 +45,21 @@
     "id": "#",
     "title": "Заголовок",
     "description": "Описание",
-    "active": "Активный",
-    "inactive": "Неактивный",
+    "active": "Активно",
+    "inactive": "Неактивно",
     "actions": "Действия",
     "yes": "Да",
     "no": "Нет",
     "create": "Создать",
     "edit": "Редактировать",
     "delete": "Удалить",
-    "cancel": "Отмена",
+    "cancel": "Отменить",
     "continue": "Продолжить",
     "save": "Сохранить",
     "next": "Далее",
     "previous": "Назад",
     "deleteConfirmation": "Подтверждение удаления",
-    "deleteMessage": "Это действие нельзя отменить. Это навсегда удалит \"{title}\".",
+    "deleteMessage": "Это действие нельзя отменить. Это приведет к удалению \"{title}\" навсегда.",
     "message": {
       "saveSuccess": "Успешно сохранено!",
       "saveFailure": "Не удалось сохранить!",
@@ -68,30 +68,34 @@
     }
   },
   "dashboard": {},
-  "accounts": {},
+  "accounts": {
+    "balance": "Баланс"
+  },
   "categories": {},
   "invoices": {
-    "value": "Значение",
+    "value": "Сумма",
     "isInput": "Получить",
-    "isActive": "Активный",
-    "dueDay": "День оплаты"
+    "isActive": "Активно",
+    "dueDay": "День оплаты",
+    "paid": "Оплачено",
+    "received": "Получено"
   },
   "transactions": {
     "description": "Правильно заполните поля ниже",
     "category": "Категория",
-    "transactedAt": "Транзакция проведена",
-    "pay": "Оплатить",
+    "transactedAt": "Транзакция совершена",
+    "pay": "Заплатить",
     "receive": "Получить",
-    "paidFrom": "Оплачено от",
+    "paidFrom": "Оплачено из",
     "receivedIn": "Получено в",
-    "value": "Значение",
-    "transfer": "Перевод",
+    "value": "Сумма",
+    "transfer": "Перевести",
     "message": {
-      "selectAccount": "Выберите хотя бы один аккаунт",
-      "selectDifferentAccount": "Аккаунты должны быть разными"
+      "selectAccount": "Выберите хотя бы один счёт",
+      "selectDifferentAccount": "Счёты должны быть разными"
     }
   },
   "reports": {
-    "monthly": "Ежемесячный отчет"
+    "monthly": "Ежемесячный отчёт"
   }
 }

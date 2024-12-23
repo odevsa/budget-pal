@@ -15,6 +15,10 @@ export const getString = (
   return value.trim();
 };
 
+export const evalProperty = (data: any, key: string): any => {
+  return key.split(".").reduce((obj, prop) => obj?.[prop], data);
+};
+
 export const getDate = (data: FormData, fields: string): Date | undefined => {
   const value: any = data.get(fields) as string;
   if (!value) return;

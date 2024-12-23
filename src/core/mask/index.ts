@@ -13,3 +13,14 @@ export const maskDecimal = (value: string): string => {
   const cents = parseInt(numericValue, 10);
   return (cents / 100).toFixed(2);
 };
+
+export const maskCurrency = (value: any, locale: string = "en-US"): string => {
+  const numericValue = (value ?? 0).toFixed(2).replace(/\D/g, "");
+  if (!numericValue) return "0.00";
+
+  const cents = parseInt(numericValue, 10);
+  return (cents / 100).toLocaleString(locale, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};

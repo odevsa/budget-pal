@@ -49,6 +49,7 @@ export async function transactionPageUseCase({
   if (!session?.user?.id) return {} as any;
 
   return await TransactionRepository.page({
+    include: { category: true, input: true, output: true },
     where: { userId: session?.user.id, ...generateWhere(q, ["description"]) },
     orderBy: { createdAt: "desc" },
     page,

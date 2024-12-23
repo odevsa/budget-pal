@@ -38,6 +38,7 @@ export default async function Categories({
     >
       <GenericList
         data={pagination.data}
+        fields={[{ key: "title", position: "left", label: "crud.title" }]}
         lastPage={pagination.lastPage}
         page={pagination.page}
         editPath="/categories/edit/[id]"

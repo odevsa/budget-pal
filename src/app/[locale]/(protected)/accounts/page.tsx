@@ -2,11 +2,11 @@ import BackendFacade from "@/backend";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
 import { PlusIcon, WalletIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import GenericList from "../_components/generic-list";
 import GenericPage from "../_components/generic-page";
 import GenericSearch from "../_components/generic-search";
 import { deleteAction } from "./actions";
-import { getTranslations } from "next-intl/server";
 
 export default async function Accounts({
   searchParams,
@@ -38,6 +38,7 @@ export default async function Accounts({
     >
       <GenericList
         data={pagination.data}
+        fields={[{ key: "title", position: "left", label: "crud.title" }]}
         lastPage={pagination.lastPage}
         page={pagination.page}
         editPath="/accounts/edit/[id]"

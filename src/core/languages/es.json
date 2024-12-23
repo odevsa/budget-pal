@@ -9,28 +9,28 @@
     "login": "Iniciar sesión",
     "register": "Registrarse",
     "name": "Nombre",
-    "namePlaceholder": "Su nombre",
+    "namePlaceholder": "Tu nombre",
     "email": "Correo electrónico",
-    "emailPlaceholder": "Su correo electrónico",
+    "emailPlaceholder": "Tu correo electrónico",
     "password": "Contraseña",
-    "passwordPlaceholder": "Su contraseña",
+    "passwordPlaceholder": "Tu contraseña",
     "signIn": "Iniciar sesión",
     "signInGoogle": "Iniciar sesión con Google",
     "signOut": "Cerrar sesión",
     "message": {
-      "loginDescription": "Elija un método de inicio de sesión",
-      "loginSuccess": "Redirigiendo al panel de control",
+      "loginDescription": "Elige un método de inicio de sesión",
+      "loginSuccess": "Redirigiendo al panel",
       "loginFailure": "¡Correo electrónico o contraseña inválidos!",
-      "registerDescription": "Complete los campos para crear una cuenta",
-      "registerSuccess": "Redirigiendo al panel de control",
+      "registerDescription": "Rellena los campos para crear una cuenta",
+      "registerSuccess": "Redirigiendo al panel",
       "registerUserAlreadyRegistered": "Usuario ya registrado",
-      "registerCanNotLogin": "No se pudo iniciar sesión, ¡inténtelo de nuevo!",
+      "registerCanNotLogin": "No se pudo iniciar sesión, intenta de nuevo",
       "registerFailure": "¡No se pudo crear el usuario!",
-      "noAccount": "¿No tiene una cuenta?"
+      "noAccount": "¿No tienes cuenta?"
     }
   },
   "menu": {
-    "dashboard": "Panel de control",
+    "dashboard": "Panel",
     "transactions": "Transacciones",
     "budgets": "Presupuestos",
     "invoices": "Facturas",
@@ -68,16 +68,20 @@
     }
   },
   "dashboard": {},
-  "accounts": {},
+  "accounts": {
+    "balance": "Saldo"
+  },
   "categories": {},
   "invoices": {
     "value": "Valor",
     "isInput": "Recibir",
     "isActive": "Activo",
-    "dueDay": "Día de vencimiento"
+    "dueDay": "Día de vencimiento",
+    "paid": "Pagado",
+    "received": "Recibido"
   },
   "transactions": {
-    "description": "Complete correctamente los campos a continuación",
+    "description": "Completa correctamente los campos a continuación",
     "category": "Categoría",
     "transactedAt": "Transaccionado en",
     "pay": "Pagar",
@@ -87,7 +91,7 @@
     "value": "Valor",
     "transfer": "Transferir",
     "message": {
-      "selectAccount": "Seleccione al menos una cuenta",
+      "selectAccount": "Selecciona al menos una cuenta",
       "selectDifferentAccount": "Las cuentas deben ser diferentes"
     }
   },

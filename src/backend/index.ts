@@ -23,6 +23,7 @@ import {
   invoiceTotalUseCase,
 } from "./usecases/invoices";
 import {
+  reportBalanceUseCase,
   reportMonthlyInvoicesUseCase,
   reportMonthlySummaryUseCase,
 } from "./usecases/reports";
@@ -86,5 +87,6 @@ export default class BackendFacade {
   static readonly reports = {
     monthlySummary: reportMonthlySummaryUseCase,
     monthlyInvoices: reportMonthlyInvoicesUseCase,
+    balance: reportBalanceUseCase,
   };
 }

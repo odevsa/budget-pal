@@ -39,18 +39,17 @@ export default async function Transaction({
       <GenericList
         data={pagination.data}
         fields={[
-          { key: "id", position: "left", label: "crud.id" },
           { key: "description", position: "left", label: "crud.description" },
           {
-            key: "categoryId",
+            key: "category.title",
             label: "transactions.category",
           },
           {
-            key: "outputId",
+            key: "output.title",
             label: "transactions.paidFrom",
           },
           {
-            key: "inputId",
+            key: "input.title",
             label: "transactions.receivedIn",
           },
           {
