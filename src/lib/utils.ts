@@ -6,6 +6,15 @@ export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 export const wait = (delay: number) =>
   new Promise((resolve) => setTimeout(resolve, delay));
 
+export const evalProperty = (data: any, key: string): any => {
+  return key.split(".").reduce((obj, prop) => obj?.[prop], data);
+};
+
+export const prepareObjectToSate = (data: any): any => {
+  for (const key in data) if (data[key] === undefined) data[key] = null;
+  return data;
+};
+
 export const getString = (
   data: FormData,
   fields: string
@@ -13,10 +22,6 @@ export const getString = (
   const value: any = data.get(fields) as string;
   if (!value) return;
   return value.trim();
-};
-
-export const evalProperty = (data: any, key: string): any => {
-  return key.split(".").reduce((obj, prop) => obj?.[prop], data);
 };
 
 export const getDate = (data: FormData, fields: string): Date | undefined => {

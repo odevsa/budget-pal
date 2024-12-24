@@ -129,6 +129,7 @@ export default function TransactionsFormContent({
         />
 
         <GenericSelect
+          nullable
           className="grow basis-1"
           title={t("transactions.category")}
           name="categoryId"
@@ -145,6 +146,7 @@ export default function TransactionsFormContent({
             variant
           ) && (
             <GenericSelect
+              nullable
               className="grow basis-1"
               title={t("transactions.paidFrom")}
               name="outputId"
@@ -160,6 +162,7 @@ export default function TransactionsFormContent({
             variant
           ) && (
             <GenericSelect
+              nullable
               className="grow basis-1"
               title={t("transactions.receivedIn")}
               name="inputId"

@@ -2,14 +2,15 @@
 
 import UserRepository from "@/backend/repositories/UserRepository";
 import { User } from "@/core/models/User";
+import { prepareObjectToSate } from "@/lib/utils";
 
 const SALT_ROUNDS = 10;
 
 export async function userSaveUseCase(data: User): Promise<User | undefined> {
   const bcrypt = require("bcrypt");
-  const newData = { ...data };
+  const newData = { ...prepareObjectToSate(data) };
   if (data.password)
-    newData.password = await bcrypt.hash(data.password!, SALT_ROUNDS);
+    newData.password = await bcrypt.hash(data.password, SALT_ROUNDS);
 
   return await UserRepository.save(newData);
 }
@@ -26,7 +27,7 @@ export async function userVerifyUseCase(
 ): Promise<boolean> {
   const bcrypt = require("bcrypt");
   const user = await UserRepository.byEmail(email);
-  if (!user || !user.password) return false;
+  if (!user?.password) return false;
 
   return await bcrypt.compare(password, user.password);
 }

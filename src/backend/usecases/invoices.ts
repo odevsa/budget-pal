@@ -8,7 +8,7 @@ import {
   PaginationParams,
   SearchParams,
 } from "@/core/models/Pagination";
-import { generateWhere } from "@/lib/utils";
+import { generateWhere, prepareObjectToSate } from "@/lib/utils";
 
 export async function invoiceSaveUseCase(
   data: Invoice
@@ -16,7 +16,10 @@ export async function invoiceSaveUseCase(
   const session = await auth();
   if (!session?.user?.id) return;
 
-  return await InvoiceRepository.save({ ...data, userId: session?.user.id });
+  return await InvoiceRepository.save({
+    ...prepareObjectToSate(data),
+    userId: session?.user.id,
+  });
 }
 
 export async function invoiceTotalUseCase(): Promise<number> {

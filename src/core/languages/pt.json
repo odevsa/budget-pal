@@ -58,6 +58,7 @@
     "save": "Salvar",
     "next": "Próximo",
     "previous": "Anterior",
+    "selectItem": "Selecione um item...",
     "deleteConfirmation": "Confirmação de exclusão",
     "deleteMessage": "Esta ação não pode ser desfeita. Isto irá excluir permanentemente \"{title}\".",
     "message": {

@@ -30,6 +30,7 @@ const GenericInput = React.forwardRef<HTMLInputElement, GenericInputProps>(
     ref
   ) => {
     const [internalValue, setInternalValue] = useState(value);
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const value = mask ? mask(e.currentTarget.value) : e.currentTarget.value;
       setInternalValue(value);

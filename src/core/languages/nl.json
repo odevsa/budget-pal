@@ -58,6 +58,7 @@
     "save": "Opslaan",
     "next": "Volgende",
     "previous": "Vorige",
+    "selectItem": "Selecteer een item...",
     "deleteConfirmation": "Verwijderbevestiging",
     "deleteMessage": "Deze actie kan niet ongedaan worden gemaakt. Dit zal \"{title}\" permanent verwijderen.",
     "message": {

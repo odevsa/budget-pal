@@ -8,7 +8,7 @@ import {
   PaginationParams,
   SearchParams,
 } from "@/core/models/Pagination";
-import { generateWhere } from "@/lib/utils";
+import { generateWhere, prepareObjectToSate } from "@/lib/utils";
 
 export async function accountSaveUseCase(
   data: Account
@@ -16,7 +16,10 @@ export async function accountSaveUseCase(
   const session = await auth();
   if (!session?.user?.id) return;
 
-  return await AccountRepository.save({ ...data, userId: session?.user.id });
+  return await AccountRepository.save({
+    ...prepareObjectToSate(data),
+    userId: session?.user.id,
+  });
 }
 
 export async function accountTotalUseCase(): Promise<number> {

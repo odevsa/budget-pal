@@ -58,6 +58,7 @@
     "save": "Guardar",
     "next": "Siguiente",
     "previous": "Anterior",
+    "selectItem": "Selecciona un elemento...",
     "deleteConfirmation": "Confirmación de eliminación",
     "deleteMessage": "Esta acción no se puede deshacer. Esto eliminará permanentemente \"{title}\".",
     "message": {

@@ -58,6 +58,7 @@
     "save": "Speichern",
     "next": "Weiter",
     "previous": "Zurück",
+    "selectItem": "Wählen Sie ein Element aus...",
     "deleteConfirmation": "Löschbestätigung",
     "deleteMessage": "Diese Aktion kann nicht rückgängig gemacht werden. Dies wird \"{title}\" dauerhaft löschen.",
     "message": {

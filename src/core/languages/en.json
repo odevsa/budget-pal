@@ -58,6 +58,7 @@
     "save": "Save",
     "next": "Next",
     "previous": "Previous",
+    "selectItem": "Select a item...",
     "deleteConfirmation": "Delete confirmation",
     "deleteMessage": "This action cannot be undone. This will permanently delete \"{title}\".",
     "message": {

@@ -8,7 +8,7 @@ import {
   PaginationParams,
   SearchParams,
 } from "@/core/models/Pagination";
-import { generateWhere } from "@/lib/utils";
+import { generateWhere, prepareObjectToSate } from "@/lib/utils";
 
 export async function categorySaveUseCase(
   data: Category
@@ -16,7 +16,10 @@ export async function categorySaveUseCase(
   const session = await auth();
   if (!session?.user?.id) return;
 
-  return await CategoryRepository.save({ ...data, userId: session?.user.id });
+  return await CategoryRepository.save({
+    ...prepareObjectToSate(data),
+    userId: session?.user.id,
+  });
 }
 
 export async function categoryTotalUseCase(): Promise<number> {

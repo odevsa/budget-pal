@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { SelectGroup } from "@radix-ui/react-select";
 import React, { useEffect, useState } from "react";
 import GenericFieldErrors from "./generic-field-errors";
+import { useTranslations } from "next-intl";
 
 export interface GenericSelectItem {
   value: any;
@@ -22,6 +23,7 @@ export interface GenericSelectItem {
 export interface GenericSelectProps extends React.ComponentProps<"select"> {
   items: GenericSelectItem[];
   placeholder?: string;
+  nullable?: boolean;
   errors?: string[];
   mask?(value: any): any;
   onChange?(value: any): any;
@@ -30,7 +32,8 @@ export interface GenericSelectProps extends React.ComponentProps<"select"> {
 const GenericSelect = ({
   title,
   name,
-  placeholder = "Select a item...",
+  placeholder = "crud.selectItem",
+  nullable,
   value,
   items,
   errors,
@@ -38,11 +41,15 @@ const GenericSelect = ({
   onChange,
   className,
 }: GenericSelectProps) => {
+  const t = useTranslations();
+  const undefinedValue = "undefined";
+
   const [internalValue, setInternalValue] = useState<any>(value);
 
   const handleChange = (newValue: any) => {
-    setInternalValue(newValue);
-    onChange?.(newValue);
+    const value = newValue == undefinedValue ? undefined : newValue;
+    setInternalValue(value);
+    onChange?.(value);
   };
 
   useEffect(() => {
@@ -54,10 +61,13 @@ const GenericSelect = ({
       {title && <Label htmlFor={`input-${name}`}>{title}</Label>}
       <Select name={name} value={internalValue} onValueChange={handleChange}>
         <SelectTrigger>
-          <SelectValue placeholder={placeholder} />
+          <SelectValue placeholder={t(placeholder)} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
+            {nullable && (
+              <SelectItem value={undefinedValue}>{t(placeholder)}</SelectItem>
+            )}
             {items.length > 0 ? (
               items.map((item) => (
                 <SelectItem

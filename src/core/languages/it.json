@@ -58,6 +58,7 @@
     "save": "Salva",
     "next": "Avanti",
     "previous": "Indietro",
+    "selectItem": "Seleziona un elemento...",
     "deleteConfirmation": "Conferma eliminazione",
     "deleteMessage": "Questa azione non può essere annullata. Questo eliminerà permanentemente \"{title}\".",
     "message": {

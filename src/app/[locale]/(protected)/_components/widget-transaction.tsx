@@ -40,6 +40,7 @@ export default function WidgetTransaction({
           {accounts && (
             <div className="-my-3">
               <GenericSelect
+                nullable
                 value={(account ?? 0)?.toString()}
                 items={[
                   { label: "Todas as contas", value: "0" },
