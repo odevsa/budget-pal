@@ -24,18 +24,16 @@ export default async function Accounts({
     <GenericPage
       title={t("menu.accounts")}
       icon={<WalletIcon />}
-      actions={
-        <>
-          <GenericSearch q={q} />
-
-          <Link href={"/accounts/new"}>
-            <Button variant={"success"}>
-              <PlusIcon /> {t("crud.new")}
-            </Button>
-          </Link>
-        </>
-      }
+      actions={<GenericSearch q={q} />}
     >
+      <div className="flex flex-row justify-end gap-2">
+        <Link href={"/accounts/new"}>
+          <Button variant={"success"} size={"xs"}>
+            <PlusIcon /> {t("crud.new")}
+          </Button>
+        </Link>
+      </div>
+
       <GenericList
         data={pagination.data}
         fields={[{ key: "title", position: "left", label: "crud.title" }]}

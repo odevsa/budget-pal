@@ -24,18 +24,16 @@ export default async function Invoices({
     <GenericPage
       title={t("menu.invoices")}
       icon={<ReceiptIcon />}
-      actions={
-        <>
-          <GenericSearch q={q} />
-
-          <Link href={"/invoices/new"}>
-            <Button variant={"success"}>
-              <PlusIcon /> {t("crud.new")}
-            </Button>
-          </Link>
-        </>
-      }
+      actions={<GenericSearch q={q} />}
     >
+      <div className="flex flex-row justify-end gap-2">
+        <Link href={"/invoices/new"}>
+          <Button variant={"success"} size={"xs"}>
+            <PlusIcon /> {t("crud.new")}
+          </Button>
+        </Link>
+      </div>
+
       <GenericList
         data={pagination.data}
         fields={[

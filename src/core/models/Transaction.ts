@@ -5,6 +5,7 @@ import { Account } from "./Account";
 import { Category } from "./Category";
 import { InvoiceTransaction } from "./InvoiceTransaction";
 import { User } from "./User";
+import { PaginationParams } from "./Pagination";
 
 export interface Transaction {
   id?: number;
@@ -22,6 +23,10 @@ export interface Transaction {
   input?: Account;
   output?: Account;
   invoiceTransaction?: InvoiceTransaction;
+}
+
+export interface TransactionPaginationParams extends PaginationParams {
+  transactedAt?: string;
 }
 
 export interface TransactionPayload {

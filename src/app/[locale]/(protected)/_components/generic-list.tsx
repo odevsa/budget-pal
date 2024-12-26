@@ -35,6 +35,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import GenericPagination from "./generic-pagination";
+import { format } from "date-fns";
+import { dateLocales } from "@/i18n";
 
 interface GenericListField {
   key: string;
@@ -95,6 +97,9 @@ export default function GenericList({
 
   const process = {
     maskDecimal,
+    date: (v: Date) => format(v, "PP", { locale: dateLocales[locale] }),
+    time: (v: Date) => format(v, "p", { locale: dateLocales[locale] }),
+    datetime: (v: Date) => format(v, "PP p", { locale: dateLocales[locale] }),
     monetary: (v: number) => "$ " + maskCurrency(v, locale),
     active: (v: boolean) => booleanBox(v, "crud.active", "crud.inactive"),
     boolean: (v: boolean) => booleanBox(v),

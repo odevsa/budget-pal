@@ -24,18 +24,16 @@ export default async function Categories({
     <GenericPage
       title={t("menu.categories")}
       icon={<TagIcon />}
-      actions={
-        <>
-          <GenericSearch q={q} />
-
-          <Link href={"/categories/new"}>
-            <Button variant={"success"}>
-              <PlusIcon /> {t("crud.new")}
-            </Button>
-          </Link>
-        </>
-      }
+      actions={<GenericSearch q={q} />}
     >
+      <div className="flex flex-row justify-end gap-2">
+        <Link href={"/categories/new"}>
+          <Button variant={"success"} size={"xs"}>
+            <PlusIcon /> {t("crud.new")}
+          </Button>
+        </Link>
+      </div>
+
       <GenericList
         data={pagination.data}
         fields={[{ key: "title", position: "left", label: "crud.title" }]}

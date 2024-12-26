@@ -181,6 +181,7 @@ export default function TransactionsFormContent({
             className="grow basis-1"
             title={t("transactions.transactedAt")}
             name="transactedAt"
+            time
             errors={state?.errors?.transactedAt}
             value={formData.transactedAt}
             onChange={(value) =>

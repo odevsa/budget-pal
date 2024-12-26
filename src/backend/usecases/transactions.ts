@@ -2,13 +2,13 @@
 
 import { auth } from "@/auth";
 import TransactionRepository from "@/backend/repositories/TransactionRepository";
+import { Pagination, SearchParams } from "@/core/models/Pagination";
 import {
-  Pagination,
-  PaginationParams,
-  SearchParams,
-} from "@/core/models/Pagination";
-import { Transaction } from "@/core/models/Transaction";
+  Transaction,
+  TransactionPaginationParams,
+} from "@/core/models/Transaction";
 import { generateWhere } from "@/lib/utils";
+import { endOfDay, isValid, parse, startOfDay } from "date-fns";
 
 export async function transactionSaveUseCase(
   data: Transaction
@@ -42,15 +42,29 @@ export async function transactionAllUseCase({
 }
 
 export async function transactionPageUseCase({
+  transactedAt = "",
   q = "",
   page = 1,
-}: PaginationParams = {}): Promise<Pagination<Transaction>> {
+}: TransactionPaginationParams = {}): Promise<Pagination<Transaction>> {
   const session = await auth();
   if (!session?.user?.id) return {} as any;
 
+  const parsedTransactedAt = parse(transactedAt, "yyyy-MM-dd", new Date());
+
   return await TransactionRepository.page({
     include: { category: true, input: true, output: true },
-    where: { userId: session?.user.id, ...generateWhere(q, ["description"]) },
+    where: {
+      userId: session?.user.id,
+      ...generateWhere(q, ["description"]),
+      ...(isValid(parsedTransactedAt)
+        ? {
+            transactedAt: {
+              gte: startOfDay(parsedTransactedAt),
+              lte: endOfDay(parsedTransactedAt),
+            },
+          }
+        : {}),
+    },
     orderBy: { transactedAt: "desc" },
     page,
   });

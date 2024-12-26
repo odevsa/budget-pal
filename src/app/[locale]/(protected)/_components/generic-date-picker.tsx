@@ -10,9 +10,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { TimePickerInput } from "@/components/ui/time-picker-input";
+import { dateLocales } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarCheckIcon, CalendarIcon, ClockIcon } from "lucide-react";
+import { useLocale } from "next-intl";
 import React, { useEffect, useState } from "react";
 import GenericFieldErrors from "./generic-field-errors";
 
@@ -22,8 +24,9 @@ export interface GenericDatePickerItem {
 }
 
 export interface GenericDatePickerProps {
-  title: string;
-  name: string;
+  title?: string;
+  name?: string;
+  time?: boolean;
   placeholder?: string;
   value?: Date;
   className?: string;
@@ -35,6 +38,7 @@ export interface GenericDatePickerProps {
 const GenericDatePicker = ({
   title,
   name,
+  time,
   placeholder = "Pick a date...",
   value,
   className,
@@ -42,6 +46,7 @@ const GenericDatePicker = ({
   onChange,
   buttonToday,
 }: GenericDatePickerProps) => {
+  const locale = useLocale();
   const minuteRef = React.useRef<HTMLInputElement>(null);
   const hourRef = React.useRef<HTMLInputElement>(null);
   const [internalValue, setInternalValue] = useState<Date>();
@@ -82,7 +87,15 @@ const GenericDatePicker = ({
     <div className={cn("flex flex-col gap-1", className)}>
       {title && <Label htmlFor={`input-${name}`}>{title}</Label>}
       {internalValue && (
-        <Input name={name} type="hidden" value={internalValue?.toISOString()} />
+        <Input
+          name={name}
+          type="hidden"
+          value={
+            time
+              ? internalValue?.toISOString()
+              : format(internalValue, "yyyy-MM-dd")
+          }
+        />
       )}
       <Popover onOpenChange={handleClose}>
         <PopoverTrigger asChild>
@@ -95,7 +108,11 @@ const GenericDatePicker = ({
           >
             <CalendarIcon />
             {internalValue ? (
-              <span>{format(internalValue, "PPP  HH:mm")}</span>
+              <span>
+                {format(internalValue, `PP${time ? " - p" : ""}`, {
+                  locale: dateLocales[locale],
+                })}
+              </span>
             ) : (
               <span>{placeholder}</span>
             )}
@@ -125,35 +142,36 @@ const GenericDatePicker = ({
             selected={internalValue}
             onSelect={handleChange}
           />
-
-          <div className="px-4 mb-4 flex justify-between">
-            <div className="flex gap-2 items-center">
-              <ClockIcon className="h-5 w-5" />
-              <p className="text-sm font-medium">Time</p>
-            </div>
-            <div className="font-medium">
-              <div className="flex items-center gap-2">
-                <TimePickerInput
-                  picker="hours"
-                  date={internalValue}
-                  setDate={setTime}
-                  ref={hourRef}
-                  onRightFocus={() => minuteRef.current?.focus()}
-                />
-                <span>:</span>
-                <TimePickerInput
-                  picker="minutes"
-                  date={internalValue}
-                  setDate={setTime}
-                  ref={minuteRef}
-                  onLeftFocus={() => hourRef.current?.focus()}
-                />
+          {time && (
+            <div className="px-4 mb-4 flex justify-between">
+              <div className="flex gap-2 items-center">
+                <ClockIcon className="h-5 w-5" />
+                <p className="text-sm font-medium">Time</p>
+              </div>
+              <div className="font-medium">
+                <div className="flex items-center gap-2">
+                  <TimePickerInput
+                    picker="hours"
+                    date={internalValue}
+                    setDate={setTime}
+                    ref={hourRef}
+                    onRightFocus={() => minuteRef.current?.focus()}
+                  />
+                  <span>:</span>
+                  <TimePickerInput
+                    picker="minutes"
+                    date={internalValue}
+                    setDate={setTime}
+                    ref={minuteRef}
+                    onLeftFocus={() => hourRef.current?.focus()}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </PopoverContent>
       </Popover>
-      <GenericFieldErrors errors={errors} />
+      {errors && errors?.length > 0 && <GenericFieldErrors errors={errors} />}
     </div>
   );
 };
