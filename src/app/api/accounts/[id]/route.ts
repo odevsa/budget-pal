@@ -51,7 +51,6 @@ export async function PUT(
     return responseBadRequest(validation.error.flatten().fieldErrors);
 
   const saved = await BackendFacade.accounts.save(dataToEdit);
-  console.log(saved);
 
   if (!saved)
     return responseBadRequest({

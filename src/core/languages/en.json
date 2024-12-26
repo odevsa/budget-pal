@@ -59,6 +59,7 @@
     "next": "Next",
     "previous": "Previous",
     "selectItem": "Select a item...",
+    "thereAreNoItems": "There are no items!",
     "deleteConfirmation": "Delete confirmation",
     "deleteMessage": "This action cannot be undone. This will permanently delete \"{title}\".",
     "message": {

@@ -8,7 +8,7 @@ import {
   SearchParams,
 } from "@/core/models/Pagination";
 import { Transaction } from "@/core/models/Transaction";
-import { generateWhere, prepareObjectToSate } from "@/lib/utils";
+import { generateWhere } from "@/lib/utils";
 
 export async function transactionSaveUseCase(
   data: Transaction
@@ -17,7 +17,7 @@ export async function transactionSaveUseCase(
   if (!session?.user?.id) return;
 
   return await TransactionRepository.save({
-    ...prepareObjectToSate(data),
+    ...data,
     userId: session?.user.id,
   });
 }

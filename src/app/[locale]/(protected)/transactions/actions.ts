@@ -21,8 +21,8 @@ export async function saveAction(
     transactedAt: getDate(formData, "transactedAt"),
     value: getNumber(formData, "value"),
     categoryId: getNumber(formData, "categoryId"),
-    inputId: getNumber(formData, "inputId"),
-    outputId: getNumber(formData, "outputId"),
+    inputId: getNumber(formData, "inputId") ?? null,
+    outputId: getNumber(formData, "outputId") ?? null,
   };
 
   const validation = validationTransactionCreate.safeParse(data);

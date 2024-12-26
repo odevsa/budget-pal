@@ -44,6 +44,12 @@ interface GenericListField {
   class?: string;
 }
 
+interface GenericListAction {
+  title: string;
+  element: React.ReactNode;
+  onClick?(item: any): void;
+}
+
 export default function GenericList({
   data = [],
   page = 1,
@@ -53,6 +59,7 @@ export default function GenericList({
     { key: "id", position: "left", label: "crud.id" },
     { key: "title", position: "left", label: "crud.title" },
   ],
+  actions = [],
   editPath,
   actionDelete,
 }: Readonly<{
@@ -61,6 +68,7 @@ export default function GenericList({
   total?: number;
   lastPage?: number;
   fields?: GenericListField[];
+  actions?: GenericListAction[];
   editPath?: string;
   actionDelete?(item: any): Promise<boolean>;
 }>) {
@@ -112,6 +120,7 @@ export default function GenericList({
     router.refresh();
   };
 
+  const displayActions = actions.length > 0 || editPath || actionDelete;
   return (
     <Loading visible={loading}>
       <div className="flex flex-col gap-4">
@@ -129,7 +138,7 @@ export default function GenericList({
                   {t(field.label)}
                 </TableHead>
               ))}
-              {(editPath || actionDelete) && (
+              {displayActions && (
                 <TableHead className="text-right font-bold text-foreground">
                   {t("crud.actions")}
                 </TableHead>
@@ -164,9 +173,24 @@ export default function GenericList({
                   );
                 })}
 
-                {(editPath || actionDelete) && (
+                {displayActions && (
                   <TableCell>
                     <div className="flex flex-row gap-2 justify-end my-auto">
+                      {displayActions &&
+                        actions.map((action, index) => (
+                          <Tooltip key={index + 1}>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant={"info"}
+                                size={"xs"}
+                                onClick={() => action.onClick?.(item)}
+                              >
+                                {action.element}
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>{action.title}</TooltipContent>
+                          </Tooltip>
+                        ))}
                       {!item.hideAction && editPath && (
                         <Tooltip>
                           <TooltipTrigger asChild>

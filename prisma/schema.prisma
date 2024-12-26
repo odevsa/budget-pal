@@ -18,10 +18,11 @@ model Users {
   image     String?
   createdAt DateTime @default(now()) @map("created_at")
 
-  accounts     Accounts[]
-  categories   Categories[]
-  invoices     Invoices[]
-  transactions Transactions[]
+  accounts           Accounts[]
+  categories         Categories[]
+  invoices           Invoices[]
+  transactions       Transactions[]
+  InvoiceTransaction InvoiceTransaction[]
 
   @@map("users")
 }
@@ -93,9 +94,10 @@ model Transactions {
 model InvoiceTransaction {
   invoiceId     Int      @map("invoice_id")
   transactionId Int      @map("transaction_id")
+  userId        Int      @map("user_id")
   assignedAt    DateTime @default(now()) @map("assigned_at")
-  assignedBy    Int      @map("assigned_by")
 
+  user        Users        @relation(fields: [userId], references: [id])
   invoice     Invoices     @relation(fields: [invoiceId], references: [id])
   transaction Transactions @relation(fields: [transactionId], references: [id])
 

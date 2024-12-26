@@ -10,11 +10,6 @@ export const evalProperty = (data: any, key: string): any => {
   return key.split(".").reduce((obj, prop) => obj?.[prop], data);
 };
 
-export const prepareObjectToSate = (data: any): any => {
-  for (const key in data) if (data[key] === undefined) data[key] = null;
-  return data;
-};
-
 export const getString = (
   data: FormData,
   fields: string

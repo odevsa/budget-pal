@@ -15,7 +15,7 @@ export default class TransactionRepository {
       });
 
       return response as Transaction;
-    } catch {
+    } catch (e) {
       return undefined;
     }
   }

@@ -2,13 +2,13 @@
 
 import UserRepository from "@/backend/repositories/UserRepository";
 import { User } from "@/core/models/User";
-import { prepareObjectToSate } from "@/lib/utils";
+import {} from "@/lib/utils";
 
 const SALT_ROUNDS = 10;
 
 export async function userSaveUseCase(data: User): Promise<User | undefined> {
   const bcrypt = require("bcrypt");
-  const newData = { ...prepareObjectToSate(data) };
+  const newData = { ...data };
   if (data.password)
     newData.password = await bcrypt.hash(data.password, SALT_ROUNDS);
 

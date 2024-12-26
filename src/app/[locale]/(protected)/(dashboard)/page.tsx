@@ -93,13 +93,15 @@ export default async function Panel({
             title={t("accounts.balance")}
             description={account.title}
             value={`$ ${maskCurrency(account.balance, locale)}`}
-            icon={<WalletIcon size="auto" />}
+            icon={<WalletIcon size="100%" />}
           />
         ))}
 
         {monthlyInvoicesToPay.length > 0 && (
           <div className="col-span-full">
             <WidgetInvoice
+              accounts={accounts}
+              categories={categories}
               type={TransactionType.Pay}
               data={monthlyInvoicesToPay}
             />
@@ -109,6 +111,8 @@ export default async function Panel({
         {monthlyInvoicesToReceive.length > 0 && (
           <div className="col-span-full">
             <WidgetInvoice
+              accounts={accounts}
+              categories={categories}
               type={TransactionType.Receive}
               data={monthlyInvoicesToReceive}
             />

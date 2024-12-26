@@ -3,6 +3,7 @@ import { Decimal } from "@prisma/client/runtime/library";
 import { z } from "zod";
 import { Account } from "./Account";
 import { Category } from "./Category";
+import { InvoiceTransaction } from "./InvoiceTransaction";
 import { User } from "./User";
 
 export interface Transaction {
@@ -20,6 +21,7 @@ export interface Transaction {
   category?: Category;
   input?: Account;
   output?: Account;
+  invoiceTransaction?: InvoiceTransaction;
 }
 
 export interface TransactionPayload {
@@ -33,6 +35,8 @@ export enum TransactionType {
   Pay = "pay",
   Receive = "receive",
   Transfer = "transfer",
+  InvoicePay = "invoice_pay",
+  InvoiceReceive = "invoice_receive",
 }
 
 export const validationTransactionCreate = z
@@ -41,8 +45,8 @@ export const validationTransactionCreate = z
     transactedAt: z.date(),
     value: z.number().min(0.01),
     categoryId: z.number(),
-    inputId: z.number().min(1).optional(),
-    outputId: z.number().min(1).optional(),
+    inputId: z.number().min(1).optional().nullable(),
+    outputId: z.number().min(1).optional().nullable(),
   })
   .refine((data) => !!data.inputId || !!data.outputId, {
     message: "transactions.message.selectAccount",
