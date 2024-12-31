@@ -59,6 +59,7 @@
     "next": "Volgende",
     "previous": "Vorige",
     "selectItem": "Selecteer een item...",
+    "thereAreNoItems": "Er zijn geen items!",
     "deleteConfirmation": "Verwijderbevestiging",
     "deleteMessage": "Deze actie kan niet ongedaan worden gemaakt. Dit zal \"{title}\" permanent verwijderen.",
     "message": {
@@ -74,6 +75,7 @@
   },
   "categories": {},
   "invoices": {
+    "invoice": "Factuur",
     "value": "Waarde",
     "isInput": "Ontvangen",
     "isActive": "Actief",
@@ -87,6 +89,8 @@
     "transactedAt": "Transactie op",
     "pay": "Betalen",
     "receive": "Ontvangen",
+    "invoicePay": "Factuur betalen",
+    "invoiceReceive": "Factuur ontvangen",
     "paidFrom": "Betaald vanuit",
     "receivedIn": "Ontvangen in",
     "value": "Waarde",

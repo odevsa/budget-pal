@@ -64,6 +64,7 @@ export default function GenericList({
   actions = [],
   editPath,
   actionDelete,
+  actionDisplayCondition = () => true,
 }: Readonly<{
   data: any[];
   page?: number;
@@ -73,6 +74,7 @@ export default function GenericList({
   actions?: GenericListAction[];
   editPath?: string;
   actionDelete?(item: any): Promise<boolean>;
+  actionDisplayCondition?(item: any): boolean;
 }>) {
   const locale = useLocale();
   const t = useTranslations();
@@ -86,11 +88,11 @@ export default function GenericList({
     labelFalse: string = "crud.no"
   ) =>
     v ? (
-      <span className="bg-success text-xs px-1 py-1 rounded">
+      <span className="bg-success text-success-foreground text-xs px-1 py-1 rounded">
         {t(labelTrue)}
       </span>
     ) : (
-      <span className="bg-destructive text-xs px-1 py-1 rounded">
+      <span className="bg-destructive text-destructive-foreground text-xs px-1 py-1 rounded">
         {t(labelFalse)}
       </span>
     );
@@ -100,7 +102,7 @@ export default function GenericList({
     date: (v: Date) => format(v, "PP", { locale: dateLocales[locale] }),
     time: (v: Date) => format(v, "p", { locale: dateLocales[locale] }),
     datetime: (v: Date) => format(v, "PP p", { locale: dateLocales[locale] }),
-    monetary: (v: number) => "$ " + maskCurrency(v, locale),
+    monetary: (v: number) => `$ ${maskCurrency(v, locale)}`,
     active: (v: boolean) => booleanBox(v, "crud.active", "crud.inactive"),
     boolean: (v: boolean) => booleanBox(v),
   };
@@ -136,7 +138,7 @@ export default function GenericList({
                 <TableHead
                   key={field.label}
                   className={cn(
-                    "font-bold text-foreground",
+                    "font-bold",
                     `text-${field.position ?? "center"}`
                   )}
                 >
@@ -144,7 +146,7 @@ export default function GenericList({
                 </TableHead>
               ))}
               {displayActions && (
-                <TableHead className="text-right font-bold text-foreground">
+                <TableHead className="text-right font-bold">
                   {t("crud.actions")}
                 </TableHead>
               )}
@@ -182,6 +184,7 @@ export default function GenericList({
                   <TableCell>
                     <div className="flex flex-row gap-2 justify-end my-auto">
                       {displayActions &&
+                        actionDisplayCondition(item) &&
                         actions.map((action, index) => (
                           <Tooltip key={index + 1}>
                             <TooltipTrigger asChild>

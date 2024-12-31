@@ -23,17 +23,9 @@ export default function TransactionsFilters({
     );
   }, [transactedAt]);
 
-  const handleChange = (value: Date) => {
-    console.log(value);
-  };
-
   return (
     <GenericSearch q={q}>
-      <GenericDatePicker
-        name="transactedAt"
-        value={internalTransactedAt}
-        onChange={handleChange}
-      />
+      <GenericDatePicker name="transactedAt" value={internalTransactedAt} />
     </GenericSearch>
   );
 }

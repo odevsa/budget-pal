@@ -51,17 +51,39 @@ export default function TransactionDialogForm({
   }, [open]);
 
   useEffect(() => {
-    // const invoiceTransaction = {
-    //   invoiceId: invoice?.id,
-    // } as InvoiceTransaction;
-    setInternalData(getLastFields(variant));
+    const appendData = invoice
+      ? { invoiceTransaction: { invoice }, value: invoice?.value }
+      : {};
+    setInternalData({
+      ...getLastFields(variant),
+      ...appendData,
+    } as Transaction);
   }, [isAbleToLoadStorage, variant, invoice]);
+
+  const getTitle = (variant: TransactionType) => {
+    switch (variant) {
+      case TransactionType.Pay:
+        return t(`transactions.pay`);
+      case TransactionType.Receive:
+        return t(`transactions.receive`);
+      case TransactionType.InvoicePay:
+        return t(`transactions.invoicePay`);
+      case TransactionType.InvoiceReceive:
+        return t(`transactions.invoiceReceive`);
+      default:
+        return t(`transactions.transfer`);
+    }
+  };
 
   const getIcon = (variant: TransactionType) => {
     switch (variant) {
       case TransactionType.Pay:
         return <ReceiptIcon />;
       case TransactionType.Receive:
+        return <HandCoinsIcon />;
+      case TransactionType.InvoicePay:
+        return <ReceiptIcon />;
+      case TransactionType.InvoiceReceive:
         return <HandCoinsIcon />;
       default:
         return <ArrowLeftRightIcon />;
@@ -76,6 +98,10 @@ export default function TransactionDialogForm({
         return StorageFacade.transactions.getPay();
       case TransactionType.Receive:
         return StorageFacade.transactions.getReceive();
+      case TransactionType.InvoicePay:
+        return StorageFacade.transactions.getInvoicePay();
+      case TransactionType.InvoiceReceive:
+        return StorageFacade.transactions.getInvoiceReceive();
       default:
         return StorageFacade.transactions.getTransfer();
     }
@@ -94,6 +120,12 @@ export default function TransactionDialogForm({
       case TransactionType.Receive:
         StorageFacade.transactions.setReceive(data);
         break;
+      case TransactionType.InvoicePay:
+        StorageFacade.transactions.setInvoicePay(data);
+        break;
+      case TransactionType.InvoiceReceive:
+        StorageFacade.transactions.setInvoiceReceive(data);
+        break;
       default:
         StorageFacade.transactions.setTransfer(data);
         break;
@@ -110,7 +142,7 @@ export default function TransactionDialogForm({
         <DialogHeader>
           <DialogTitle className="flex flex-row gap-2 items-center">
             {getIcon(variant)}
-            {t(`transactions.${variant}`)}
+            {getTitle(variant)}
           </DialogTitle>
           <DialogDescription>{t("transactions.description")}</DialogDescription>
         </DialogHeader>

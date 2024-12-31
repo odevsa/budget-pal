@@ -59,6 +59,7 @@
     "next": "Siguiente",
     "previous": "Anterior",
     "selectItem": "Selecciona un elemento...",
+    "thereAreNoItems": "¡No hay elementos!",
     "deleteConfirmation": "Confirmación de eliminación",
     "deleteMessage": "Esta acción no se puede deshacer. Esto eliminará permanentemente \"{title}\".",
     "message": {
@@ -74,6 +75,7 @@
   },
   "categories": {},
   "invoices": {
+    "invoice": "Factura",
     "value": "Valor",
     "isInput": "Recibir",
     "isActive": "Activo",
@@ -87,6 +89,8 @@
     "transactedAt": "Transaccionado en",
     "pay": "Pagar",
     "receive": "Recibir",
+    "invoicePay": "Pagar factura",
+    "invoiceReceive": "Recibir factura",
     "paidFrom": "Pagado desde",
     "receivedIn": "Recibido en",
     "value": "Valor",

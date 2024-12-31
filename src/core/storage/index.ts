@@ -1,7 +1,11 @@
 import {
+  transactionGetInvoicePay,
+  transactionGetInvoiceReceive,
   transactionGetPay,
   transactionGetReceive,
   transactionGetTransfer,
+  transactionSetInvoicePay,
+  transactionSetInvoiceReceive,
   transactionSetPay,
   transactionSetReceive,
   transactionSetTransfer,
@@ -15,5 +19,9 @@ export default class StorageFacade {
     getPay: transactionGetPay,
     setReceive: transactionSetReceive,
     getReceive: transactionGetReceive,
+    setInvoicePay: transactionSetInvoicePay,
+    getInvoicePay: transactionGetInvoicePay,
+    setInvoiceReceive: transactionSetInvoiceReceive,
+    getInvoiceReceive: transactionGetInvoiceReceive,
   };
 }

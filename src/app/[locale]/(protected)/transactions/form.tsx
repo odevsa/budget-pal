@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import GenericPage from "../_components/generic-page";
 import TransactionsFormContent from "./form-content";
 import { Category } from "@/core/models/Category";
+import { InvoiceTransaction } from "@/core/models/InvoiceTransaction";
 
 export default function TransactionsForm({
   accounts,
@@ -27,7 +28,13 @@ export default function TransactionsForm({
   );
 
   useEffect(() => {
-    setInternalData(data);
+    setInternalData({
+      ...data,
+      invoiceTransaction:
+        data?.invoices && data.invoices.length > 0
+          ? ({ invoice: data.invoices[0] } as InvoiceTransaction)
+          : undefined,
+    } as Transaction);
   }, [data]);
 
   const backToList = () => {

@@ -97,27 +97,25 @@ export default async function Panel({
           />
         ))}
 
-        {monthlyInvoicesToPay.length > 0 && (
-          <div className="col-span-full">
+        <div className="col-span-full flex flex-col gap-2">
+          {monthlyInvoicesToPay.length > 0 && (
             <WidgetInvoice
               accounts={accounts}
               categories={categories}
-              type={TransactionType.Pay}
+              variant={TransactionType.InvoicePay}
               data={monthlyInvoicesToPay}
             />
-          </div>
-        )}
+          )}
 
-        {monthlyInvoicesToReceive.length > 0 && (
-          <div className="col-span-full">
+          {monthlyInvoicesToReceive.length > 0 && (
             <WidgetInvoice
               accounts={accounts}
               categories={categories}
-              type={TransactionType.Receive}
+              variant={TransactionType.InvoiceReceive}
               data={monthlyInvoicesToReceive}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

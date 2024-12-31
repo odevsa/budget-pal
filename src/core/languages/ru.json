@@ -59,6 +59,7 @@
     "next": "Далее",
     "previous": "Назад",
     "selectItem": "Выберите элемент...",
+    "thereAreNoItems": "Нет элементов!",
     "deleteConfirmation": "Подтверждение удаления",
     "deleteMessage": "Это действие нельзя отменить. Это приведет к удалению \"{title}\" навсегда.",
     "message": {
@@ -74,6 +75,7 @@
   },
   "categories": {},
   "invoices": {
+    "invoice": "Счёт",
     "value": "Сумма",
     "isInput": "Получить",
     "isActive": "Активно",
@@ -87,6 +89,8 @@
     "transactedAt": "Транзакция совершена",
     "pay": "Заплатить",
     "receive": "Получить",
+    "invoicePay": "Оплатить счёт",
+    "invoiceReceive": "Получить счёт",
     "paidFrom": "Оплачено из",
     "receivedIn": "Получено в",
     "value": "Сумма",

@@ -15,7 +15,7 @@ export async function saveAction(
 ): Promise<FormActionState> {
   const t = await getTranslations();
   const errors: any = {};
-  const data = {
+  const data: any = {
     id: getNumber(formData, "id"),
     description: getString(formData, "description"),
     transactedAt: getDate(formData, "transactedAt"),
@@ -24,6 +24,8 @@ export async function saveAction(
     inputId: getNumber(formData, "inputId") ?? null,
     outputId: getNumber(formData, "outputId") ?? null,
   };
+  const invoiceId = getNumber(formData, "invoiceId");
+  if (invoiceId) data.invoiceTransaction = { invoiceId: invoiceId };
 
   const validation = validationTransactionCreate.safeParse(data);
   if (!validation.success)

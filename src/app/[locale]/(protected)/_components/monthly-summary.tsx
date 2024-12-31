@@ -28,7 +28,7 @@ export function MonthlySummary({
 }) {
   return (
     <div>
-      <ChartContainer config={chartConfig}>
+      <ChartContainer config={chartConfig} className="max-h-96 w-full">
         <AreaChart
           accessibilityLayer
           data={data.map((d) => ({ ...d, day: d.day.toString() }))}

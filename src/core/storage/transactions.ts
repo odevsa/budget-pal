@@ -49,3 +49,35 @@ export function transactionGetReceive(): Transaction | undefined {
 
   if (data) return JSON.parse(data) as Transaction;
 }
+
+export function transactionSetInvoicePay({
+  outputId,
+  categoryId,
+}: Partial<Transaction>) {
+  localStorage.setItem(
+    Storage.TRANSACTION_LAST_INVOICE_PAY,
+    JSON.stringify({ outputId, categoryId })
+  );
+}
+
+export function transactionGetInvoicePay(): Transaction | undefined {
+  const data = localStorage.getItem(Storage.TRANSACTION_LAST_INVOICE_PAY);
+
+  if (data) return JSON.parse(data) as Transaction;
+}
+
+export function transactionSetInvoiceReceive({
+  inputId,
+  categoryId,
+}: Partial<Transaction>) {
+  localStorage.setItem(
+    Storage.TRANSACTION_LAST_INVOICE_RECEIVE,
+    JSON.stringify({ inputId, categoryId })
+  );
+}
+
+export function transactionGetInvoiceReceive(): Transaction | undefined {
+  const data = localStorage.getItem(Storage.TRANSACTION_LAST_INVOICE_RECEIVE);
+
+  if (data) return JSON.parse(data) as Transaction;
+}

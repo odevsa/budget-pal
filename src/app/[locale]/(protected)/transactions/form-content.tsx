@@ -3,13 +3,13 @@
 import { Loading } from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { maskDecimal } from "@/core/mask";
+import { maskCurrency, maskDecimal } from "@/core/mask";
 import { Account } from "@/core/models/Account";
 import { Category } from "@/core/models/Category";
 import { Transaction, TransactionType } from "@/core/models/Transaction";
 import { useToast } from "@/hooks/use-toast";
 import { SaveIcon, SkipBackIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useActionState, useEffect, useState } from "react";
 import GenericDatePicker from "../_components/generic-date-picker";
 import { FormActionState } from "../_components/generic-form";
@@ -43,6 +43,7 @@ export default function TransactionsFormContent({
   onSuccess?(data: Transaction): void;
 }>) {
   const t = useTranslations();
+  const locale = useLocale();
   const { toast } = useToast();
   const [accountItems, setAccountItems] = useState<GenericSelectItem[]>([]);
   const [categoriesItems, setCategoriesItems] = useState<GenericSelectItem[]>(
@@ -118,15 +119,54 @@ export default function TransactionsFormContent({
       onSubmit={handleSubmit}
       className="flex flex-col gap-3"
     >
-      {formData.id && <Input name="id" value={formData.id} type="hidden" />}
       <Loading visible={loading} className="flex flex-col gap-4">
-        <GenericInput
-          title={t("crud.description")}
-          name="description"
-          errors={state?.errors?.description}
-          value={formData.description}
-          onChange={(value) => setFormData({ ...formData, description: value })}
-        />
+        {formData.id && <Input name="id" value={formData.id} type="hidden" />}
+        {formData?.invoiceTransaction?.invoice?.id && (
+          <div className="bg-foreground/10 text-foreground rounded text-sm">
+            <div className="bg-foreground/10 text-foreground font-bold px-2 py-1 rounded">
+              {t("invoices.invoice")}:{" "}
+              {formData?.invoiceTransaction?.invoice.title}
+            </div>
+            <div className="flex flex-col gap-2 p-2">
+              <div className="flex flex-row gap-2">
+                <span className="font-bold">{t("invoices.dueDay")}:</span>
+                <span>{formData?.invoiceTransaction?.invoice.dueDay}</span>
+              </div>
+              <div className="flex flex-row gap-2">
+                <span className="font-bold">{t("invoices.value")}:</span>
+                <span>
+                  {formData?.invoiceTransaction?.invoice.value
+                    ? `$ ${maskCurrency(
+                        formData?.invoiceTransaction?.invoice.value,
+                        locale
+                      )}`
+                    : "~"}
+                </span>
+              </div>
+            </div>
+            <Input
+              name="description"
+              value={formData?.invoiceTransaction?.invoice?.title}
+              type="hidden"
+            />
+            <Input
+              name="invoiceId"
+              value={formData?.invoiceTransaction?.invoice?.id}
+              type="hidden"
+            />
+          </div>
+        )}
+        {!formData?.invoiceTransaction?.invoice?.id && (
+          <GenericInput
+            title={t("crud.description")}
+            name="description"
+            errors={state?.errors?.description}
+            value={formData.description}
+            onChange={(value) =>
+              setFormData({ ...formData, description: value })
+            }
+          />
+        )}
 
         <GenericSelect
           nullable
@@ -142,9 +182,11 @@ export default function TransactionsFormContent({
         />
 
         <div className="flex flex-row gap-2">
-          {[TransactionType.Transfer, TransactionType.Pay].includes(
-            variant
-          ) && (
+          {[
+            TransactionType.Transfer,
+            TransactionType.Pay,
+            TransactionType.InvoicePay,
+          ].includes(variant) && (
             <GenericSelect
               nullable
               className="grow basis-1"
@@ -158,9 +200,11 @@ export default function TransactionsFormContent({
               }
             />
           )}
-          {[TransactionType.Transfer, TransactionType.Receive].includes(
-            variant
-          ) && (
+          {[
+            TransactionType.Transfer,
+            TransactionType.Receive,
+            TransactionType.InvoiceReceive,
+          ].includes(variant) && (
             <GenericSelect
               nullable
               className="grow basis-1"

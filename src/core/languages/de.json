@@ -59,6 +59,7 @@
     "next": "Weiter",
     "previous": "Zurück",
     "selectItem": "Wählen Sie ein Element aus...",
+    "thereAreNoItems": "Es sind keine Artikel vorhanden!",
     "deleteConfirmation": "Löschbestätigung",
     "deleteMessage": "Diese Aktion kann nicht rückgängig gemacht werden. Dies wird \"{title}\" dauerhaft löschen.",
     "message": {
@@ -74,6 +75,7 @@
   },
   "categories": {},
   "invoices": {
+    "invoice": "Rechnung",
     "value": "Betrag",
     "isInput": "Erhalten",
     "isActive": "Aktiv",
@@ -87,6 +89,8 @@
     "transactedAt": "Transaktionsdatum",
     "pay": "Bezahlen",
     "receive": "Erhalten",
+    "invoicePay": "Rechnung bezahlen",
+    "invoiceReceive": "Rechnung erhalten",
     "paidFrom": "Bezahlt von",
     "receivedIn": "Erhalten in",
     "value": "Betrag",

@@ -75,6 +75,7 @@
   },
   "categories": {},
   "invoices": {
+    "invoice": "Invoice",
     "value": "Value",
     "isInput": "Receive",
     "isActive": "Active",
@@ -88,6 +89,8 @@
     "transactedAt": "Transacted at",
     "pay": "Pay",
     "receive": "Receive",
+    "invoicePay": "Pay invoice",
+    "invoiceReceive": "Receive invoice",
     "paidFrom": "Paid from",
     "receivedIn": "Received in",
     "value": "Value",

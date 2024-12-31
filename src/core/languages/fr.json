@@ -59,6 +59,7 @@
     "next": "Suivant",
     "previous": "Précédent",
     "selectItem": "Sélectionnez un élément...",
+    "thereAreNoItems": "Il n'y a pas d'éléments !",
     "deleteConfirmation": "Confirmation de suppression",
     "deleteMessage": "Cette action ne peut pas être annulée. Cela supprimera définitivement \"{title}\".",
     "message": {
@@ -74,6 +75,7 @@
   },
   "categories": {},
   "invoices": {
+    "invoice": "Facture",
     "value": "Montant",
     "isInput": "Recevoir",
     "isActive": "Actif",
@@ -87,6 +89,8 @@
     "transactedAt": "Transféré le",
     "pay": "Payer",
     "receive": "Recevoir",
+    "invoicePay": "Payer la facture",
+    "invoiceReceive": "Recevoir la facture",
     "paidFrom": "Payé depuis",
     "receivedIn": "Reçu dans",
     "value": "Montant",

@@ -1,3 +1,4 @@
+import { Invoice } from "@/core/models/Invoice";
 import { Pagination } from "@/core/models/Pagination";
 import { Transaction } from "@/core/models/Transaction";
 import DB from "@/lib/db";
@@ -10,8 +11,23 @@ export default class TransactionRepository {
     try {
       const response = await DB.transactions.upsert({
         where: { id: data.id ?? 0 },
-        create: data as Prisma.TransactionsCreateInput,
-        update: data as Prisma.TransactionsUpdateInput,
+        create: {
+          ...data,
+          invoiceTransaction: data.invoiceTransaction?.invoiceId
+            ? {
+                create: [
+                  {
+                    invoiceId: data.invoiceTransaction.invoiceId,
+                    userId: data.userId,
+                  },
+                ],
+              }
+            : undefined,
+        } as Prisma.TransactionsCreateInput,
+        update: {
+          ...data,
+          invoiceTransaction: undefined,
+        } as Prisma.TransactionsUpdateInput,
       });
 
       return response as Transaction;
@@ -67,10 +83,28 @@ export default class TransactionRepository {
 
   public static async byId(id: number): Promise<Transaction | undefined> {
     try {
-      const item = (await DB.transactions.findUnique({
+      const item = await DB.transactions.findUnique({
         where: { id },
-      })) as Transaction;
-      return { ...item, value: parseFloat(item.value.toString()) };
+        include: {
+          invoiceTransaction: {
+            include: {
+              invoice: true,
+            },
+          },
+        },
+      });
+
+      if (!item) return;
+
+      return {
+        ...item,
+        invoiceTransaction: undefined,
+        value: parseFloat(item.value.toString()),
+        invoices: item.invoiceTransaction.map((it) => ({
+          ...it.invoice,
+          value: parseFloat(it.invoice.value.toString()),
+        })),
+      } as Transaction;
     } catch {
       return undefined;
     }
@@ -78,7 +112,12 @@ export default class TransactionRepository {
 
   public static async delete(id: number): Promise<boolean> {
     try {
-      await DB.transactions.delete({ where: { id } });
+      await DB.$transaction(async (prisma) => {
+        await prisma.invoiceTransaction.deleteMany({
+          where: { transactionId: id },
+        });
+        await prisma.transactions.delete({ where: { id } });
+      });
       return true;
     } catch {
       return false;
