@@ -97,6 +97,7 @@ export default function WidgetInvoice({
             actionDisplayCondition={(item) => !item.hasTransaction}
             fields={[
               { key: "title", label: "crud.title", position: "left" },
+              { key: "dueDay", label: "invoices.dueDay" },
               {
                 key: "hasTransaction",
                 label: getTransactedLabel(),
